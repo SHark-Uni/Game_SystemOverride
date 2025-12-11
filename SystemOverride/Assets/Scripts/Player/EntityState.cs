@@ -39,4 +39,9 @@ public abstract class EntityState<T>
 	{
 		_am.SetBool(_name, false);
 	}
+
+	public void SetTrigger()
+	{
+		_trigger = true;
+	}
 }

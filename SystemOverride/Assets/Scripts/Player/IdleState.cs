@@ -19,7 +19,10 @@ public class IdleState : PlayerSuperState
 		base.EntityUpdate();
 
 		//키입력을 한다면, Walk 상태로 전파
-		
+		if (_owner.playerInput.x != 0)
+		{
+			_stateMachine.ChangeState(_owner.walkState);
+		}
 	}
 
 	public override void Exit()

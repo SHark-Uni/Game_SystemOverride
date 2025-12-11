@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.XR.Haptics;
 
 public class StateMachine<T>
 {
 	EntityState<T> _currentState;
-
+	public EntityState<T> currentState
+	{
+		get { return _currentState; }
+	}
 	public void BeginMachine(EntityState<T> state)
 	{
 		_currentState = state;

@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Windows;
 
 public class PlayerSuperState : EntityState<Player_Temp>
 {
+	protected PlayerInput.PlayerActions _inputAction;
 	public PlayerSuperState(Player_Temp owner, StateMachine<Player_Temp> stateMachine, string name, Rigidbody2D rb, Animator am) 
 		: base(owner, stateMachine, name, rb, am)
 	{
+		_inputAction = _owner.Input.Player;
 	}
 
 	public override void Enter()
@@ -17,9 +20,25 @@ public class PlayerSuperState : EntityState<Player_Temp>
 	public override void EntityUpdate()
 	{
 		base.EntityUpdate();
+
+		if (_inputAction.Attack.WasPerformedThisFrame())
+		{
+			if (CantAttack())
+			{
+				return;
+			}
+			_stateMachine.ChangeState(_owner.AttackState);
+		}
 	}
+
 	public override void Exit()
 	{
 		base.Exit();
+	}
+
+
+	private bool CantAttack()
+	{
+		return (_stateMachine.currentState == _owner.AttackState);
 	}
 }

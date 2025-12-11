@@ -17,6 +17,12 @@ public class WalkState : PlayerSuperState
 	public override void EntityUpdate()
 	{
 		base.EntityUpdate();
+
+		if (_owner.playerInput.x == 0)
+		{
+			_stateMachine.ChangeState(_owner.idleState);
+		}
+		_owner.SetVelocity(_owner.playerInput.x * 5, _rb.velocity.y);
 	}
 
 	public override void Exit()
