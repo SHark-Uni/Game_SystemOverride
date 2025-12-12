@@ -40,8 +40,6 @@ public class PlayerOnGroundState : PlayerSuperState
 		{
 			_stateMachine.ChangeState(_owner.fallState);
 		}
-
-
 	}
 	public override void Exit()
 	{
