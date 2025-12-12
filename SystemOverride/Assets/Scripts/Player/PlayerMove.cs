@@ -127,6 +127,15 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SitDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""9ea17917-bb0a-486c-af96-8693ae464263"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -134,7 +143,7 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""ed8b643b-60e7-4144-8f83-48ea080e3cf7"",
                     ""path"": ""<Keyboard>/shift"",
-                    ""interactions"": """",
+                    ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Dash"",
@@ -145,6 +154,17 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""0666efb3-b8fa-4ec5-a95f-2b81be7621d2"",
                     ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": ""Tap"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e4c517e5-695a-4483-8275-f70e9ab9ab6f"",
+                    ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -165,12 +185,34 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""0777a399-aae1-4ee3-b98e-de43461b5a88"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""2349e187-5e98-4bee-909f-ef938b02f970"",
                     ""path"": ""<Keyboard>/downArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""BackDash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dd38edeb-333c-4110-98c7-cd3ce524f2a3"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SitDown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -197,6 +239,7 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
         m_Player_LeftMove = m_Player.FindAction("LeftMove", throwIfNotFound: true);
         m_Player_RightMove = m_Player.FindAction("RightMove", throwIfNotFound: true);
         m_Player_BackDash = m_Player.FindAction("BackDash", throwIfNotFound: true);
+        m_Player_SitDown = m_Player.FindAction("SitDown", throwIfNotFound: true);
     }
 
     ~@PlayerMove()
@@ -281,6 +324,7 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_LeftMove;
     private readonly InputAction m_Player_RightMove;
     private readonly InputAction m_Player_BackDash;
+    private readonly InputAction m_Player_SitDown;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -308,6 +352,10 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/BackDash".
         /// </summary>
         public InputAction @BackDash => m_Wrapper.m_Player_BackDash;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/SitDown".
+        /// </summary>
+        public InputAction @SitDown => m_Wrapper.m_Player_SitDown;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -346,6 +394,9 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
             @BackDash.started += instance.OnBackDash;
             @BackDash.performed += instance.OnBackDash;
             @BackDash.canceled += instance.OnBackDash;
+            @SitDown.started += instance.OnSitDown;
+            @SitDown.performed += instance.OnSitDown;
+            @SitDown.canceled += instance.OnSitDown;
         }
 
         /// <summary>
@@ -369,6 +420,9 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
             @BackDash.started -= instance.OnBackDash;
             @BackDash.performed -= instance.OnBackDash;
             @BackDash.canceled -= instance.OnBackDash;
+            @SitDown.started -= instance.OnSitDown;
+            @SitDown.performed -= instance.OnSitDown;
+            @SitDown.canceled -= instance.OnSitDown;
         }
 
         /// <summary>
@@ -450,5 +504,12 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnBackDash(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SitDown" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSitDown(InputAction.CallbackContext context);
     }
 }
