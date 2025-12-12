@@ -35,6 +35,12 @@ public class PlayerOnGroundState : PlayerSuperState
 		}
 
 
+		//GroundState인데, OnGround가 아니게됬다 -> 떨어지는중
+		if (_owner.onGround == false)
+		{
+			_stateMachine.ChangeState(_owner.fallState);
+		}
+
 
 	}
 	public override void Exit()

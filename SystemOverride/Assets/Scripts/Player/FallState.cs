@@ -13,10 +13,10 @@ public class FallState : PlayrAirState
 	{
 		base.EntityUpdate();
 
-
 		if (_owner.onGround)
 		{
 			_stateMachine.ChangeState(_owner.idleState);
+			_owner.AvailableDoubleJump();
 		}
 	}
 

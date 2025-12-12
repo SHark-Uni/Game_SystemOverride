@@ -12,7 +12,6 @@ public class IdleState : PlayerOnGroundState
 	public override void Enter()
 	{
 		base.Enter();
-
 		_owner.SetVelocity(0, _rb.velocity.y);
 	}
 

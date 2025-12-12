@@ -18,6 +18,9 @@ public class WalkState : PlayerOnGroundState
 	{
 		base.EntityUpdate();
 
+		//move를 하던중, 경사로 때문에, 갑자기 땅에서 떨어지는 경우
+
+
 		if (_owner.playerInput.x == 0)
 		{
 			_stateMachine.ChangeState(_owner.idleState);

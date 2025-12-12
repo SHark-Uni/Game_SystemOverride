@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayrAirState : PlayerSuperState
 {
 	float AirMoveSpeedX;
-
 	public PlayrAirState(Player_Temp owner, StateMachine<Player_Temp> stateMachine, string name, Rigidbody2D rb, Animator am) 
 		: base(owner, stateMachine, name, rb, am)
 	{

@@ -8,6 +8,11 @@ public class Player_Temp : MonoBehaviour
 	[SerializeField] private GameObject _bulletPrefab;
 	[SerializeField] private Transform _firePoint;
 	[SerializeField] private bool _onGround;
+	public PhysicsMaterial2D _sloopyMaterial;
+	public PhysicsMaterial2D _frictionMaterial;
+
+	public Transform CharacterCenterPos;
+	public Vector2 BoxSize;
 
 	[Header("Move Details")]
 	[SerializeField] private Vector2 _playerInput;
@@ -23,6 +28,8 @@ public class Player_Temp : MonoBehaviour
 	[Header("Jump Details")]
 	[SerializeField] private float _jumpForce;
 	[SerializeField] private float _groundDistance;
+	[SerializeField] private float _slideDistance;
+	[SerializeField] private bool _doubleJump;
 
 	Rigidbody2D _rb;
 	Animator _am;
@@ -42,6 +49,11 @@ public class Player_Temp : MonoBehaviour
 	{
 		get { return _airMoveMulplier; }
 	}
+	public bool doubleJump
+	{
+		get { return _doubleJump; }
+	}
+
 	public bool onGround
 	{
 		get { return _onGround; }
@@ -116,7 +128,30 @@ public class Player_Temp : MonoBehaviour
 
 	private void CheckOnGround()
 	{
-		_onGround = Physics2D.Raycast(transform.position, Vector2.down, _groundDistance, (int)eLayerMask.Ground);
+		/*		bool LeftOnGround;
+				bool RightOnGround;
+
+				LeftOnGround = Physics2D.Raycast(LeftLegPos.position, Vector2.down, _groundDistance, (int)eLayerMask.Ground);
+				RightOnGround = Physics2D.Raycast(RightLegPos.position, Vector2.down, _groundDistance, (int)eLayerMask.Ground);
+
+				if (LeftOnGround || RightOnGround)
+				{
+					_onGround = true;
+				}
+				else {
+					_onGround = false;
+				}*/
+
+		RaycastHit2D hit = Physics2D.BoxCast(CharacterCenterPos.position, BoxSize, 0f, Vector2.down, _groundDistance, (int)eLayerMask.Ground);
+		if (hit.collider != null)
+		{
+			_onGround = true;
+		}
+		else 
+		{
+			_onGround = false;
+		}
+
 	}
 
 	private void Flip()
@@ -138,6 +173,16 @@ public class Player_Temp : MonoBehaviour
 		}
 	}
 
+	public void PressedDoubleJump()
+	{
+		_doubleJump = false;
+	}
+
+	public void AvailableDoubleJump()
+	{
+		_doubleJump = true;
+	}
+
 	private void Awake()
 	{
 		_Input = new PlayerInput();
@@ -153,8 +198,12 @@ public class Player_Temp : MonoBehaviour
 		_attackSpeed = 1f;
 		_attackForce = new Vector2(20, 0f);
 
+		_doubleJump = true;
+
 		_jumpForce = 15.0f;
-		_groundDistance = 1.1f;
+		_groundDistance = 0.85f;
+
+		BoxSize = new Vector2(0.4f, 0.05f);
 	}
 
 	void Start()
@@ -192,6 +241,7 @@ public class Player_Temp : MonoBehaviour
 
 	private void OnDrawGizmos()
 	{
-		Debug.DrawRay(transform.position, Vector2.down * _groundDistance, Color.black);
+		Debug.DrawRay(CharacterCenterPos.position, Vector2.down * _groundDistance, Color.black);
+		Gizmos.DrawWireCube(CharacterCenterPos.position + Vector3.down * _groundDistance, BoxSize);
 	}
 }
