@@ -32,11 +32,16 @@ public abstract class EntityState<T>
 	}
 
 	public virtual void EntityUpdate()
-	{ 
+	{
 		
 	}
 	public virtual void Exit()
 	{
 		_am.SetBool(_name, false);
+	}
+
+	public void SetTrigger()
+	{
+		_trigger = true;
 	}
 }
