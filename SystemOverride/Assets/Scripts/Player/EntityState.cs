@@ -32,7 +32,7 @@ public abstract class EntityState<T>
 	}
 
 	public virtual void EntityUpdate()
-	{ 
+	{
 		
 	}
 	public virtual void Exit()

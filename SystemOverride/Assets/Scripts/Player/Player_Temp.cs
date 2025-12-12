@@ -7,40 +7,92 @@ public class Player_Temp : MonoBehaviour
 	private StateMachine<Player_Temp> _machine;
 	[SerializeField] private GameObject _bulletPrefab;
 	[SerializeField] private Transform _firePoint;
-	private Vector2 _playerInput;
+	[SerializeField] private bool _onGround;
+
+	[Header("Move Details")]
+	[SerializeField] private Vector2 _playerInput;
+	[SerializeField] private Vector2 _moveSpeed;
+	[SerializeField] [Range(0,1)] private float _airMoveMulplier;
+	private int _facingDir;
+
+	[Header("Attack Details")]
+	[SerializeField] private float _preDelay;
+	[SerializeField] private Vector2 _attackForce;
+	[SerializeField] private float _attackSpeed;
+
+	[Header("Jump Details")]
+	[SerializeField] private float _jumpForce;
+	[SerializeField] private float _groundDistance;
+
 	Rigidbody2D _rb;
 	Animator _am;
+	PlayerInput _Input;
+	
+	private IdleState _idleState;
+	private WalkState _walkState;
+	private AttackState _attackState;
+	private FallState _fallState;
+	private JumpState _jumpState;
 
+	public Vector2 moveSpeed
+	{
+		get { return _moveSpeed; }
+	}
+	public float airMoveMultiplier
+	{
+		get { return _airMoveMulplier; }
+	}
+	public bool onGround
+	{
+		get { return _onGround; }
+	}
+	public float jumpForce
+	{
+		get { return _jumpForce; }
+	}
+	public float preDelay
+	{
+		get { return _preDelay; }
+	}
+	public Vector2 attackForce
+	{
+		get { return _attackForce; }
+	}
+	public float attackSpeed
+	{
+		get { return _attackSpeed; }
+	}
 	public Vector2 playerInput
 	{
 		get { return _playerInput; }
 	}
-	PlayerInput _Input;
 	public PlayerInput Input
 	{
 		get { return _Input; }
 	}
-
-	private int _facingDir;
 	public int facingDir
 	{
 		get { return _facingDir; }
 	}
-
-	IdleState _idleState;
 	public IdleState idleState
 	{
 		get { return _idleState; }
 	}
-	WalkState _walkState;
 	public WalkState walkState
 	{
 		get { return _walkState; }
 	}
-	AttackState _attackState;
 	public AttackState AttackState
 	{
 		get { return _attackState; }
+	}
+	public JumpState jumpState
+	{
+		get { return _jumpState; }
+	}
+	public FallState fallState
+	{
+		get { return _fallState; }
 	}
 
 	public void SetAnimTrigger()
@@ -61,6 +113,11 @@ public class Player_Temp : MonoBehaviour
 		HandleFlip();
 	}
 
+
+	private void CheckOnGround()
+	{
+		_onGround = Physics2D.Raycast(transform.position, Vector2.down, _groundDistance, (int)eLayerMask.Ground);
+	}
 
 	private void Flip()
 	{
@@ -87,6 +144,17 @@ public class Player_Temp : MonoBehaviour
 		_machine = new StateMachine<Player_Temp>();
 		_rb = GetComponent<Rigidbody2D>();
 		_facingDir = 1;
+
+		_airMoveMulplier = .8f;
+
+		_moveSpeed = new Vector2(6.0f, 0);
+
+		_preDelay = 0.1f;
+		_attackSpeed = 1f;
+		_attackForce = new Vector2(20, 0f);
+
+		_jumpForce = 15.0f;
+		_groundDistance = 1.1f;
 	}
 
 	void Start()
@@ -96,6 +164,9 @@ public class Player_Temp : MonoBehaviour
 		_idleState = new IdleState(this, _machine, "Idle", _rb, _am);
 		_walkState = new WalkState(this, _machine, "Walk", _rb, _am);
 		_attackState = new AttackState(this, _machine, "Attack", _rb, _am);
+		_fallState = new FallState(this, _machine, "Jump/Fall", _rb, _am);
+		_jumpState = new JumpState(this, _machine, "Jump/Fall", _rb, _am);
+
 
 		_machine.BeginMachine(idleState);
 	}
@@ -115,6 +186,12 @@ public class Player_Temp : MonoBehaviour
 
 	void Update()
     {
+		CheckOnGround();
 		_machine.currentState.EntityUpdate();
+	}
+
+	private void OnDrawGizmos()
+	{
+		Debug.DrawRay(transform.position, Vector2.down * _groundDistance, Color.black);
 	}
 }

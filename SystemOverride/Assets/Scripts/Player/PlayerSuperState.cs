@@ -20,15 +20,7 @@ public class PlayerSuperState : EntityState<Player_Temp>
 	public override void EntityUpdate()
 	{
 		base.EntityUpdate();
-
-		if (_inputAction.Attack.WasPerformedThisFrame())
-		{
-			if (CantAttack())
-			{
-				return;
-			}
-			_stateMachine.ChangeState(_owner.AttackState);
-		}
+		_am.SetFloat("yVelocity", _rb.velocity.y);
 	}
 
 	public override void Exit()
@@ -37,8 +29,4 @@ public class PlayerSuperState : EntityState<Player_Temp>
 	}
 
 
-	private bool CantAttack()
-	{
-		return (_stateMachine.currentState == _owner.AttackState);
-	}
 }
