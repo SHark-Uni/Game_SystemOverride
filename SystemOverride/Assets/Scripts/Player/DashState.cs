@@ -13,14 +13,8 @@ public class DashState : PlayerOnGroundState
     }
     private float _dashTimeStamp;
     private float _orginGravity;
-
-    // 대시 관련
-    private bool _canDash = true;
-    private bool _isDashing;
-    private bool _isRun = false;
-    private float _dashingPower = 7f;
-    private float _dashingTime = 0.5f;
-    private float _dashingCooldown = 1f;
+    // 쿨타임 변수
+    private float _dashCooldown;
 
     public override void Enter()
     {
@@ -31,6 +25,7 @@ public class DashState : PlayerOnGroundState
         _dashTimeStamp = Time.time;
 
         _owner.SetVelocity(_owner._dashForce * _owner.facingDir, _rb.velocity.y);
+        _name = "Dash";
         _rb.gravityScale = 0;
     }
 
@@ -40,14 +35,13 @@ public class DashState : PlayerOnGroundState
         
         if (_dashTimeStamp + _owner._dashDuration < Time.time)
             _stateMachine.ChangeState(_owner.idleState);
-
+        
         //Dash();
     }
 
     public override void Exit()
     {
         base.Exit();
-
         _rb.gravityScale = _orginGravity;
     }
     /*

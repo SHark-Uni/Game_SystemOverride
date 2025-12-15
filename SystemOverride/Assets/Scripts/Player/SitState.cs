@@ -16,7 +16,7 @@ public class SitState : PlayerOnGroundState
     public override void Enter()
     {
         base.Enter();
-        _owner.SitDown();
+        _name = "SitDown";
     }
 
     public override void EntityUpdate()
@@ -29,13 +29,12 @@ public class SitState : PlayerOnGroundState
     public override void Exit()
     {
         base.Exit();
-
-        _owner.StandUp();
+        
     }
 
     void OnSitDown()
     {
-        if (_inputAction.SitDown.WasReleasedThisFrame())
+        if (_inputAction.SitDown.WasPressedThisFrame())
         {
             _stateMachine.ChangeState(_owner.idleState);
         }

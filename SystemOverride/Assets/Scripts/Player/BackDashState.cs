@@ -11,26 +11,35 @@ public class BackDashState : PlayerOnGroundState
         : base(owner, stateMachine, name, rb, am)
     {
     }
-
-    // 대시 관련
-    private bool _canDash = true;
-    private bool _isDashing;
-    private bool _isRun = false;
-    private float _dashingPower = 7f;
-    private float _dashingTime = 0.5f;
-    private float _dashingCooldown = 1f;
+    private float _dashTimeStamp;
+    private float _orginGravity;
 
     public override void Enter()
     {
+        _name = "BackDash";
         base.Enter();
+
+        _orginGravity = _rb.gravityScale;
+        _dashTimeStamp = Time.time;
+        _owner.SetVelocity(-_owner._dashForce * _owner.facingDir, _rb.velocity.y);
+        _rb.gravityScale = 0;
     }
 
     public override void EntityUpdate()
     {
         base.EntityUpdate();
 
-        //
-        //BackDash();
+        if (_dashTimeStamp + _owner._dashDuration < Time.time)
+            _stateMachine.ChangeState(_owner.idleState);
+
+        //Dash();
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+
+        _rb.gravityScale = _orginGravity;
     }
     /*
     private IEnumerator BackDash()

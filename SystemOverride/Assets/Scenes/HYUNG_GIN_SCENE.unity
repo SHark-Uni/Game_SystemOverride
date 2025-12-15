@@ -135,8 +135,8 @@ GameObject:
   - component: {fileID: 1356660993}
   - component: {fileID: 1356660992}
   - component: {fileID: 1356660996}
-  - component: {fileID: 1356660997}
   - component: {fileID: 1356660998}
+  - component: {fileID: 1356660999}
   m_Layer: 0
   m_Name: idle-1
   m_TagString: Untagged
@@ -176,18 +176,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.10367268}
+  m_Offset: {x: 0.08072424, y: -0.16668016}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.71, y: 0.67}
+    oldSize: {x: 2.21875, y: 2.09375}
     newSize: {x: 0.71, y: 0.67}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.3, y: 0.49750817}
+  m_Size: {x: 0.7689686, y: 1.1181887}
   m_EdgeRadius: 0
 --- !u!50 &1356660993
 Rigidbody2D:
@@ -277,7 +277,7 @@ Transform:
   m_GameObject: {fileID: 1356660991}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.15, y: -1.26, z: 0}
+  m_LocalPosition: {x: -7.18, y: -0.33, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -294,7 +294,7 @@ Animator:
   m_GameObject: {fileID: 1356660991}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 484dfc7a92f405445a94a5577cc305e5, type: 2}
+  m_Controller: {fileID: 9100000, guid: 1d9b83f31434a764ba03b4f6dbf3de89, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -305,21 +305,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1356660997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1356660991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dadcb289cf94f148b5e74a79bc08581, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rb: {fileID: 1356660993}
-  _dashAnim: {fileID: 1356660996}
-  _player: {fileID: 1356660997}
 --- !u!114 &1356660998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,13 +317,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: a3d2a4b2ee3e22341857f29fbe2ed7d8, type: 3}
+  m_Actions: {fileID: -944628639613478452, guid: 6f8b0eaf1ce4eb2439a84fed5c64b749, type: 3}
   m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1356660997}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
         m_MethodName: OnDashMove
         m_Mode: 1
@@ -370,10 +355,47 @@ MonoBehaviour:
     m_ActionId: 2124f1c0-17e5-4f5d-8872-e60eec0dda14
     m_ActionName: Player/RightMove[/Keyboard/rightArrow]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: New Control Scheme
+  m_DefaultControlScheme: KeyBoard
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1356660999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356660991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e63b2c4b3bdb7064da58657f38863df4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletPrefab: {fileID: 8616283774902232193, guid: ab5e22c97895ade4bb9f390e34d552ad, type: 3}
+  _firePoint: {fileID: 1356660995}
+  _onGround: 0
+  _sloopyMaterial: {fileID: 6200000, guid: bd3f92a2102265e4aa33485d420ccae7, type: 2}
+  _frictionMaterial: {fileID: 6200000, guid: a7b52549d0c083747bcc217c8c57bd92, type: 2}
+  CharacterCenterPos: {fileID: 1356660995}
+  BoxSize: {x: 0, y: 0}
+  boxCol: {fileID: 1356660992}
+  _playerInput: {x: 0, y: 0}
+  _moveSpeed: {x: 0, y: 0}
+  _airMoveMulplier: 0
+  _dashForce: 0
+  _dashDuration: 0
+  _dashCooldown: 0
+  _preDelay: 0
+  _attackForce: {x: 0, y: 0}
+  _attackSpeed: 0
+  _jumpForce: 0
+  _groundDistance: 0
+  _slideDistance: 0
+  _doubleJump: 0
+  _sitDownColiderBoxSize: {x: 0, y: 0}
+  _sitDownColiderOffset: {x: 0, y: 0}
+  _sitDownUpColiderBoxSize: {x: 0, y: 0}
+  _sitDownUpColiderOffset: {x: 0, y: 0}
 --- !u!1 &1403962798
 GameObject:
   m_ObjectHideFlags: 0
@@ -385,7 +407,7 @@ GameObject:
   - component: {fileID: 1403962800}
   - component: {fileID: 1403962799}
   - component: {fileID: 1403962801}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -453,7 +475,7 @@ Transform:
   m_GameObject: {fileID: 1403962798}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.01, y: -3.27, z: 0}
+  m_LocalPosition: {x: 0.05, y: -4.29, z: 0}
   m_LocalScale: {x: 17, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
