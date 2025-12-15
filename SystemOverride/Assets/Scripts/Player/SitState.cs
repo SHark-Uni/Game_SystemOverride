@@ -11,6 +11,8 @@ public class SitState : PlayerOnGroundState
     {
     }
 
+    //¾É¾Æ¼­ °È´Â°Ô ÀÖ´Ù.
+    // => 
     public override void Enter()
     {
         base.Enter();
@@ -27,6 +29,7 @@ public class SitState : PlayerOnGroundState
     public override void Exit()
     {
         base.Exit();
+
         _owner.StandUp();
     }
 
