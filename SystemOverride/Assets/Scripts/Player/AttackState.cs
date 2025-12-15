@@ -7,7 +7,6 @@ using UnityEngine;
 public class AttackState : PlayerSuperState
 {
 	float _preDelay;
-	float _timer;
 	public AttackState(Player_Temp owner, StateMachine<Player_Temp> stateMachine, string name, Rigidbody2D rb, Animator am) 
 		: base(owner, stateMachine, name, rb, am)
 	{

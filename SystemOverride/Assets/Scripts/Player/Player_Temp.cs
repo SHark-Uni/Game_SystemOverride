@@ -40,7 +40,12 @@ public class Player_Temp : MonoBehaviour
 	private AttackState _attackState;
 	private FallState _fallState;
 	private JumpState _jumpState;
+	private JumpAttackState _jumpAttackState;
 
+	public JumpAttackState jumpAttackState
+	{
+		get { return _jumpAttackState; }
+	}
 	public Vector2 moveSpeed
 	{
 		get { return _moveSpeed; }
@@ -203,7 +208,7 @@ public class Player_Temp : MonoBehaviour
 		_jumpForce = 15.0f;
 		_groundDistance = 0.85f;
 
-		BoxSize = new Vector2(0.4f, 0.05f);
+		BoxSize = new Vector2(0.35f, 0.05f);
 	}
 
 	void Start()
@@ -215,7 +220,7 @@ public class Player_Temp : MonoBehaviour
 		_attackState = new AttackState(this, _machine, "Attack", _rb, _am);
 		_fallState = new FallState(this, _machine, "Jump/Fall", _rb, _am);
 		_jumpState = new JumpState(this, _machine, "Jump/Fall", _rb, _am);
-
+		_jumpAttackState = new JumpAttackState(this, _machine, "JumpAttack", _rb, _am);
 
 		_machine.BeginMachine(idleState);
 	}
