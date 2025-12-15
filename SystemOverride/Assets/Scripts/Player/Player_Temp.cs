@@ -13,8 +13,10 @@ public class Player_Temp : MonoBehaviour
 
 	public Transform CharacterCenterPos;
 	public Vector2 BoxSize;
+	// 앉기에서 콜라이더 적용을 위한 콜라이더 생성
+	public BoxCollider2D boxCol;
 
-	[Header("Move Details")]
+        [Header("Move Details")]
 	[SerializeField] private Vector2 _playerInput;
 	[SerializeField] private Vector2 _moveSpeed;
 	[SerializeField] [Range(0,1)] private float _airMoveMulplier;
@@ -34,15 +36,23 @@ public class Player_Temp : MonoBehaviour
 	Rigidbody2D _rb;
 	Animator _am;
 	PlayerInput _Input;
-	
-	private IdleState _idleState;
+    // 대시, 백대시, 앉기 전용 New Input System 생성
+    PlayerMove _playerMove;
+    // 앉기 전용 콜라이더 생성
+    BoxCollider2D _boxCol;
+
+    private IdleState _idleState;
 	private WalkState _walkState;
 	private AttackState _attackState;
 	private FallState _fallState;
 	private JumpState _jumpState;
 	private JumpAttackState _jumpAttackState;
+    // 대시, 백대시, 앉기 변수 생성
+    private DashState _dashState;
+    private BackDashState _backdashState;
+    private SitState _sitState;
 
-	public JumpAttackState jumpAttackState
+    public JumpAttackState jumpAttackState
 	{
 		get { return _jumpAttackState; }
 	}
@@ -111,8 +121,25 @@ public class Player_Temp : MonoBehaviour
 	{
 		get { return _fallState; }
 	}
+    // 대시, 백대시, 앉기 사용을 위한 New Input System 적용
+    public PlayerMove playerMove
+    {
+        get { return _playerMove; }
+    }
+	public DashState dashState
+	{
+		get { return _dashState; }
+	}
+	public BackDashState backdashState
+    {
+		get { return _backdashState; }
+	}
+	public SitState sitState
+	{
+		get { return _sitState; }
+	}
 
-	public void SetAnimTrigger()
+    public void SetAnimTrigger()
 	{
 		_machine.currentState.SetTrigger();
 	}
@@ -221,8 +248,12 @@ public class Player_Temp : MonoBehaviour
 		_fallState = new FallState(this, _machine, "Jump/Fall", _rb, _am);
 		_jumpState = new JumpState(this, _machine, "Jump/Fall", _rb, _am);
 		_jumpAttackState = new JumpAttackState(this, _machine, "JumpAttack", _rb, _am);
+        // 앉기 애니메니션 생성자
+        _sitState = new SitState(this, _machine, "isSitDown", _rb, _am);
+        _dashState = new DashState(this, _machine, "isDash", _rb, _am);
+        _backdashState = new BackDashState(this, _machine, "isBackDashg", _rb, _am);
 
-		_machine.BeginMachine(idleState);
+        _machine.BeginMachine(idleState);
 	}
 
 	private void OnEnable()

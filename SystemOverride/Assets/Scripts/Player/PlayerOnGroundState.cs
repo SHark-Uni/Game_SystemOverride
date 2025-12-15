@@ -40,6 +40,20 @@ public class PlayerOnGroundState : PlayerSuperState
 		{
 			_stateMachine.ChangeState(_owner.fallState);
 		}
+
+		// 대시, 백대시, 앉기 ChangeState 생성
+		if (_playerMove.Dash.IsPressed())
+		{
+			_stateMachine.ChangeState(_owner.dashState);
+		}
+		if (_playerMove.BackDash.IsPressed())
+		{
+			_stateMachine.ChangeState(_owner.backdashState);
+		}
+		if (_playerMove.SitDown.IsPressed())
+		{
+			_stateMachine.ChangeState(_owner.sitState);
+		}
 	}
 	public override void Exit()
 	{
