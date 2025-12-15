@@ -29,9 +29,10 @@ public class BackDashState : PlayerOnGroundState
     {
         base.EntityUpdate();
 
-        BackDash();
+        //
+        //BackDash();
     }
-
+    /*
     private IEnumerator BackDash()
     {
         Vector2 dir = _owner.transform.position;
@@ -100,5 +101,5 @@ public class BackDashState : PlayerOnGroundState
 
         // 대시 애니메이션 종료
         _am.SetBool("isBackDash", false);
-    }
+    }*/
 }

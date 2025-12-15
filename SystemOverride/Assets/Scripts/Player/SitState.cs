@@ -14,6 +14,7 @@ public class SitState : PlayerOnGroundState
     public override void Enter()
     {
         base.Enter();
+        _owner.SitDown();
     }
 
     public override void EntityUpdate()
@@ -23,20 +24,19 @@ public class SitState : PlayerOnGroundState
         OnSitDown();
     }
 
+    public override void Exit()
+    {
+        base.Exit();
+        _owner.StandUp();
+    }
+
     void OnSitDown()
     {
-        if (_playerMove.SitDown.WasPressedThisFrame())
+        if (_inputAction.SitDown.WasReleasedThisFrame())
         {
-            _am.SetBool("isSitDown", true);
-            _boxCol.size = new Vector2(0.3f, 0.25f);
-            _boxCol.offset = new Vector2(0f, -0.2f);
-
-        }
-        else if (_playerMove.SitDown.WasReleasedThisFrame())
-        {
-            _am.SetBool("isSitDown", false);
-            _boxCol.size = new Vector2(0.3f, 0.5f);
-            _boxCol.offset = new Vector2(0f, -0.1f);
+            _stateMachine.ChangeState(_owner.idleState);
         }
     }
+
+
 }

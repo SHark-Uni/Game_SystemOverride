@@ -42,15 +42,15 @@ public class PlayerOnGroundState : PlayerSuperState
 		}
 
 		// 대시, 백대시, 앉기 ChangeState 생성
-		if (_playerMove.Dash.IsPressed())
+		if (_inputAction.Dash.WasPerformedThisFrame())
 		{
 			_stateMachine.ChangeState(_owner.dashState);
 		}
-		if (_playerMove.BackDash.IsPressed())
+		if (_inputAction.BackDash.WasPerformedThisFrame())
 		{
 			_stateMachine.ChangeState(_owner.backdashState);
 		}
-		if (_playerMove.SitDown.IsPressed())
+		if (_inputAction.SitDown.WasPerformedThisFrame())
 		{
 			_stateMachine.ChangeState(_owner.sitState);
 		}

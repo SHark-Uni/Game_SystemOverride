@@ -11,6 +11,8 @@ public class DashState : PlayerOnGroundState
         : base(owner, stateMachine, name, rb, am)
     {
     }
+    private float _dashTimeStamp;
+    private float _orginGravity;
 
     // 대시 관련
     private bool _canDash = true;
@@ -23,15 +25,32 @@ public class DashState : PlayerOnGroundState
     public override void Enter()
     {
         base.Enter();
+        //Debug.Log("DashState Enter!");
+
+        _orginGravity = _rb.gravityScale;
+        _dashTimeStamp = Time.time;
+
+        _owner.SetVelocity(_owner._dashForce * _owner.facingDir, _rb.velocity.y);
+        _rb.gravityScale = 0;
     }
 
     public override void EntityUpdate()
     {
         base.EntityUpdate();
+        
+        if (_dashTimeStamp + _owner._dashDuration < Time.time)
+            _stateMachine.ChangeState(_owner.idleState);
 
-        Dash();
+        //Dash();
     }
 
+    public override void Exit()
+    {
+        base.Exit();
+
+        _rb.gravityScale = _orginGravity;
+    }
+    /*
     private IEnumerator Dash()
     {
         Vector2 dir = _owner.transform.position;
@@ -88,7 +107,7 @@ public class DashState : PlayerOnGroundState
             }
         }
 
-        _am.SetBool("isDash", true); // 대시 애니매이션 실행
+        //_am.SetBool("isDash", true); // 대시 애니매이션 실행
         yield return new WaitForSeconds(_dashingTime);
 
         // player의 중력을 돌려 놓고 isDashing을 false
@@ -100,7 +119,7 @@ public class DashState : PlayerOnGroundState
         _canDash = true;
 
         // 대시 애니메이션 종료
-        _am.SetBool("isDash", false);
+        //_am.SetBool("isDash", false);
     }
-
+    */
 }

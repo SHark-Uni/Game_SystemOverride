@@ -50,6 +50,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "SitDown",
+                    "type": "Button",
+                    "id": "815f50a9-4ae7-450a-93f3-5df41c12066e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "BackDash",
+                    "type": "Button",
+                    "id": "e647eeb2-368d-4cca-82a5-6487c758042b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -182,6 +200,28 @@
                     "processors": "",
                     "groups": ";KeyBoard",
                     "action": "SKill",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "22b17b99-32f3-49e7-8557-7d938148fba7",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";KeyBoard",
+                    "action": "SitDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6b3e4db7-d4b1-4a75-ab18-51734e0e0df3",
+                    "path": "<Keyboard>/v",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";KeyBoard",
+                    "action": "BackDash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -294,7 +294,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 3.5
-  m_Material: {fileID: 6200000, guid: a7b52549d0c083747bcc217c8c57bd92, type: 2}
+  m_Material: {fileID: 6200000, guid: bd3f92a2102265e4aa33485d420ccae7, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -322,6 +322,9 @@ MonoBehaviour:
   _onGround: 0
   _sloopyMaterial: {fileID: 6200000, guid: bd3f92a2102265e4aa33485d420ccae7, type: 2}
   _frictionMaterial: {fileID: 6200000, guid: a7b52549d0c083747bcc217c8c57bd92, type: 2}
+  CharacterCenterPos: {fileID: 876174928}
+  BoxSize: {x: 0, y: 0}
+  boxCol: {fileID: 0}
   _playerInput: {x: 0, y: 0}
   _moveSpeed: {x: 0, y: 0}
   _airMoveMulplier: 0
@@ -382,7 +385,39 @@ Transform:
   m_Children:
   - {fileID: 2077776680}
   - {fileID: 1396425179}
+  - {fileID: 876174928}
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &876174927
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 876174928}
+  m_Layer: 6
+  m_Name: CenterPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &876174928
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876174927}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.109, y: -0.248, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 751882386}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1091636676
 GameObject:
@@ -508,7 +543,7 @@ Transform:
   m_GameObject: {fileID: 1091636676}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.7142031, w: 0.69993865}
-  m_LocalPosition: {x: -4.87, y: -0.05, z: 0}
+  m_LocalPosition: {x: -2.74, y: -0.09, z: 0}
   m_LocalScale: {x: 6.561614, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -525,7 +560,7 @@ GameObject:
   - component: {fileID: 1232058723}
   - component: {fileID: 1232058722}
   - component: {fileID: 1232058724}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Triangle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
