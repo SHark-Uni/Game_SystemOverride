@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class DashState : MonoBehaviour
+public class DashState : PlayerOnGroundState
 {
     private SpriteRenderer _playerSpriteRenderer;
-    private PlayerMove _playerMove;
-    public Rigidbody2D _rb;
-    public Animator _dashAnim;
-    public Player _player;
+
+    public DashState(Player_Temp owner, StateMachine<Player_Temp> stateMachine, string name, Rigidbody2D rb, Animator am)
+        : base(owner, stateMachine, name, rb, am)
+    {
+    }
 
     // 대시 관련
     private bool _canDash = true;
@@ -19,30 +20,21 @@ public class DashState : MonoBehaviour
     private float _dashingTime = 0.5f;
     private float _dashingCooldown = 1f;
 
-    private void Awake()
+    public override void Enter()
     {
-        _playerSpriteRenderer = GetComponent<SpriteRenderer>();
-        _rb = GetComponent<Rigidbody2D>();
-        _playerMove = new PlayerMove();
-        _dashAnim = GetComponent<Animator>();
-        _player = GetComponent<Player>();
+        base.Enter();
     }
 
-    private void OnEnable()
+    public override void EntityUpdate()
     {
-        // 입력 맵을 한 번만 활성화
-        _playerMove?.Player.Enable();
+        base.EntityUpdate();
+
+        Dash();
     }
 
-    private void OnDisable()
+    private IEnumerator Dash()
     {
-        // 비활성화
-        _playerMove?.Player.Disable();
-    }
-
-    private IEnumerator DashAndBackDash()
-    {
-        Vector2 dir = _player.transform.position;
+        Vector2 dir = _owner.transform.position;
 
         // canDash(쿨타임 계산용), isDash(동작 상태 관리용)을 초기화
         _canDash = false;
@@ -63,7 +55,7 @@ public class DashState : MonoBehaviour
         {
             if (_playerSpriteRenderer.flipX == false) // 오른쪽 바라볼 때
             {
-                if (_playerMove.Player.BackDash.IsPressed())
+                if (_playerMove.BackDash.IsPressed())
                 {
                     _rb.velocity = new Vector2(-_dashingPower, 0f); // 오른쪽 대시
                     Debug.Log(_dashingTime);
@@ -71,7 +63,7 @@ public class DashState : MonoBehaviour
             }
             else // 왼쪽 바라볼 때
             {
-                if (_playerMove.Player.BackDash.IsPressed())
+                if (_playerMove.BackDash.IsPressed())
                 {
                     _rb.velocity = new Vector2(_dashingPower, 0f); // 왼쪽 대시
                 }
@@ -82,21 +74,21 @@ public class DashState : MonoBehaviour
 
             if (_playerSpriteRenderer.flipX == false) // 오른쪽 바라볼 때
             {
-                if (_playerMove.Player.BackDash.IsPressed())
+                if (_playerMove.BackDash.IsPressed())
                 {
                     _rb.AddForce(new Vector2(-_dashingPower * 10, 0f), ForceMode2D.Impulse); // 오른쪽 대시
                 }
             }
             else // 왼쪽 바라볼 때
             {
-                if (_playerMove.Player.BackDash.IsPressed())
+                if (_playerMove.BackDash.IsPressed())
                 {
                     _rb.AddForce(new Vector2(_dashingPower * 10, 0f), ForceMode2D.Impulse); // 왼쪽 대시
                 }
             }
         }
 
-        _dashAnim.SetBool("isDash", true); // 대시 애니매이션 실행
+        _am.SetBool("isDash", true); // 대시 애니매이션 실행
         yield return new WaitForSeconds(_dashingTime);
 
         // player의 중력을 돌려 놓고 isDashing을 false
@@ -108,37 +100,7 @@ public class DashState : MonoBehaviour
         _canDash = true;
 
         // 대시 애니메이션 종료
-        _dashAnim.SetBool("isDash", false);
+        _am.SetBool("isDash", false);
     }
-
-    void OnDash()
-    {
-        if ((_playerMove.Player.Dash.IsPressed() || _playerMove.Player.BackDash.IsPressed()) && _canDash)
-        {
-            StartCoroutine(DashAndBackDash());
-        }
-    }
-
-    void Upddate()
-    {
-        OnDash();
-    }
-
-    /**
-   virtual void OnEnter()
-   {
-
-   }
-
-   virtual void OnUpdate()
-   {
-
-   }
-
-   virtual void OnExit()
-   {
-
-   }
-   **/
 
 }
