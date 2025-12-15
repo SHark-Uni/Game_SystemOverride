@@ -1,63 +1,92 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Monster : MonoBehaviour //, IHitable
 {
 
-    // private StateMachine<Monster> _machine;
-    public Rigidbody2D _Rb { get; private set; }
+    public MonsterStateMachine _machine { get; private set; }
+    public Rigidbody2D _rb { get; private set; }
     public Animator _animator { get; private set; }
+    public SpriteRenderer _spriteRenderer { get; private set; }
+    // 상태
+    public IdleState StateIdle { get; private set; }
+    public PatrolState StatePatrol { get; private set; }
+    public ChaseState StateChase { get; private set; }
+    public AttackState StateAttack { get; private set; }
 
     // 몬스터 스탯
     private int _maxHp;
     private int _currentHp;
 
     public float _moveSpeed;
+    public float _patrolSpeed;
+    public float _chaseSpeed;
     public float _detectionRange;
     public float _attackDamage;
-
-    // Patrol를 위한 변수설정
-    public float _patrolRange = 5f;
+    // Patrol 변수설정
+    public float _patrolRange;
     private Vector2 _startPosition;
-    
-    
-    // 플레이어 위치 받기
-    public Transform target;
+    public Transform _cliffCheckPos;
+    public LayerMask _groundLayer;
+    public float _cliffCheckDistance;
+    public float _wallCheckDistance;
+    // Attack 변수설정
+    public float _attackRange; // 공격을 시작할 거리 
+    public float _dashSpeed;// 공격 대쉬 속도
 
-   
+    // 플레이어 위치 받기
+    public Transform _target;
+    public LayerMask _obstacleLayer;
+    public float _verticalDetectionRange;
 
     private void Awake()
     {
-        _Rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
-        // _machine = new StateMachine<Monster>();
-        /*
-         * StateIdle = new IdleState(this, _machine)
-         * StatePatrol = new PatrolState(this, _machine)
-         * StateChase = new ChaseState(this, _machine)
-         * StateAttack = new AttackState(this, _machine)
-         */
+        _machine = new MonsterStateMachine();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        StateIdle = new IdleState(this, _machine);
+        StatePatrol = new PatrolState(this, _machine);
+        StateChase = new ChaseState(this, _machine);
+        StateAttack = new AttackState(this, _machine);
+
     }
 
     private void Start()
     {
         _currentHp = _maxHp;
         _startPosition = transform.position;
-        // 플레이어 태그 활용해서 존재하는지 체크
-        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-        if (playerObj != null )
-        {
-            target = playerObj.transform;
-            //_machine.Initialize(StateIdle); 초기상태 만들기
-        }
+        // 변수 설정
+        _attackRange = 2f;
+        _dashSpeed = 20f;
+        _patrolSpeed = 2f;
+        _patrolRange = 3f;
+        _chaseSpeed = 4f;
+        _detectionRange = 7.5f;
+        _verticalDetectionRange = 1f;
+        _wallCheckDistance = 0.6f;
+        _cliffCheckDistance = 1f;
 
+        _moveSpeed = _patrolSpeed;
+        // 플레이어 태그 활용해서 존재하는지 체크       
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null)
+        {
+            _target = playerObj.transform;
+
+        }
+        _machine.Initialize(StateIdle);
     }
 
     private void Update()
     {
-        // _machine.CurrentState.OnUpdate();
-      
+        if (_machine.CurrentState != null)
+        {
+            _machine.CurrentState.OnUpdate();
+        }
+
 
     }
 
@@ -70,7 +99,7 @@ public class Monster : MonoBehaviour //, IHitable
         _currentHp -= _damage;
         _animator.SetTrigger("Hit");
 
-        if(_currentHp <= 0)
+        if (_currentHp <= 0)
         {
             Die();
         }
@@ -94,7 +123,7 @@ public class Monster : MonoBehaviour //, IHitable
     // 몬스터 이동함수
     public void Move(Vector2 _direction)
     {
-        _Rb.velocity = _direction * _moveSpeed;
+        _rb.velocity = _direction * _moveSpeed;
         Flip(_direction.x);
 
     }
@@ -104,23 +133,118 @@ public class Monster : MonoBehaviour //, IHitable
         Vector3 _currentScale = transform.localScale;
 
         // 오른쪽으로 이동
-        if(_xDirection > 0.1f)
+        if (_xDirection > 0.1f)
         {
             _currentScale.x = Mathf.Abs(_currentScale.x);
         }
         // 왼쪽으로 이동
-        if(_xDirection < -0.1f)
+        if (_xDirection < -0.1f)
         {
-            _currentScale.x = - Mathf.Abs(_currentScale.x);
+            _currentScale.x = -Mathf.Abs(_currentScale.x);
         }
 
         transform.localScale = _currentScale;
     }
+    // 몬스터가 멈추기 위한 함수
+    public void Stop()
+    {
+        _rb.velocity = Vector2.zero;
+    }
 
-    // 상태 변화를 위한 플레이어와 거리 체크
+
     public float GetToTarget()
     {
-        if (target == null) return 9999f;
-        return Vector2.Distance(transform.position, target.position);
+
+        if (_target == null) return 9999f;
+
+        // y축 계산
+        float _yDifference = Mathf.Abs(_target.position.y - transform.position.y);
+        if (_yDifference > _verticalDetectionRange)
+        {
+            return 9999f;
+        }
+
+        //  X축 방향 계산
+        // 오른쪽이면 (1, 0), 왼쪽이면 (-1, 0)
+        Vector2 _xDirection = (_target.position.x > transform.position.x) ? Vector2.right : Vector2.left;
+
+        // 수평 레이캐스트 발사
+        RaycastHit2D _playerHit = Physics2D.Raycast(transform.position, _xDirection, _detectionRange, _obstacleLayer);
+
+        // 결과 판정      
+        if (_playerHit.collider != null && _playerHit.collider.CompareTag("Player"))
+        {
+            // 실제 거리 반환 (x축 거리만 반환)
+            return Mathf.Abs(_target.position.x - transform.position.x);
+        }
+
+        // 벽에 막혔거나 없으면 못 본 척
+        return 9999f;
     }
+
+    // 정찰 상태 범위 체크를 위해 
+    public Vector2 GetStartPosition()
+    {
+        return _startPosition;
+    }
+ 
+    // 낭떠러지 체크
+    public bool IsCliff()
+    {
+        RaycastHit2D _groundHit = Physics2D.Raycast(_cliffCheckPos.position, Vector2.down, _cliffCheckDistance, _groundLayer);
+        return _groundHit.collider == null;
+    }
+    // 벽 체크
+    public bool IsWall(float _dir)
+    {
+        // 레이저 시작점
+        Vector2 origin = transform.position;
+        // 진행 방향(_dir)으로 레이저 발사      
+        RaycastHit2D hit = Physics2D.Raycast(origin, new Vector2(_dir, 0), _wallCheckDistance, _groundLayer);
+
+
+        return hit.collider != null;
+    }
+
+    private void OnDrawGizmos()
+    {
+        // 눈높이 허용 범위
+        Gizmos.color = Color.green;
+        Vector3 center = transform.position;
+        Vector3 size = new Vector3(_detectionRange * 2, _verticalDetectionRange * 2, 0);
+        Gizmos.DrawWireCube(center, size);
+
+        Gizmos.color = Color.red;
+        Vector3 origin = transform.position;
+        Gizmos.DrawLine(origin, origin + Vector3.right * _wallCheckDistance);
+        Gizmos.DrawLine(origin, origin + Vector3.left * _wallCheckDistance);
+
+        // 실제 레이저 그리기 
+        if (_target != null)
+        {
+            float yDiff = Mathf.Abs(_target.position.y - transform.position.y);
+            if (yDiff <= _verticalDetectionRange)
+            {
+                Vector2 xDir;
+
+               
+                if (_target.position.x > transform.position.x)
+                {
+                    xDir = Vector2.right; // (1, 0)
+                }
+                else
+                {
+                    xDir = Vector2.left;  // (-1, 0)
+                }
+                Gizmos.color = Color.red;
+                Gizmos.DrawLine(transform.position, transform.position + (Vector3)(xDir * _detectionRange));
+            }
+        }
+        if (_cliffCheckPos != null)
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawLine(_cliffCheckPos.position, _cliffCheckPos.position + Vector3.down * _cliffCheckDistance);
+        }
+    }
+
 }
