@@ -23,7 +23,5 @@ namespace Scripts.Monster
             CurrentState.OnEnter();
         }
 
-
-
     }
 }

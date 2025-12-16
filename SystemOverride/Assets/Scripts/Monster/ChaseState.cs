@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 namespace Scripts.Monster
@@ -18,12 +19,14 @@ namespace Scripts.Monster
         }
         public override void OnUpdate()
         {
+            //내 감지범위에서 벗어나면, Idle로 바꾸기
             if (_monster.GetToTarget() > _monster._detectionRange * 1.5f)
             {
                 _stateMachine.ChangeState(_monster.StateIdle);
                 return;
             }
 
+            //내 공격범위 안에 있다면, Attack으로 전환
             if (_monster.GetToTarget() <= _monster._attackRange)
             {
                 _stateMachine.ChangeState(_monster.StateAttack);

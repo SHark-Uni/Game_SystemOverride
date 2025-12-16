@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Scripts.StateMachine;
 
 namespace Scripts.Monster
 {
@@ -9,7 +10,8 @@ namespace Scripts.Monster
         private float _timer;
         private bool _isDashing;
 
-        public AttackState(Monster monster, MonsterStateMachine stateMachine) : base(monster, stateMachine, "IsAttack")
+        public AttackState(Monster monster, StateMachine<Monster> stateMachine) 
+            : base(monster, stateMachine, "IsAttack")
         {
         }
 

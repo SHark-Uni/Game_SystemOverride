@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Scripts.StateMachine;
+using System.ComponentModel;
 
 namespace Scripts.Monster
 {
     public class Monster : MonoBehaviour //, IHitable
     {
-
-        public MonsterStateMachine _machine { get; private set; }
+        //2종류.3종류,...50종류
+        public StateMachine<Monster> _machine { get; private set; }
         public Rigidbody2D _rb { get; private set; }
         public Animator _animator { get; private set; }
         public SpriteRenderer _spriteRenderer { get; private set; }
@@ -27,6 +29,8 @@ namespace Scripts.Monster
         public float _chaseSpeed;
         public float _detectionRange;
         public float _attackDamage;
+
+
         // Patrol 변수설정
         public float _patrolRange;
         private Vector2 _startPosition;
@@ -47,19 +51,8 @@ namespace Scripts.Monster
         {
             _rb = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
-            _machine = new MonsterStateMachine();
+
             _spriteRenderer = GetComponent<SpriteRenderer>();
-            StateIdle = new IdleState(this, _machine);
-            StatePatrol = new PatrolState(this, _machine);
-            StateChase = new ChaseState(this, _machine);
-            StateAttack = new AttackState(this, _machine);
-
-        }
-
-        private void Start()
-        {
-            _currentHp = _maxHp;
-            _startPosition = transform.position;
             // 변수 설정
             _attackRange = 2f;
             _dashSpeed = 20f;
@@ -70,6 +63,18 @@ namespace Scripts.Monster
             _verticalDetectionRange = 1f;
             _wallCheckDistance = 0.6f;
             _cliffCheckDistance = 1f;
+        }
+
+        private void Start()
+        {
+            _machine = new MonsterStateMachine();
+
+            StateIdle = new IdleState(this, _machine);
+            StatePatrol = new PatrolState(this, _machine);
+            StateChase = new ChaseState(this, _machine);
+            StateAttack = new AttackState(this, _machine);
+            _currentHp = _maxHp;
+            _startPosition = transform.position;
 
             _moveSpeed = _patrolSpeed;
             // 플레이어 태그 활용해서 존재하는지 체크       
@@ -152,7 +157,6 @@ namespace Scripts.Monster
         {
             _rb.velocity = Vector2.zero;
         }
-
 
         public float GetToTarget()
         {
