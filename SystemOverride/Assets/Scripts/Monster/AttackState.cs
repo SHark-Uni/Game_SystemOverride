@@ -16,9 +16,9 @@ namespace Scripts.Monster
         }
 
 
-        public override void OnEnter()
+        public override void Enter()
         {
-            base.OnEnter();
+            base.Enter();
             _monster.Stop();
             _timer = 0f;
             _isDashing = false;
@@ -26,39 +26,25 @@ namespace Scripts.Monster
             _monster.GetComponent<SpriteRenderer>().color = Color.red;
         }
 
-        public override void OnUpdate()
+        public override void EntityUpdate()
         {
             _timer += Time.deltaTime;
 
             // 0.5초 동안 기 모으기 (렉 걸린 척)
-            if (_timer < 0.5f) return;
+            if (_timer < _monster._attackWaitTime) return;
 
             // 대시 발사! (딱 한 번만 실행)
             if (!_isDashing)
             {
                 _isDashing = true;
-                // 플레이어 방향 구하기
-                float dir;
-
-
-                if (_monster._target.position.x > _monster.transform.position.x)
-                {
-                    dir = 1;  // 오른쪽 방향
-                }
-                else
-                {
-                    dir = -1; // 왼쪽 방향
-                }
-                // 대쉬
-                _monster.Move(new Vector2(dir * _monster._dashSpeed, 0));
-                _monster._rb.velocity = new Vector2(dir * _monster._dashSpeed, 0);
-                _monster.Flip(dir);
+                //플레이어를 향해 대쉬 공격
+                _monster.MoveToTarget(_monster._dashSpeed);
             }
 
             // 대시 후 딜레이 (0.5초에 시작해서 0.3초간 돌진 후 멈춤)
-            if (_timer > 0.8f)
+            if (_timer > (_monster._attackWaitTime + _monster._dashDuration))
             {
-                _monster.Stop(); // 급정거
+                _monster.Stop(); 
             }
 
             // 총 1.5초가 지나면 공격 끝, 상태 전환
@@ -72,9 +58,9 @@ namespace Scripts.Monster
             }
         }
 
-        public override void OnExit()
+        public override void Exit()
         {
-            base.OnExit();
+            base.Exit();
             // 색깔 원상복구
             _monster.GetComponent<SpriteRenderer>().color = Color.white;
         }

@@ -1,39 +1,20 @@
+using Scripts.StateMachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Scripts.Monster
 {
-    public abstract class MonsterSuperState
+    public abstract class MonsterSuperState : EntityState<Monster>
     {
         protected Monster _monster;
-        protected MonsterStateMachine _stateMachine;
-        protected string _animationName;
-        public MonsterSuperState(Monster monster, MonsterStateMachine stateMachine, string animationName)
+       
+
+        public MonsterSuperState(Monster monster, StateMachine<Monster> stateMachine, string animationName) : base(monster, stateMachine, animationName, monster._rb, monster._animator)
         {
-            this._monster = monster;
-            this._stateMachine = stateMachine;
-            this._animationName = animationName;
         }
 
-        public virtual void OnEnter()
-        {
-            if (!string.IsNullOrEmpty(_animationName))
-            {
-                _monster._animator.SetBool(_animationName, true);
-            }
 
-        }
-
-        public abstract void OnUpdate();
-
-        public virtual void OnExit()
-        {
-            if (!string.IsNullOrEmpty(_animationName))
-            {
-                _monster._animator.SetBool(_animationName, false);
-            }
-        }
     }
 
 }

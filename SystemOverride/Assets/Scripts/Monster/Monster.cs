@@ -27,24 +27,29 @@ namespace Scripts.Monster
         public float _moveSpeed;
         public float _patrolSpeed;
         public float _chaseSpeed;
+
         public float _detectionRange;
         public float _attackDamage;
 
+        //Idle 변수설정
+        public float _idleWaitTime;
 
         // Patrol 변수설정
         public float _patrolRange;
+        public float _patrolDuration;
         private Vector2 _startPosition;
         public Transform _cliffCheckPos;
-        public LayerMask _groundLayer;
+        public eLayerMask _groundLayer;
         public float _cliffCheckDistance;
         public float _wallCheckDistance;
         // Attack 변수설정
         public float _attackRange; // 공격을 시작할 거리 
         public float _dashSpeed;// 공격 대쉬 속도
-
+        public float _attackWaitTime = 0.5f;   // 공격 전 대기 시간 
+        public float _dashDuration = 0.3f;       // 실제 돌진하는 시간
+        public float _attackTotalTime = 1.5f;    // 전체 공격 모션 시간
         // 플레이어 위치 받기
         public Transform _target;
-        public LayerMask _obstacleLayer;
         public float _verticalDetectionRange;
 
         private void Awake()
@@ -63,11 +68,13 @@ namespace Scripts.Monster
             _verticalDetectionRange = 1f;
             _wallCheckDistance = 0.6f;
             _cliffCheckDistance = 1f;
+            _idleWaitTime = 1.5f;
+            _patrolDuration = 3.0f;
         }
 
         private void Start()
         {
-            _machine = new MonsterStateMachine();
+            _machine = new StateMachine<Monster>();
 
             StateIdle = new IdleState(this, _machine);
             StatePatrol = new PatrolState(this, _machine);
@@ -84,14 +91,14 @@ namespace Scripts.Monster
                 _target = playerObj.transform;
 
             }
-            _machine.Initialize(StateIdle);
+            _machine.BeginMachine(StateIdle);
         }
 
         private void Update()
         {
-            if (_machine.CurrentState != null)
+            if (_machine.currentState != null)
             {
-                _machine.CurrentState.OnUpdate();
+                _machine.currentState.EntityUpdate();
             }
 
 
@@ -172,10 +179,12 @@ namespace Scripts.Monster
 
             //  X축 방향 계산
             // 오른쪽이면 (1, 0), 왼쪽이면 (-1, 0)
-            Vector2 _xDirection = (_target.position.x > transform.position.x) ? Vector2.right : Vector2.left;
-
+            float _dir = Mathf.Sign(_target.position.x - transform.position.x);
+            Vector2 _xDirection = new Vector2(_dir, 0);
+            // 레이어 마스크를 결합시켜 벽 뒤에 있는 플레이어를 감지 못하게 만듬
+            int _layerMask = (int)(eLayerMask.Player | eLayerMask.Ground);
             // 수평 레이캐스트 발사
-            RaycastHit2D _playerHit = Physics2D.Raycast(transform.position, _xDirection, _detectionRange, _obstacleLayer);
+            RaycastHit2D _playerHit = Physics2D.Raycast(transform.position, _xDirection, _detectionRange, _layerMask);
 
             // 결과 판정      
             if (_playerHit.collider != null && _playerHit.collider.CompareTag("Player"))
@@ -187,6 +196,16 @@ namespace Scripts.Monster
             // 벽에 막혔거나 없으면 못 본 척
             return 9999f;
         }
+        // 플레이어를 향해 특정 속도로 이동하기 위해 만든 함수
+        public void MoveToTarget(float _speed)
+        {
+            if (_target == null) return;
+            // 방향 구하기 (오른쪽은 1, 왼쪽은 -1)
+            float _dir = Mathf.Sign(_target.position.x - transform.position.x);
+
+            _rb.velocity = new Vector2(_dir * _speed, 0);
+            Flip(_dir);
+        }
 
         // 정찰 상태 범위 체크를 위해 
         public Vector2 GetStartPosition()
@@ -197,7 +216,7 @@ namespace Scripts.Monster
         // 낭떠러지 체크
         public bool IsCliff()
         {
-            RaycastHit2D _groundHit = Physics2D.Raycast(_cliffCheckPos.position, Vector2.down, _cliffCheckDistance, _groundLayer);
+            RaycastHit2D _groundHit = Physics2D.Raycast(_cliffCheckPos.position, Vector2.down, _cliffCheckDistance, (int)_groundLayer);
             return _groundHit.collider == null;
         }
         // 벽 체크
@@ -206,7 +225,7 @@ namespace Scripts.Monster
             // 레이저 시작점
             Vector2 origin = transform.position;
             // 진행 방향(_dir)으로 레이저 발사      
-            RaycastHit2D hit = Physics2D.Raycast(origin, new Vector2(_dir, 0), _wallCheckDistance, _groundLayer);
+            RaycastHit2D hit = Physics2D.Raycast(origin, new Vector2(_dir, 0), _wallCheckDistance, (int)_groundLayer);
 
 
             return hit.collider != null;
