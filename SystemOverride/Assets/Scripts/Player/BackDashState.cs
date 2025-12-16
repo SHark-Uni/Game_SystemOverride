@@ -19,6 +19,9 @@ public class BackDashState : PlayerOnGroundState
         _name = "BackDash";
         base.Enter();
 
+        // 쿨타임 1초로 변경
+        _owner._dashCooldown = 1f;
+
         _orginGravity = _rb.gravityScale;
         _dashTimeStamp = Time.time;
         _owner.SetVelocity(-_owner._dashForce * _owner.facingDir, _rb.velocity.y);
@@ -29,8 +32,18 @@ public class BackDashState : PlayerOnGroundState
     {
         base.EntityUpdate();
 
+        // 쿨타임이 0보다 클 경우 TIme.deltaTime으로 시간 감소해서 0까지 줄어들게 하는 조건
+        if (_owner._dashCooldown > 0)
+        {
+            _owner._dashCooldown -= Time.deltaTime;
+
+            if (_owner._dashCooldown < 0) _owner._dashCooldown = 0;
+        }
+
         if (_dashTimeStamp + _owner._dashDuration < Time.time)
+        {
             _stateMachine.ChangeState(_owner.idleState);
+        }
 
         //Dash();
     }

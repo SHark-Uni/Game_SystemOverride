@@ -378,7 +378,6 @@ MonoBehaviour:
   _frictionMaterial: {fileID: 6200000, guid: a7b52549d0c083747bcc217c8c57bd92, type: 2}
   CharacterCenterPos: {fileID: 1356660995}
   BoxSize: {x: 0, y: 0}
-  boxCol: {fileID: 1356660992}
   _playerInput: {x: 0, y: 0}
   _moveSpeed: {x: 0, y: 0}
   _airMoveMulplier: 0
@@ -396,6 +395,7 @@ MonoBehaviour:
   _sitDownColiderOffset: {x: 0, y: 0}
   _sitDownUpColiderBoxSize: {x: 0, y: 0}
   _sitDownUpColiderOffset: {x: 0, y: 0}
+  _boxCol: {fileID: 1356660992}
 --- !u!1 &1403962798
 GameObject:
   m_ObjectHideFlags: 0

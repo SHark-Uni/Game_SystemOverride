@@ -23,13 +23,15 @@ public class SitState : PlayerOnGroundState
     {
         base.EntityUpdate();
 
+        _owner.SitDown();
+
         OnSitDown();
+        
     }
 
     public override void Exit()
     {
         base.Exit();
-        
     }
 
     void OnSitDown()
@@ -37,6 +39,7 @@ public class SitState : PlayerOnGroundState
         if (_inputAction.SitDown.WasPressedThisFrame())
         {
             _stateMachine.ChangeState(_owner.idleState);
+            _owner.StandUp();
         }
     }
 

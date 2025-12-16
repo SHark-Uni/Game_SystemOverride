@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player_Temp : MonoBehaviour
@@ -46,7 +47,7 @@ public class Player_Temp : MonoBehaviour
 	Animator _am;
 	PlayerInput _Input;
     // 앉기 전용 콜라이더 생성
-    BoxCollider2D _boxCol;
+    public BoxCollider2D _boxCol;
 
     private IdleState _idleState;
 	private WalkState _walkState;
@@ -236,7 +237,6 @@ public class Player_Temp : MonoBehaviour
 	{
 		_doubleJump = true;
 	}
-	/*
 	public void SitDown()
 	{
 		_boxCol.size = _sitDownColiderBoxSize;
@@ -248,13 +248,13 @@ public class Player_Temp : MonoBehaviour
         _boxCol.size = _sitDownUpColiderBoxSize;
         _boxCol.offset = _sitDownUpColiderOffset;
     }
-	*/
 
 	private void Awake()
 	{
 		_Input = new PlayerInput();
 		_machine = new StateMachine<Player_Temp>();
 		_rb = GetComponent<Rigidbody2D>();
+		_boxCol = GetComponent<BoxCollider2D>();
 		_facingDir = 1;
 
 		_airMoveMulplier = .8f;
@@ -271,14 +271,15 @@ public class Player_Temp : MonoBehaviour
 		_groundDistance = 0.85f;
 		_dashForce = 7f;
 		_dashDuration = 0.2f;
-		_dashCooldown = 1f;
+		_dashCooldown = 0f;
 
         BoxSize = new Vector2(0.35f, 0.05f);
 
-		_sitDownColiderBoxSize = new Vector2(0.3f, 0.25f);
-		_sitDownColiderOffset = new Vector2(0f, -0.2f);
-		//_sitDownUpColiderBoxSize = new Vector2(0.3f, 0.5f);
-		//_sitDownUpColiderOffset = new Vector2(0f, -0.1f);
+		_sitDownColiderBoxSize = new Vector2(0.7f, 0.1f);
+		_sitDownColiderOffset = new Vector2(0.08f, -0.1f);
+
+		_sitDownUpColiderBoxSize = new Vector2(0.7f, 1.3f);
+		_sitDownUpColiderOffset = new Vector2(0.08f, -0.1f);
     }
 
 	void Start()

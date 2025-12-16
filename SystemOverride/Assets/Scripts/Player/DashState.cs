@@ -13,8 +13,6 @@ public class DashState : PlayerOnGroundState
     }
     private float _dashTimeStamp;
     private float _orginGravity;
-    // 쿨타임 변수
-    private float _dashCooldown;
 
     public override void Enter()
     {
@@ -32,10 +30,10 @@ public class DashState : PlayerOnGroundState
     public override void EntityUpdate()
     {
         base.EntityUpdate();
-        
+
         if (_dashTimeStamp + _owner._dashDuration < Time.time)
             _stateMachine.ChangeState(_owner.idleState);
-        
+
         //Dash();
     }
 
