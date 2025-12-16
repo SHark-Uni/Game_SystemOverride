@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+using Scripts.StateMachine;
+
 namespace Scripts.Player
 {
     public class DashState : PlayerOnGroundState

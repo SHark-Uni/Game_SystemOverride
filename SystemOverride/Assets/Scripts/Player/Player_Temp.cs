@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Scripts.Player;
 using UnityEngine;
+using Scripts.StateMachine;
+using Scripts.Monster;
 
 public class Player_Temp : MonoBehaviour
 {
