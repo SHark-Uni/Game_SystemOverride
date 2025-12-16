@@ -2,36 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IdleState : MonsterSuperState
+namespace Scripts.Monster
 {
-    private float _idleTimer;
-    private float _idleDuration = 1.5f;
-    public IdleState(Monster monster, MonsterStateMachine stateMachine) : base(monster, stateMachine, "IsIdle")
+    public class IdleState : MonsterSuperState
     {
-    }
-
-    public override void OnEnter()
-    {
-        base.OnEnter();
-
-        _monster.Stop();
-        _idleTimer = 0f;
-    }
-
-    public override void OnUpdate()
-    {
-        // 芭府眉农
-        if (_monster.GetToTarget() < _monster._detectionRange)
+        private float _idleTimer;
+        private float _idleDuration = 1.5f;
+        public IdleState(Monster monster, MonsterStateMachine stateMachine) : base(monster, stateMachine, "IsIdle")
         {
-            _stateMachine.ChangeState(_monster.StateChase);
-            return;
         }
-        _idleTimer += Time.deltaTime;
-        if (_idleTimer > _idleDuration)
-        {
-            _stateMachine.ChangeState(_monster.StatePatrol);
-        }
-    }
 
+        public override void OnEnter()
+        {
+            base.OnEnter();
+
+            _monster.Stop();
+            _idleTimer = 0f;
+        }
+
+        public override void OnUpdate()
+        {
+            // 芭府眉农
+            if (_monster.GetToTarget() < _monster._detectionRange)
+            {
+                _stateMachine.ChangeState(_monster.StateChase);
+                return;
+            }
+            _idleTimer += Time.deltaTime;
+            if (_idleTimer > _idleDuration)
+            {
+                _stateMachine.ChangeState(_monster.StatePatrol);
+            }
+        }
+
+
+    }
 
 }

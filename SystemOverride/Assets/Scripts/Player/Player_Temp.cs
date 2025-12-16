@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Scripts.Player;
 using UnityEngine;
 
 public class Player_Temp : MonoBehaviour
