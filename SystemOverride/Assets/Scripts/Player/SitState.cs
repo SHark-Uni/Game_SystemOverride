@@ -19,13 +19,12 @@ namespace Scripts.Player
         public override void Enter()
         {
             base.Enter();
-            _owner.SitDown();
         }
 
         public override void EntityUpdate()
         {
             base.EntityUpdate();
-
+            _owner.SitDown();
             OnSitDown();
         }
 
@@ -33,7 +32,7 @@ namespace Scripts.Player
         {
             base.Exit();
 
-            _owner.StandUp();
+
         }
 
         void OnSitDown()
@@ -41,6 +40,7 @@ namespace Scripts.Player
             if (_inputAction.SitDown.WasReleasedThisFrame())
             {
                 _stateMachine.ChangeState(_owner.idleState);
+                _owner.StandUp();
             }
         }
 

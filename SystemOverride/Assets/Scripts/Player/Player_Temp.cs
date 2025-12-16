@@ -31,6 +31,7 @@ namespace Scripts.Player
         [SerializeField][Range(0, 1)] private float _airMoveMulplier;
         public float _dashForce;
         public float _dashDuration;
+        public float _dashCooldown;
         private int _facingDir;
 
         [Header("Attack Details")]
@@ -58,7 +59,7 @@ namespace Scripts.Player
         // 대시, 백대시, 앉기 전용 New Input System 생성
         PlayerMove _playerMove;
         // 앉기 전용 콜라이더 생성
-        BoxCollider2D _boxCol;
+        public BoxCollider2D _boxCol;
 
         private IdleState _idleState;
         private WalkState _walkState;
@@ -198,20 +199,6 @@ namespace Scripts.Player
 
         private void CheckOnGround()
         {
-            /*		bool LeftOnGround;
-                    bool RightOnGround;
-
-                    LeftOnGround = Physics2D.Raycast(LeftLegPos.position, Vector2.down, _groundDistance, (int)eLayerMask.Ground);
-                    RightOnGround = Physics2D.Raycast(RightLegPos.position, Vector2.down, _groundDistance, (int)eLayerMask.Ground);
-
-                    if (LeftOnGround || RightOnGround)
-                    {
-                        _onGround = true;
-                    }
-                    else {
-                        _onGround = false;
-                    }*/
-
             RaycastHit2D hit = Physics2D.BoxCast(CharacterCenterPos.position, BoxSize, 0f, Vector2.down, _groundDistance, (int)eLayerMask.Ground);
             if (hit.collider != null)
             {
@@ -271,7 +258,7 @@ namespace Scripts.Player
             _machine = new StateMachine<Player_Temp>();
             _rb = GetComponent<Rigidbody2D>();
             _facingDir = 1;
-
+            _boxCol = GetComponent<BoxCollider2D>();
             _airMoveMulplier = .8f;
 
             _moveSpeed = new Vector2(6.0f, 0);
@@ -285,14 +272,16 @@ namespace Scripts.Player
             _jumpForce = 15.0f;
             _groundDistance = 0.85f;
             _dashForce = 7f;
-            _dashDuration = 0.5f;
+            _dashDuration = 0.2f;
+            _dashCooldown = 0f;
 
             BoxSize = new Vector2(0.35f, 0.05f);
 
-            _sitDownColiderBoxSize = new Vector2(0.3f, 0.25f);
-            _sitDownColiderOffset = new Vector2(0f, -0.2f);
-            _sitDownUpColiderBoxSize = new Vector2(0.3f, 0.5f);
-            _sitDownUpColiderOffset = new Vector2(0f, -0.1f);
+            _sitDownColiderBoxSize = new Vector2(0.7f, 0.1f);
+            _sitDownColiderOffset = new Vector2(0.08f, -0.1f);
+
+            _sitDownUpColiderBoxSize = new Vector2(0.7f, 1.3f);
+            _sitDownUpColiderOffset = new Vector2(0.08f, -0.1f);
         }
 
         void Start()
@@ -309,9 +298,9 @@ namespace Scripts.Player
             _jumpState = new JumpState(this, _machine, "Jump/Fall", _rb, _am);
             _jumpAttackState = new JumpAttackState(this, _machine, "JumpAttack", _rb, _am);
             // 앉기 애니메니션 생성자
-            //_sitState = new SitState(this, _machine, "isSitDown", _rb, _am);
+            _sitState = new SitState(this, _machine, "SitDown", _rb, _am);
             _dashState = new DashState(this, _machine, "Dash", _rb, _am);
-            //_backdashState = new BackDashState(this, _machine, "isBackDashg", _rb, _am);
+            _backdashState = new BackDashState(this, _machine, "BackDash", _rb, _am);
 
             _machine.BeginMachine(idleState);
         }
