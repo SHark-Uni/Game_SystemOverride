@@ -1,3 +1,4 @@
+using Scripts.StateMachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,20 +8,20 @@ namespace Scripts.Monster
     public class IdleState : MonsterSuperState
     {
         private float _idleTimer;
-        private float _idleDuration = 1.5f;
-        public IdleState(Monster monster, MonsterStateMachine stateMachine) : base(monster, stateMachine, "IsIdle")
+        
+        public IdleState(Monster monster, StateMachine<Monster> _stateMachine) : base(monster, _stateMachine, "IsIdle")
         {
         }
 
-        public override void OnEnter()
+        public override void Enter()
         {
-            base.OnEnter();
+            base.Enter();
 
             _monster.Stop();
             _idleTimer = 0f;
         }
 
-        public override void OnUpdate()
+        public override void EntityUpdate()
         {
             // 거리체크
             if (_monster.GetToTarget() < _monster._detectionRange)
@@ -29,10 +30,15 @@ namespace Scripts.Monster
                 return;
             }
             _idleTimer += Time.deltaTime;
-            if (_idleTimer > _idleDuration)
+            if (_idleTimer > _monster._idleWaitTime)
             {
                 _stateMachine.ChangeState(_monster.StatePatrol);
             }
+        }
+        public override void Exit()
+        {
+            base.Exit();
+
         }
 
 
