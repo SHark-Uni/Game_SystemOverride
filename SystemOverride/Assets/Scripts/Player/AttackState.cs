@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
+using Scripts.Player.Bullets;
 using Scripts.StateMachine;
 
 namespace Scripts.Player
@@ -41,10 +41,10 @@ namespace Scripts.Player
 
         private void SpawnBullet()
         {
-            GameObject bullet;
+            Bullet bullet;
             _owner.Shoot(out bullet);
 
-            bullet.GetComponent<Rigidbody2D>().AddForce(new Vector2(15, 0) * _owner.facingDir, ForceMode2D.Impulse);
+            bullet.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(15, 0) * _owner.facingDir, ForceMode2D.Impulse);
         }
 
     }

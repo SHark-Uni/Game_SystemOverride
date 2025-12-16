@@ -10,7 +10,7 @@ namespace Scripts.Monster
     public class Monster : MonoBehaviour //, IHitable
     {
         //2종류.3종류,...50종류
-        public StateMachine<Monster> _machine { get; private set; }
+        public MonsterStateMachine _machine { get; private set; }
         public Rigidbody2D _rb { get; private set; }
         public Animator _animator { get; private set; }
         public SpriteRenderer _spriteRenderer { get; private set; }

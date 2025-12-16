@@ -20,8 +20,6 @@ namespace Scripts.Player
         public override void EntityUpdate()
         {
             base.EntityUpdate();
-
-
             if (_inputAction.Attack.WasPerformedThisFrame())
             {
                 if (CantAttack())
@@ -51,6 +49,7 @@ namespace Scripts.Player
             }
             if (_inputAction.BackDash.WasPerformedThisFrame())
             {
+
                 _stateMachine.ChangeState(_owner.backdashState);
             }
             if (_inputAction.SitDown.WasPerformedThisFrame())
