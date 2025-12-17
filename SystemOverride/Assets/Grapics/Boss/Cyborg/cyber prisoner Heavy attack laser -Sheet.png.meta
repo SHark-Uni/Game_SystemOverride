@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -121,7 +121,322 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: cyber prisoner Heavy attack laser -Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 0
+        width: 23
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3aeb11fbce72b2347947d5c3221acf51
+      internalID: 2080882938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cyber prisoner Heavy attack laser -Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 0
+        width: 26
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a53eca3d960465f4d8e38a75e6eecb55
+      internalID: 1098162020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cyber prisoner Heavy attack laser -Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 28
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44216eaf4eff9844790b670f56f7baa3
+      internalID: -61039362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cyber prisoner Heavy attack laser -Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 0
+        width: 26
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1f9fd6f35cd6f84b967fa059f58c963
+      internalID: 1413600870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cyber prisoner Heavy attack laser -Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 0
+        width: 27
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f59573fdee26e8498beef02cd200621
+      internalID: 1460509693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cyber prisoner Heavy attack laser -Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 27
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 958698e1c36e8574ab62b1e66cbdd6bc
+      internalID: -337530859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cyber prisoner Heavy attack laser -Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 0
+        width: 25
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8890d92fc1bcf8142ade9ed6075e9c89
+      internalID: -2124507266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cyber prisoner Heavy attack laser -Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 673
+        y: 6
+        width: 46
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb66e6eae85588b448f5b66b871850c9
+      internalID: 1361501284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cyber prisoner Heavy attack laser -Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 721
+        y: 0
+        width: 79
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc6881357d838dd4ea5c28a1bb965ed6
+      internalID: -843649386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cyber prisoner Heavy attack laser -Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 804
+        y: 0
+        width: 73
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6882ee19acbcf5d46bf3593f082a9b82
+      internalID: 1986170906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cyber prisoner Heavy attack laser -Sheet_10
+      rect:
+        serializedVersion: 2
+        x: 883
+        y: 0
+        width: 70
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d08f17bd699e49041a3554c15aae74af
+      internalID: 125173455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cyber prisoner Heavy attack laser -Sheet_11
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 3
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2436410cff22d654ea47d5ea7721335c
+      internalID: 1537829620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cyber prisoner Heavy attack laser -Sheet_12
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 0
+        width: 29
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5554c8122889364fbad491f441835a8
+      internalID: -213874722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cyber prisoner Heavy attack laser -Sheet_13
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 0
+        width: 68
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84192deb44708f643b227a4572c0b183
+      internalID: -1627419484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cyber prisoner Heavy attack laser -Sheet_14
+      rect:
+        serializedVersion: 2
+        x: 645
+        y: 0
+        width: 74
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eccef9d000f9c8c4e984581be147ed01
+      internalID: -326591746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -132,7 +447,22 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      cyber prisoner Heavy attack laser -Sheet_0: 2080882938
+      cyber prisoner Heavy attack laser -Sheet_1: 1098162020
+      cyber prisoner Heavy attack laser -Sheet_10: 125173455
+      cyber prisoner Heavy attack laser -Sheet_11: 1537829620
+      cyber prisoner Heavy attack laser -Sheet_12: -213874722
+      cyber prisoner Heavy attack laser -Sheet_13: -1627419484
+      cyber prisoner Heavy attack laser -Sheet_14: -326591746
+      cyber prisoner Heavy attack laser -Sheet_2: -61039362
+      cyber prisoner Heavy attack laser -Sheet_3: 1413600870
+      cyber prisoner Heavy attack laser -Sheet_4: 1460509693
+      cyber prisoner Heavy attack laser -Sheet_5: -337530859
+      cyber prisoner Heavy attack laser -Sheet_6: -2124507266
+      cyber prisoner Heavy attack laser -Sheet_7: 1361501284
+      cyber prisoner Heavy attack laser -Sheet_8: -843649386
+      cyber prisoner Heavy attack laser -Sheet_9: 1986170906
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
