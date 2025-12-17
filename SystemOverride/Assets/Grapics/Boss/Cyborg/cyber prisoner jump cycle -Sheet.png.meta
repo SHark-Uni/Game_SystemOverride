@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -121,7 +121,238 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: cyber prisoner jump cycle -Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 0
+        width: 21
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b76e9fae93490d341a3238f3fd4748c5
+      internalID: 255743228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cyber prisoner jump cycle -Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 0
+        width: 19
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66b0191c254ce2745a3d8a4429e10029
+      internalID: -247666233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cyber prisoner jump cycle -Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 1
+        width: 17
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c72455d2f70dec47978fe8efe039b17
+      internalID: 1362826006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cyber prisoner jump cycle -Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 1
+        width: 19
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18c76341f89cc0546a226702adb13009
+      internalID: -67934506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cyber prisoner jump cycle -Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 1
+        width: 21
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cdf6a5bc9b0e65a40b5a2f2d449fe7e3
+      internalID: -955313431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cyber prisoner jump cycle -Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 1
+        width: 24
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d0948d12dbbc4649ac8398479255744
+      internalID: 318209816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cyber prisoner jump cycle -Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 1
+        width: 26
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1820e6e8b2aa87b4ab089f6306b85c6c
+      internalID: -1262684380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cyber prisoner jump cycle -Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 1
+        width: 23
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e61b73b79b7a2f47a60e7706162f59b
+      internalID: -2043740138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cyber prisoner jump cycle -Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 1
+        width: 19
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4853969182742641a1bed01513fae1d
+      internalID: -383297302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cyber prisoner jump cycle -Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 0
+        width: 32
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32d3834fde1a88b46bf0d9db1415276d
+      internalID: -917710779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cyber prisoner jump cycle -Sheet_10
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 0
+        width: 28
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86fd7befd5680a14b8a1e47971019b7f
+      internalID: -745355195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -132,7 +363,18 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      cyber prisoner jump cycle -Sheet_0: 255743228
+      cyber prisoner jump cycle -Sheet_1: -247666233
+      cyber prisoner jump cycle -Sheet_10: -745355195
+      cyber prisoner jump cycle -Sheet_2: 1362826006
+      cyber prisoner jump cycle -Sheet_3: -67934506
+      cyber prisoner jump cycle -Sheet_4: -955313431
+      cyber prisoner jump cycle -Sheet_5: 318209816
+      cyber prisoner jump cycle -Sheet_6: -1262684380
+      cyber prisoner jump cycle -Sheet_7: -2043740138
+      cyber prisoner jump cycle -Sheet_8: -383297302
+      cyber prisoner jump cycle -Sheet_9: -917710779
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
