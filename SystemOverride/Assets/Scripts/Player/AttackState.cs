@@ -46,7 +46,7 @@ namespace Scripts.Player
             bullet = BulletManager.instance.CreatedBullet(_owner.firePosition, Quaternion.identity);
 
             bullet.gameObject.SetActive(true);
-            bullet.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 0) * _owner.facingDir, ForceMode2D.Impulse);
+            bullet.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(15, 0) * _owner.facingDir, ForceMode2D.Impulse);
         }
 
     }

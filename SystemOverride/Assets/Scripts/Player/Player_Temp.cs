@@ -338,12 +338,10 @@ namespace Scripts.Player
 
         public void TakeDamage(int atk, IAttacker attacker)
         {
-            Vector3 centerPos = GetComponent<Collider2D>().bounds.center;
-
-            Vector3 dir = (attacker.GetAttackerPos() - centerPos).normalized;
+            Vector3 dir = (attacker.GetAttackerPos() - CharacterCenterPos.position).normalized;
             dir.y = 0;
 
-            Vector3 spawnPos = centerPos + dir;
+            Vector3 spawnPos = CharacterCenterPos.position + dir;
             VFXManager.instance.PlayEffect(eVFXId.onHitVFX, spawnPos, Quaternion.identity);
             SetVelocity(dir.x * -1, _rb.velocity.y);
 

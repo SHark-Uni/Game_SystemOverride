@@ -37,7 +37,10 @@ namespace Scripts.Player.Bullets
         private void OnTriggerEnter2D(Collider2D collision)
         {
             IDamageable Target = collision.gameObject.GetComponent<IDamageable>();
-            Attack(Target);
+            if (Target != null)
+            {
+                Attack(Target);
+            }
             BulletManager._instance.DestroyBullet(this);
         }
 
