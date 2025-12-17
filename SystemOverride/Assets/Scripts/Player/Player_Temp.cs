@@ -9,11 +9,9 @@ using Scripts.Common;
 
 namespace Scripts.Player
 {
-    public class Player_Temp : MonoBehaviour
+    public class Player_Temp : MonoBehaviour, IDamageable
     {
         private StateMachine<Player_Temp> _machine;
-        private ObjectPool<Bullet> _BulletPool;
-        [SerializeField] private Bullet _bulletPrefab;
 
         [SerializeField] private Transform _firePoint;
         [SerializeField] private bool _onGround;
@@ -51,7 +49,8 @@ namespace Scripts.Player
         [SerializeField] private Vector2 _sitDownUpColiderBoxSize;
         [SerializeField] private Vector2 _sitDownUpColiderOffset;
 
-
+        [Header("Hitted Delay")]
+        [SerializeField] private float _hitDelay;
 
         Rigidbody2D _rb;
         Animator _am;
@@ -71,7 +70,16 @@ namespace Scripts.Player
         private DashState _dashState;
         private BackDashState _backdashState;
         private SitState _sitState;
+        private HittedState _hittedState;
 
+        public float hitDelay
+        {
+            get { return _hitDelay; }
+        }
+        public Vector3 firePosition
+        {
+            get { return _firePoint.position; }
+        }
         public Vector2 sitDownColiderBoxSize
         {
             get { return _sitDownColiderBoxSize; }
@@ -274,6 +282,8 @@ namespace Scripts.Player
             _dashForce = 7f;
             _dashDuration = 0.2f;
             _dashCooldown = 0f;
+            _hitDelay = 0.25f;
+
 
             BoxSize = new Vector2(0.35f, 0.05f);
 
@@ -288,9 +298,6 @@ namespace Scripts.Player
         {
             _am = GetComponentInChildren<Animator>();
 
-            _BulletPool = ObjectPool<Bullet>.pool;
-            _BulletPool.Init(64, _bulletPrefab);
-
             _idleState = new IdleState(this, _machine, "Idle", _rb, _am);
             _walkState = new WalkState(this, _machine, "Walk", _rb, _am);
             _attackState = new AttackState(this, _machine, "Attack", _rb, _am);
@@ -301,6 +308,7 @@ namespace Scripts.Player
             _sitState = new SitState(this, _machine, "SitDown", _rb, _am);
             _dashState = new DashState(this, _machine, "Dash", _rb, _am);
             _backdashState = new BackDashState(this, _machine, "BackDash", _rb, _am);
+            _hittedState = new HittedState(this, _machine, "Hitted", _rb, _am);
 
             _machine.BeginMachine(idleState);
         }
@@ -313,11 +321,7 @@ namespace Scripts.Player
             _Input.Player.Move.canceled += ctx => _playerInput = Vector2.zero;
         }
 
-        public void Shoot(out Bullet bullet)
-        {
-            //bullet = Instantiate(_bulletPrefab, _firePoint.position, Quaternion.identity);
-            bullet = _BulletPool.alloc(_firePoint.position, Quaternion.identity);
-        }
+
 
         void Update()
         {
@@ -329,6 +333,20 @@ namespace Scripts.Player
         {
             Debug.DrawRay(CharacterCenterPos.position, Vector2.down * _groundDistance, Color.black);
             Gizmos.DrawWireCube(CharacterCenterPos.position + Vector3.down * _groundDistance, BoxSize);
+
+        }
+
+        public void TakeDamage(int atk, IAttacker attacker)
+        {
+            Vector3 dir = (attacker.GetAttackerPos() - CharacterCenterPos.position).normalized;
+            dir.y = 0;
+
+            Vector3 spawnPos = CharacterCenterPos.position + dir;
+            VFXManager.instance.PlayEffect(eVFXId.onHitVFX, spawnPos, Quaternion.identity);
+            SetVelocity(dir.x * -1, _rb.velocity.y);
+
+            //피격상태로 전환
+            _machine.ChangeState(_hittedState);
         }
     }
 

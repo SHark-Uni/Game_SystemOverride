@@ -18,6 +18,7 @@ namespace Scripts.Common
     {
         int attackPower { get; }
         void Attack(IDamageable target);
+        Vector3 GetAttackerPos();
     }
 
     public interface IPoolable

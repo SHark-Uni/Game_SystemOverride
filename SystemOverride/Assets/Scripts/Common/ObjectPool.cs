@@ -4,17 +4,16 @@ using UnityEngine;
 
 namespace Scripts.Common
 {
+
+
+
     public class ObjectPool<T> where T : MonoBehaviour, IPoolable
     {
-        public static ObjectPool<T> _pool;
-        public static ObjectPool<T> pool
+        private ObjectPool<T> _pool;
+        public ObjectPool<T> pool
         {
             get 
             {
-                if (_pool == null)
-                {
-                    _pool = new ObjectPool<T>();
-                }
                 return _pool;
             }
         }
@@ -43,7 +42,6 @@ namespace Scripts.Common
             if (!IsEmpty)
             {
                 ret = GameObject.Instantiate(_prefab, position, rotate);
-                ret.gameObject.SetActive(true);
                 ret.OnAlloc();
                 ++_capacity;
                 return ret;
@@ -51,7 +49,6 @@ namespace Scripts.Common
 
             ret.gameObject.transform.position = position;
             ret.gameObject.transform.rotation = rotate;
-            ret.gameObject.SetActive(true);
             //»ý¼ºÀÚ ´À³¦
             ret.OnAlloc();
             return ret;

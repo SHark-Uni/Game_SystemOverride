@@ -18,4 +18,10 @@ namespace Scripts.Common
 		Monster = 7,
 		Ground = 8,
 	}
+
+	public enum eVFXId
+	{ 
+		onHitVFX = 0,
+	}
+
 }
