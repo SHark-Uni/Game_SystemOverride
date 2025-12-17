@@ -1,9 +1,9 @@
+using Scripts.Common;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
-using Scripts.Common;
-
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 namespace Scripts.Player.Bullets
 {
@@ -16,11 +16,6 @@ namespace Scripts.Player.Bullets
         public int attackPower
         {
             get { return 20; }
-        }
-
-        public void Attack(IDamageable target)
-        {
-            target.TakeDamage(attackPower, this);
         }
 
         public void OnAlloc()
@@ -42,15 +37,14 @@ namespace Scripts.Player.Bullets
         private void OnTriggerEnter2D(Collider2D collision)
         {
             IDamageable Target = collision.gameObject.GetComponent<IDamageable>();
-
             Attack(Target);
-
-            ObjectPool<Bullet>.pool.release(this);
+            BulletManager._instance.DestroyBullet(this);
         }
 
         void Awake()
         {
             _rb = gameObject.GetComponent<Rigidbody2D>();
+            
         }
        
         // Start is called before the first frame update
@@ -65,8 +59,18 @@ namespace Scripts.Player.Bullets
             _lifeTime -= Time.deltaTime;
             if (_lifeTime <= 0)
             {
-                ObjectPool<Bullet>.pool.release(this);
+                BulletManager._instance.DestroyBullet(this);
             }
+        }
+
+        public Vector3 GetAttackerPos()
+        {
+            return transform.position;
+        }
+
+        public void Attack(IDamageable target)
+        {
+            target.TakeDamage(attackPower, this);
         }
     }
 }
