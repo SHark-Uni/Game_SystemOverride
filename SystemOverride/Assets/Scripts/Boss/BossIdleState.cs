@@ -23,12 +23,6 @@ namespace Scripts.Boss
         public override void EntityUpdate()
         {
             base.EntityUpdate();
-
-            //키입력을 한다면, Walk 상태로 전파
-            /* if (_bossOwner.playerInput.x != 0)
-            {
-                _bossStateMachine.ChangeState(_bossOwner.bossWalkState);
-            } */
         }
 
         public override void Exit()

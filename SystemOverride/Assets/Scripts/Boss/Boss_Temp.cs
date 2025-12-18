@@ -202,8 +202,6 @@ namespace Scipts.Boss
             _bossMachine.BeginMachine(bossIdleState);
         }
 
-        //추후 OnEnable 구현
-
         void Update()
         {
             CheckOnGround();
