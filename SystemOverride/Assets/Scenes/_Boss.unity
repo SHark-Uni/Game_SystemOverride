@@ -968,6 +968,7 @@ MonoBehaviour:
   _bossdashForce: 0
   _bossdashDuration: 0
   _bossdashCooldown: 0
+  _bossattackCooldown: 0
   _bosspreDelay: 0
   _bossattackForce: {x: 0, y: 0}
   _bossattackSpeed: 0
