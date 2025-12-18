@@ -14,9 +14,6 @@ namespace Scripts.Player
 
         }
 
-        //Èò»ö Material
-        //¾à°£ÀÇ ³Ë¹é
-
         public override void Enter()
         {
             base.Enter();

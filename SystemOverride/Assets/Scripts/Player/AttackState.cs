@@ -20,6 +20,7 @@ namespace Scripts.Player
         {
             base.Enter();
             _preDelay = _owner.preDelay;
+            SoundManager._instance.PlaySFX("Shoot", _owner.playerPosition);
             SpawnBullet();
         }
 
@@ -49,6 +50,7 @@ namespace Scripts.Player
             bullet.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(15, 0) * _owner.facingDir, ForceMode2D.Impulse);
         }
 
+        
     }
 }
 

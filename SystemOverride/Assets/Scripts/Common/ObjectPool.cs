@@ -4,9 +4,6 @@ using UnityEngine;
 
 namespace Scripts.Common
 {
-
-
-
     public class ObjectPool<T> where T : MonoBehaviour, IPoolable
     {
         private ObjectPool<T> _pool;
