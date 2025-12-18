@@ -31,10 +31,7 @@ namespace Scripts.Player
             //TEST
             if (_inputAction.HookKeyboard.WasPerformedThisFrame())
             {
-                if (_owner.TryHook())
-                {
-                    _stateMachine.ChangeState(_owner.grappleState);
-                }
+                _stateMachine.ChangeState(_owner.grappleState);
             }
         }
 
@@ -42,7 +39,6 @@ namespace Scripts.Player
         {
             base.Exit();
         }
-
 
     }
 

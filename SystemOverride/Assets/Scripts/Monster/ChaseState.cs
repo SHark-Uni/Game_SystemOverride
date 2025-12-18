@@ -9,7 +9,8 @@ namespace Scripts.Monster
 {
     public class ChaseState : MonsterSuperState
     {
-        public ChaseState(Monster monster, StateMachine<Monster> stateMachine) : base(monster, stateMachine, "IsChase")
+        public ChaseState(Monster monster, StateMachine<Monster> stateMachine) 
+            : base(monster, stateMachine, "IsChase")
         {
         }
 
