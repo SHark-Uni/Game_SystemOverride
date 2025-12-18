@@ -15,6 +15,9 @@ namespace Scripts.Boss
         // 백대시 쿨타임 변수 생성
         const float _bossbackdashCoolTime = 15f;
         float _backdashCoolStamp;
+        // 일반 공격 쿨타임 변수 생성
+        const float _bossattackCoolTime = 3f;
+        float _bossattackCoolStamp;
 
         public BossOnGroundState(Boss_Temp owner, BossStateMachine<Boss_Temp> stateMachine, string name, Rigidbody2D rb, Animator am)
             : base(owner, stateMachine, name, rb, am)
@@ -23,6 +26,8 @@ namespace Scripts.Boss
             _dashCoolStamp = _bossdashCoolTime;
             // 백대시 쿨타임 초기화
             _backdashCoolStamp = _bossbackdashCoolTime;
+            // 일반 공격 쿨타임 초기화
+            _bossattackCoolStamp = _bossattackCoolTime;
         }
         public override void Enter()
         {
@@ -63,8 +68,15 @@ namespace Scripts.Boss
             // 플레이어가 일정 거리 이내로 접근 시 보스 공격 상태로 전환
             if (hit.distance <= 2f)
             {
-                Debug.Log("보스 공격 상태로 전환");
-                _bossStateMachine.ChangeState(_bossOwner.bossAttackState);
+                // 대시 공격 쿨타임 감소
+                if (_bossattackCoolStamp > 0) _bossattackCoolStamp -= Time.deltaTime;
+                else if(_bossattackCoolStamp < 0) // 일반 공격 쿨타임 도달 시 보스 공격 상태로 전환
+                {
+                    Debug.Log("보스 공격 상태로 전환");
+                    _bossStateMachine.ChangeState(_bossOwner.bossAttackState);
+                    _bossattackCoolStamp = _bossattackCoolTime;
+                }
+                
             }
         }
 

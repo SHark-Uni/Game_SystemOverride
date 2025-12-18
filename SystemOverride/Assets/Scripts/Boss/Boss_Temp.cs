@@ -31,6 +31,7 @@ namespace Scipts.Boss
         public float _bossdashDuration;
         public float _bossdashCooldown;
         private int _bossfacingDir;
+        public float _bossattackCooldown;
 
         [Header("Attack Details")]
         [SerializeField] private float _bosspreDelay;
@@ -51,7 +52,6 @@ namespace Scipts.Boss
 
         Rigidbody2D _bossrb;
         Animator _bossam;
-        SpriteRenderer _bosssr;
 
         // 상태값 설정 변수
         private BossIdleState _bossidleState;
@@ -104,28 +104,6 @@ namespace Scipts.Boss
         public void SetVelocity(in Vector2 force)
         {
             _bossrb.velocity = force;
-            HandleFlip();
-        }
-
-        private void Flip()
-        {
-            transform.Rotate(0, 180, 0);
-            _bossfacingDir *= -1;
-        }
-        private void HandleFlip()
-        { // 추후에 입력
-            /*
-            if (_playerInput.x == 1 && _bossfacingDir == -1)
-            {
-                Flip();
-                return;
-            }
-            if (_playerInput.x == -1 && _bossfacingDir == 1)
-            {
-                Flip();
-                return;
-            }
-            */
         }
 
         private void CheckOnGround()
@@ -160,7 +138,6 @@ namespace Scipts.Boss
             _bossfacingDir = 1;
             BossboxCol = GetComponent<BoxCollider2D>();
             _bossairMoveMulplier = .8f;
-            _bosssr = GetComponent<SpriteRenderer>();
 
             _bossmoveSpeed = new Vector2(4.0f, 0);
 
@@ -173,6 +150,7 @@ namespace Scipts.Boss
             _bossdashForce = 5f;
             _bossdashDuration = 0.2f;
             _bossdashCooldown = 10f;
+            _bossattackCooldown = 3f;
 
             BossBoxSize = new Vector2(0.35f, 0.3f);
 
