@@ -53,16 +53,11 @@ public class SoundManager : MonoBehaviour
 
         if (!_clipCache.TryGetValue(key, out clip))
         {
-            Debug.Log("Wrong Key");
             return;
         }
 
         Entity_SFX ret = _audioPool.alloc(pos, Quaternion.identity);
         StartCoroutine(DelayAndPlaySFX(ret,clip, delay));
-        
-
-        ret.gameObject.SetActive(false);
-        _audioPool.release(ret);
     }
 
     public void PlaySFX(string key, Vector3 pos)
@@ -70,7 +65,6 @@ public class SoundManager : MonoBehaviour
         AudioClip clip;
         if (!_clipCache.TryGetValue(key, out clip))
         {
-            Debug.Log("Wrong Key");
             return;
         }
         Entity_SFX ret = _audioPool.alloc(pos, Quaternion.identity);
@@ -79,7 +73,6 @@ public class SoundManager : MonoBehaviour
         ret.PlayClip(clip, volume);
 
         StartCoroutine(DelaySFX(ret, clip.length));
-        Debug.Log("실행완료!");
     }
 
     private IEnumerator DelaySFX(Entity_SFX sfx, float delay)
