@@ -10,7 +10,7 @@ namespace Scripts.Monster
         private float _timer;
         private bool _isDashing;
 
-        public AttackState(Monster monster, MonsterStateMachine stateMachine) 
+        public AttackState(Monster monster, StateMachine<Monster> stateMachine) 
             : base(monster, stateMachine, "IsAttack")
         {
         }

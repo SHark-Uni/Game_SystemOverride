@@ -52,6 +52,16 @@ namespace Scripts.Player
         [Header("Hitted Delay")]
         [SerializeField] private float _hitDelay;
 
+        [Header("Grappling Detail")]
+        [SerializeField] private float grappleLength;
+        [SerializeField] private int grappleLayer;
+        [SerializeField] private Vector2 ClickedPoint;
+        [SerializeField] private LineRenderer rope;
+
+        private Vector3 grapplePoint;
+        private DistanceJoint2D joint;
+
+
         Rigidbody2D _rb;
         Animator _am;
         PlayerInput _Input;
@@ -71,7 +81,7 @@ namespace Scripts.Player
         private BackDashState _backdashState;
         private SitState _sitState;
         private HittedState _hittedState;
-
+        private GrappleState _grappleState;
         public float hitDelay
         {
             get { return _hitDelay; }
@@ -186,6 +196,11 @@ namespace Scripts.Player
             get { return _sitState; }
         }
 
+        public GrappleState grappleState
+        {
+            get { return _grappleState; }
+        }
+
         public void SetAnimTrigger()
         {
             _machine.currentState.SetTrigger();
@@ -246,6 +261,7 @@ namespace Scripts.Player
         public void AvailableDoubleJump()
         {
             _doubleJump = true;
+
         }
 
         public void SitDown()
@@ -284,6 +300,9 @@ namespace Scripts.Player
             _dashCooldown = 0f;
             _hitDelay = 0.25f;
 
+            grappleLayer = (int)eLayerMask.Ground;
+            grappleLength = 2.0f;
+
 
             BoxSize = new Vector2(0.35f, 0.05f);
 
@@ -297,6 +316,12 @@ namespace Scripts.Player
         void Start()
         {
             _am = GetComponentInChildren<Animator>();
+            joint = gameObject.GetComponent<DistanceJoint2D>();
+            rope = gameObject.GetComponentInChildren<LineRenderer>();
+
+
+            joint.enabled = false;
+            rope.enabled = false;
 
             _idleState = new IdleState(this, _machine, "Idle", _rb, _am);
             _walkState = new WalkState(this, _machine, "Walk", _rb, _am);
@@ -309,6 +334,7 @@ namespace Scripts.Player
             _dashState = new DashState(this, _machine, "Dash", _rb, _am);
             _backdashState = new BackDashState(this, _machine, "BackDash", _rb, _am);
             _hittedState = new HittedState(this, _machine, "Hitted", _rb, _am);
+            _grappleState = new GrappleState(this, _machine, "Grapped", _rb, _am);
 
             _machine.BeginMachine(idleState);
         }
@@ -319,6 +345,11 @@ namespace Scripts.Player
 
             _Input.Player.Move.performed += ctx => _playerInput = ctx.ReadValue<Vector2>();
             _Input.Player.Move.canceled += ctx => _playerInput = Vector2.zero;
+
+            _Input.Player.Look.performed += ctx => ClickedPoint = ctx.ReadValue<Vector2>();
+
+
+            //_Input.Player.Hook.canceled += ctx => ClickedPoint = Vector2.zero;
         }
 
 
@@ -334,6 +365,37 @@ namespace Scripts.Player
             Debug.DrawRay(CharacterCenterPos.position, Vector2.down * _groundDistance, Color.black);
             Gizmos.DrawWireCube(CharacterCenterPos.position + Vector3.down * _groundDistance, BoxSize);
 
+        }
+
+        public bool TryHook()
+        {
+            Vector3 worldpos;
+            Vector3 renderPos = new Vector3(ClickedPoint.x, ClickedPoint.y, -Camera.main.transform.position.z);
+
+            worldpos = Camera.main.ScreenToWorldPoint(renderPos);
+
+            RaycastHit2D hit = Physics2D.Raycast(
+               origin: worldpos,
+               direction: Vector2.zero,
+               distance: Mathf.Infinity,
+               layerMask: grappleLayer);
+
+            if (hit.collider != null)
+            {
+                grapplePoint = hit.point;
+                grapplePoint.z = 0;
+
+                joint.connectedAnchor = grapplePoint;
+                joint.enabled = true;
+                joint.distance = grappleLength;
+
+                rope.SetPosition(0, grapplePoint);
+                rope.SetPosition(1, transform.position);
+
+                rope.enabled = true;
+                return true;
+            }
+            return false;
         }
 
         public void TakeDamage(int atk, IAttacker attacker)

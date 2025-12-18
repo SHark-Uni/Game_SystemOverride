@@ -154,6 +154,33 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""47502482-24b2-49cd-ad8e-3f9195dcb4cc"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Hook"",
+                    ""type"": ""Button"",
+                    ""id"": ""2a8c1ec3-8971-4666-a41d-5d2511096943"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HookKeyboard"",
+                    ""type"": ""Button"",
+                    ""id"": ""c6a83a3d-5bb9-459f-a482-e59d73afbe67"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -310,6 +337,39 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""BackDash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""182f45a9-3143-45b0-9eae-eb3fca5cf8a0"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""27f509e2-c5aa-4024-8450-c39a53116446"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Hook"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a05dd497-e6f6-4e2a-b903-f89a3ed59b47"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyBoard"",
+                    ""action"": ""HookKeyboard"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -342,6 +402,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player_SKill = m_Player.FindAction("SKill", throwIfNotFound: true);
         m_Player_SitDown = m_Player.FindAction("SitDown", throwIfNotFound: true);
         m_Player_BackDash = m_Player.FindAction("BackDash", throwIfNotFound: true);
+        m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
+        m_Player_Hook = m_Player.FindAction("Hook", throwIfNotFound: true);
+        m_Player_HookKeyboard = m_Player.FindAction("HookKeyboard", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -429,6 +492,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SKill;
     private readonly InputAction m_Player_SitDown;
     private readonly InputAction m_Player_BackDash;
+    private readonly InputAction m_Player_Look;
+    private readonly InputAction m_Player_Hook;
+    private readonly InputAction m_Player_HookKeyboard;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -468,6 +534,18 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/BackDash".
         /// </summary>
         public InputAction @BackDash => m_Wrapper.m_Player_BackDash;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Look".
+        /// </summary>
+        public InputAction @Look => m_Wrapper.m_Player_Look;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Hook".
+        /// </summary>
+        public InputAction @Hook => m_Wrapper.m_Player_Hook;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/HookKeyboard".
+        /// </summary>
+        public InputAction @HookKeyboard => m_Wrapper.m_Player_HookKeyboard;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -515,6 +593,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @BackDash.started += instance.OnBackDash;
             @BackDash.performed += instance.OnBackDash;
             @BackDash.canceled += instance.OnBackDash;
+            @Look.started += instance.OnLook;
+            @Look.performed += instance.OnLook;
+            @Look.canceled += instance.OnLook;
+            @Hook.started += instance.OnHook;
+            @Hook.performed += instance.OnHook;
+            @Hook.canceled += instance.OnHook;
+            @HookKeyboard.started += instance.OnHookKeyboard;
+            @HookKeyboard.performed += instance.OnHookKeyboard;
+            @HookKeyboard.canceled += instance.OnHookKeyboard;
         }
 
         /// <summary>
@@ -547,6 +634,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @BackDash.started -= instance.OnBackDash;
             @BackDash.performed -= instance.OnBackDash;
             @BackDash.canceled -= instance.OnBackDash;
+            @Look.started -= instance.OnLook;
+            @Look.performed -= instance.OnLook;
+            @Look.canceled -= instance.OnLook;
+            @Hook.started -= instance.OnHook;
+            @Hook.performed -= instance.OnHook;
+            @Hook.canceled -= instance.OnHook;
+            @HookKeyboard.started -= instance.OnHookKeyboard;
+            @HookKeyboard.performed -= instance.OnHookKeyboard;
+            @HookKeyboard.canceled -= instance.OnHookKeyboard;
         }
 
         /// <summary>
@@ -649,5 +745,26 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnBackDash(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Look" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLook(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Hook" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnHook(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "HookKeyboard" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnHookKeyboard(InputAction.CallbackContext context);
     }
 }

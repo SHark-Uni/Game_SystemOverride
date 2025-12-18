@@ -27,6 +27,15 @@ namespace Scripts.Player
         {
             base.EntityUpdate();
             _am.SetFloat("yVelocity", _rb.velocity.y);
+
+            //TEST
+            if (_inputAction.HookKeyboard.WasPerformedThisFrame())
+            {
+                if (_owner.TryHook())
+                {
+                    _stateMachine.ChangeState(_owner.grappleState);
+                }
+            }
         }
 
         public override void Exit()
