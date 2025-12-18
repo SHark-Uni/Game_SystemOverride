@@ -17,6 +17,7 @@ namespace Scipts.Boss
         [SerializeField] private bool _bossonGround;
         public PhysicsMaterial2D _bosssloopyMaterial;
         public PhysicsMaterial2D _bossfrictionMaterial;
+        public Transform _playerPos;
 
         public Transform BossCenterPos;
         public Vector2 BossBoxSize;
@@ -50,6 +51,7 @@ namespace Scipts.Boss
 
         Rigidbody2D _bossrb;
         Animator _bossam;
+        SpriteRenderer _bosssr;
 
         // 상태값 설정 변수
         private BossIdleState _bossidleState;
@@ -97,7 +99,6 @@ namespace Scipts.Boss
         public void BossSetVelocity(float x, float y)
         {
             _bossrb.velocity = new Vector2(x, y);
-            HandleFlip();
         }
 
         public void SetVelocity(in Vector2 force)
@@ -159,6 +160,7 @@ namespace Scipts.Boss
             _bossfacingDir = 1;
             BossboxCol = GetComponent<BoxCollider2D>();
             _bossairMoveMulplier = .8f;
+            _bosssr = GetComponent<SpriteRenderer>();
 
             _bossmoveSpeed = new Vector2(4.0f, 0);
 

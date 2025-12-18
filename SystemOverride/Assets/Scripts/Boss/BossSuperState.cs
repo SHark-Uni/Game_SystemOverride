@@ -26,7 +26,7 @@ namespace Scripts.Boss
         public override void EntityUpdate()
         {
             base.EntityUpdate();
-            _bossAm.SetFloat("yVelocity", _bossRb.velocity.y);
+            //_bossAm.SetFloat("yVelocity", _bossRb.velocity.y);
         }
 
         public override void Exit()

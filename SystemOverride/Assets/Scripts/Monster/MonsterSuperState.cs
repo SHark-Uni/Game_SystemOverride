@@ -15,12 +15,12 @@ namespace Scripts.Monster
         {
         }
 
-        protected MonsterSuperState(Monster monster, MonsterStateMachine stateMachine, string v)
+        /*protected MonsterSuperState(Monster monster, MonsterStateMachine stateMachine, string v)
         {
             _monster = monster;
             this.stateMachine = stateMachine;
             this.v = v;
-        }
+        }*/
     }
 
 }

@@ -16,6 +16,7 @@ namespace Scripts.Boss
         public override void Enter()
         {
             base.Enter();
+            Debug.Log("보스 공격 상태 진입");
         }
 
         public override void EntityUpdate()
