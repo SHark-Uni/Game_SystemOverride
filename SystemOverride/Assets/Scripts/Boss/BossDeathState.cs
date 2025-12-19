@@ -18,7 +18,7 @@ namespace Scripts.Boss
         void Death()
         {
             if(_bossOwner._bossHP <= 0)
-                            {
+            {
                 Debug.Log("보스 사망");
                 // 사망 후 오브젝트 삭제
                 Object.Destroy(_bossOwner.gameObject, 2f);

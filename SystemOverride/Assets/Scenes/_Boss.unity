@@ -136,7 +136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3626916397498700004, guid: 0519ca38a2f147a4bbe3d6f913f5ee35, type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 0519ca38a2f147a4bbe3d6f913f5ee35, type: 3}
       propertyPath: m_LocalScale.x
@@ -1245,9 +1245,9 @@ GameObject:
   - component: {fileID: 327287762}
   - component: {fileID: 327287761}
   - component: {fileID: 327287760}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Tilemap (2)
-  m_TagString: Ground
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3598,9 +3598,9 @@ GameObject:
   - component: {fileID: 1742733037}
   - component: {fileID: 1742733036}
   - component: {fileID: 1742733035}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Tilemap (1)
-  m_TagString: Ground
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4767,7 +4767,7 @@ Transform:
   m_GameObject: {fileID: 2005366761}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.01, y: 0.6779985, z: 0}
+  m_LocalPosition: {x: -0.01, y: -0.68, z: 0}
   m_LocalScale: {x: 1.0141, y: 1.0141, z: 1.0141}
   m_ConstrainProportionsScale: 0
   m_Children: []
