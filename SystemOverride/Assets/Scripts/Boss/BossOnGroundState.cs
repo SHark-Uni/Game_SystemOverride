@@ -28,6 +28,8 @@ namespace Scripts.Boss
             _backdashCoolStamp = _bossbackdashCoolTime;
             // 일반 공격 쿨타임 초기화
             _bossattackCoolStamp = _bossattackCoolTime;
+
+            name = "Idle";
         }
         public override void Enter()
         {
@@ -40,12 +42,11 @@ namespace Scripts.Boss
 
             // RayCast 시작 위치와 방향 설정
             Vector2 origin = (Vector2)_bossOwner.transform.position + Vector2.up * 1f;
-            int layerMask = LayerMask.GetMask("Player");
             Vector3 scale = _bossOwner.transform.localScale;
+            int layerMask = LayerMask.GetMask("Player");
 
             // RayCast 생성
             RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.right * _bossOwner.transform.localScale.x, 10f, layerMask);
-            Debug.Log(hit.collider); 
             Debug.DrawRay(origin, Vector2.right * _bossOwner.transform.localScale.x * 10f, Color.yellow);
 
             // 보스가 항상 플레이어를 바라보게 설정
@@ -62,7 +63,6 @@ namespace Scripts.Boss
             // RayCast가 플레이어에 맞으면 보스 이동 상태로 전환
             if (hit.collider != null && hit.collider.CompareTag("Player") && hit.distance > 2f)
             {
-                Debug.Log("플레이어 인지");
                 _bossStateMachine.ChangeState(_bossOwner.bossWalkState);
             }
             // 플레이어가 일정 거리 이내로 접근 시 보스 공격 상태로 전환
@@ -72,9 +72,10 @@ namespace Scripts.Boss
                 if (_bossattackCoolStamp > 0) _bossattackCoolStamp -= Time.deltaTime;
                 else if(_bossattackCoolStamp < 0) // 일반 공격 쿨타임 도달 시 보스 공격 상태로 전환
                 {
-                    Debug.Log("보스 공격 상태로 전환");
+                    Debug.Log(_bossattackCoolStamp + "보스 공격 상태로 전환");
                     _bossStateMachine.ChangeState(_bossOwner.bossAttackState);
                     _bossattackCoolStamp = _bossattackCoolTime;
+                    return;
                 }
                 
             }
@@ -85,10 +86,12 @@ namespace Scripts.Boss
             base.Exit();
         }
 
+        /*
         private bool BossCanAttack()
         {
             return (_bossStateMachine.bosscurrentState == _bossOwner.bossAttackState);
         }
+        */
     }
 }
 

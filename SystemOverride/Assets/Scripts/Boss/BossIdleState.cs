@@ -12,6 +12,7 @@ namespace Scripts.Boss
         public BossIdleState(Boss_Temp owner, BossStateMachine<Boss_Temp> stateMachine, string name, Rigidbody2D rb, Animator am)
             : base(owner, stateMachine, name, rb, am)
         {
+            name = "Idle";
         }
 
         public override void Enter()
@@ -22,10 +23,7 @@ namespace Scripts.Boss
 
         public override void EntityUpdate()
         {
-            base.EntityUpdate();
-
-            // 애니메이션 추가
-                
+            base.EntityUpdate();                
         }
 
         public override void Exit()

@@ -31,7 +31,7 @@ namespace Scripts.BossStateMachine
         public virtual void Enter()
         {
             _bossTrigger = false;
-            //_bossAm.SetBool(_bossName, true);
+            _bossAm.SetBool(_bossName, true);
         }
 
         public virtual void EntityUpdate()

@@ -23,6 +23,10 @@ namespace Scipts.Boss
         public Vector2 BossBoxSize;
         public BoxCollider2D BossboxCol;
 
+        public int _bossHP = 100;
+        public int _bossAtk = 5;
+        public int _bossDef = 5;
+
         [Header("Move Details")]
         [SerializeField] private Vector2 _bossInput;
         [SerializeField] private Vector2 _bossmoveSpeed;

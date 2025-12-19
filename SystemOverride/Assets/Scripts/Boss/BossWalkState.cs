@@ -12,6 +12,7 @@ namespace Scripts.Boss
         public BossWalkState(Boss_Temp owner, BossStateMachine<Boss_Temp> stateMachine, string name, Rigidbody2D rb, Animator am)
                 : base(owner, stateMachine, name, rb, am)
         {
+            name = "Move";
         }
 
         public override void Enter()
@@ -35,7 +36,10 @@ namespace Scripts.Boss
                 Vector3 Pos3D = direction;
                 _bossOwner.transform.Translate(Pos3D * 1f * Time.deltaTime);
             }
-            else return;
+            else if(dist <= 2f)
+            {
+                _bossStateMachine.ChangeState(_bossOwner.bossIdleState);
+            }
         }
 
         public override void Exit()
