@@ -21,7 +21,9 @@ namespace Scripts.Boss
         {
             _bossidleTime -= Time.deltaTime;
 
-            if(_bossidleTime <= 0)
+            _bossAm.SetBool("Idle", true);
+
+            if (_bossidleTime <= 0)
             {
                 _bossStateMachine.ChangeState(_bossOwner.bossWalkState);
                 _bossidleTime = 2;
@@ -43,6 +45,7 @@ namespace Scripts.Boss
 
         public override void Exit()
         {
+            _bossAm.SetBool("Idle", false);
             base.Exit();
         }
     }
