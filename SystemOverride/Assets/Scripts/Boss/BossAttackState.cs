@@ -16,8 +16,6 @@ namespace Scripts.Boss
 
         float BossAttackPlayer(float bossAtk)
         {
-            
-
             Debug.Log("BossAttackPlayer 함수 실행");
 
             // 보스와 플레이어의 콜라이더가 겹침
