@@ -10,9 +10,10 @@ namespace Scripts.Player.Bullets
     public class Bullet : MonoBehaviour, IPoolable, IAttacker
     {
         const float BULLET_ALIVE_TIME = 2.0f;
+        public Material _defaultMaterial;
         float _lifeTime;
         Rigidbody2D _rb;
-
+        SpriteRenderer _sr;
         public int attackPower
         {
             get { return 20; }
@@ -26,12 +27,7 @@ namespace Scripts.Player.Bullets
         public void OnRelease()
         {
             _rb.velocity = Vector2.zero;
-        }
-
-
-        private void OnDestroy()
-        {
-            
+            _sr.material = _defaultMaterial;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -47,13 +43,7 @@ namespace Scripts.Player.Bullets
         void Awake()
         {
             _rb = gameObject.GetComponent<Rigidbody2D>();
-            
-        }
-       
-        // Start is called before the first frame update
-        void Start()
-        {
-
+            _sr = gameObject.GetComponent<SpriteRenderer>();
         }
 
         // Update is called once per frame

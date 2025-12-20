@@ -43,7 +43,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SKill",
+                    "name": "SKill_HackingBullet",
                     "type": "Button",
                     "id": "059bbe2f-7a4a-4f30-addb-d7871d4f1ab6",
                     "expectedControlType": "",
@@ -91,6 +91,33 @@
                     "name": "HookKeyboard",
                     "type": "Button",
                     "id": "c6a83a3d-5bb9-459f-a482-e59d73afbe67",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Skill_Invisible",
+                    "type": "Button",
+                    "id": "8dd3bc21-9925-422c-86d9-d477698072a6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Skill_Immotal",
+                    "type": "Button",
+                    "id": "5e7cb4ac-b020-40d2-9a64-1bb9afa76cf4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Skill_Blaster",
+                    "type": "Button",
+                    "id": "e23b0619-5d35-4a32-855e-ed35928f8724",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -189,44 +216,11 @@
                 {
                     "name": "",
                     "id": "4319000b-1d3c-4d53-9ce9-f96bae516957",
-                    "path": "<Keyboard>/q",
+                    "path": "<Keyboard>/1",
                     "interactions": "",
                     "processors": "",
                     "groups": ";KeyBoard",
-                    "action": "SKill",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "10e6355b-c33e-4657-ac70-b2c6fd4042de",
-                    "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";KeyBoard",
-                    "action": "SKill",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e5e6fd8d-6aa1-4a68-bb65-4a87b624201d",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";KeyBoard",
-                    "action": "SKill",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2eb94726-1a49-4715-a6c5-ba811b45d9fd",
-                    "path": "<Keyboard>/r",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";KeyBoard",
-                    "action": "SKill",
+                    "action": "SKill_HackingBullet",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -282,6 +276,39 @@
                     "processors": "",
                     "groups": ";KeyBoard",
                     "action": "HookKeyboard",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5687d45e-a108-459a-8cc4-21733f1e76d7",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";KeyBoard",
+                    "action": "Skill_Invisible",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d1b64add-4c4b-4473-a929-3d5d8fccebda",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";KeyBoard",
+                    "action": "Skill_Immotal",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a6a1d8c5-e229-45f0-b5cb-75a7d5c7b160",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";KeyBoard",
+                    "action": "Skill_Blaster",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
