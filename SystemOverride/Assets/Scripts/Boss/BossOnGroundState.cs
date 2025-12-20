@@ -29,8 +29,6 @@ namespace Scripts.Boss
             _backdashCoolStamp = _bossbackdashCoolTime;
             // 일반 공격 쿨타임 초기화
             _bossattackCoolStamp = _bossattackCoolTime;
-
-            name = "Idle";
         }
         public override void Enter()
         {
@@ -76,24 +74,27 @@ namespace Scripts.Boss
 
             if (_vshit == null)
             {
-                Debug.Log("보스와 플레이어의 콜라이더가 안 겹침");
+                //Debug.Log("보스와 플레이어의 콜라이더가 안 겹침");
+
                 // 플레이어의 콜라이더와 겹치지 않았다면 보스 이동 상태로 전환
                 _bossStateMachine.ChangeState(_bossOwner.bossWalkState);
             }
             // 보스와 플레이어의 콜라이더가 겹치고, 거리가 2 이내라면
             else if (_vshit != null && hit.distance <= 2f) 
             {
-                Debug.Log("보스와 플레이어의 콜라이더가 겹침");
+                //Debug.Log("보스와 플레이어의 콜라이더가 겹침");
                 // 공격 쿨타임 감소
                 if (_bossattackCoolStamp > 0)
                 {
-                    Debug.Log("쿨타임 중 " + _bossattackCoolStamp);
+                    //Debug.Log("쿨타임 중 " + _bossattackCoolStamp);
                     _bossattackCoolStamp -= Time.deltaTime;
                 }
                 // 일반 공격 쿨타임 도달 시 보스 공격 상태로 전환
                 else if (_bossattackCoolStamp < 0)
                 {
-                    Debug.Log(_bossattackCoolStamp + "보스 공격 상태로 전환");
+                    //Debug.Log(_bossattackCoolStamp + "보스 공격 상태로 전환");
+
+                    //_bossAm.SetBool("Idle", false);
 
                     _bossStateMachine.ChangeState(_bossOwner.bossAttackState);
 

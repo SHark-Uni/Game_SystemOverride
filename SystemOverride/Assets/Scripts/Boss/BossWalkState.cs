@@ -30,7 +30,7 @@ namespace Scripts.Boss
 
             if (dist > 2) // 플레이어와 보스의 거리가 2 이상일 때만 이동
             {
-                Debug.Log("보스 이동 상태");
+                //Debug.Log("보스 이동 상태");
                 float dir = _playerpos.x - _bosspos.x;
 
                 Vector2 direction = (_playerpos - _bosspos).normalized;
@@ -42,7 +42,7 @@ namespace Scripts.Boss
             }
             else if (dist <= 2f)
             {
-                Debug.Log("보스 이동 상태, 2 이하");
+                //Debug.Log("보스 이동 상태, 2 이하");
                 _bossAm.SetBool("Move", false);
 
                 return;

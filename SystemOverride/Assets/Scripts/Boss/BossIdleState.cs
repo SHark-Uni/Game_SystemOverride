@@ -14,7 +14,6 @@ namespace Scripts.Boss
         public BossIdleState(Boss_Temp owner, BossStateMachine<Boss_Temp> stateMachine, string name, Rigidbody2D rb, Animator am)
             : base(owner, stateMachine, name, rb, am)
         {
-            name = "Idle";
         }
 
         void Idle()
@@ -27,6 +26,7 @@ namespace Scripts.Boss
             {
                 _bossStateMachine.ChangeState(_bossOwner.bossWalkState);
                 _bossidleTime = 2;
+                _bossAm.SetBool("Idle", false);
             } 
         }
 
@@ -45,7 +45,7 @@ namespace Scripts.Boss
 
         public override void Exit()
         {
-            _bossAm.SetBool("Idle", false);
+            
             base.Exit();
         }
     }

@@ -9,49 +9,54 @@ namespace Scripts.Boss
 {
     public class BossAttackState : BossOnGroundState
     {
-        AnimatorStateInfo _bossainInfo;
-        bool _bossAttackFinished = false;
-
         public BossAttackState(Boss_Temp owner, BossStateMachine<Boss_Temp> stateMachine, string name, Rigidbody2D rb, Animator am)
                 : base(owner, stateMachine, name, rb, am)
         {
-            _bossainInfo = _bossAm.GetCurrentAnimatorStateInfo(0);
+        }
+
+        float BossAttackPlayer(float bossAtk)
+        {
+            
+
+            Debug.Log("BossAttackPlayer 함수 실행");
+
+            // 보스와 플레이어의 콜라이더가 겹침
+            Collider2D _vshit = Physics2D.OverlapCircle(_bossOwner.transform.position, 2f, LayerMask.GetMask("Player"));
+
+            //base.EntityUpdate();
+            if (_vshit == null)
+            {
+                _bossAm.SetBool("Attack", true);
+                _bossStateMachine.ChangeState(_bossOwner.bossIdleState);
+                Debug.Log("보스 공격 상태에서 플레이어와 콜라이더가 안 겹침, 정지 상태로 전환");
+                _bossAm.SetBool("Attack", false);
+                return bossAtk = 0;
+            }
+            else if (_vshit != null)
+            {
+                _bossAm.SetBool("Attack", true);
+                _bossStateMachine.ChangeState(_bossOwner.bossIdleState);
+                Debug.Log("보스 공격 상태에서 플레이어와 콜라이더가 겹침, 5의 데미지");
+                _bossAm.SetBool("Attack", false);
+                return bossAtk;
+            }
+            return bossAtk;
         }
 
         public override void Enter()
         {
             base.Enter();
-            Debug.Log("BossAttackState Enter");
-            _bossAm.SetBool("Attack", true);
         }
 
         public override void EntityUpdate()
         {
             base.EntityUpdate();
 
-            // 애니메이션 이름 체크
-            if (_bossainInfo.IsName("Attack"))
-            {
-                // normalizedTime은 0.0 ~ 1.0 (1.0 이상이면 애니메이션이 끝난 것)
-                if (_bossainInfo.normalizedTime >= 1.0f)
-                {
-                    Debug.Log(_bossainInfo.normalizedTime);
-                    // 애니메이션이 끝나면 대기 상태로 전환
-                    _bossAm.SetBool("Attack", false);
-                    _bossStateMachine.ChangeState(_bossOwner.bossIdleState);
-                    _bossAttackFinished = true;
-                }
-                // normalizedTime이 1.0f 초과일 때는 리턴
-                else if (_bossainInfo.normalizedTime > 1.0f)
-                {
-                    return;
-                }
-            }
+            BossAttackPlayer(_bossOwner._bossAtk);
         }
 
         public override void Exit()
         {
-            _bossAm.SetBool("Attack", false);
             base.Exit();
         }
     }
