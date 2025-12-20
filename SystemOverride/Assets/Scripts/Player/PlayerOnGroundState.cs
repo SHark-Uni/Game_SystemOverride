@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Scripts.StateMachine;
+using Scripts.Common;
 
 namespace Scripts.Player
 {
@@ -38,7 +39,7 @@ namespace Scripts.Player
                 {
                     return;
                 }
-                _stateMachine.ChangeState(_owner.AttackState);
+                _stateMachine.ChangeState(_owner.attackState);
             }
 
 
@@ -96,7 +97,7 @@ namespace Scripts.Player
 
         private bool CantAttack()
         {
-            return (_stateMachine.currentState == _owner.AttackState);
+            return (_stateMachine.currentState == _owner.attackState);
         }
     }
 

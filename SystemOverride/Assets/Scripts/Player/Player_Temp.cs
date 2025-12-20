@@ -1,22 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
-using Scripts.Player;
 using UnityEngine;
-using Scripts.StateMachine;
-using Scripts.Monster;
-using Scripts.Player.Bullets;
+using UnityEngine.InputSystem;
+
+using Scripts.Skill;
 using Scripts.Common;
+using Scripts.Monster;
+using Scripts.Player;
+using Scripts.Player.Bullets;
+using Scripts.StateMachine;
 
 namespace Scripts.Player
 {
-    public class Player_Temp : MonoBehaviour, IDamageable
+    public class Player_Temp : MonoBehaviour, IDamageable, IAttacker
     {
         private StateMachine<Player_Temp> _machine;
-
+        
         [SerializeField] private Transform _firePoint;
         [SerializeField] private bool _onGround;
+
         public PhysicsMaterial2D _sloopyMaterial;
-        public PhysicsMaterial2D _frictionMaterial;
+
+        public Material _invisibleMaterial;
+        public Material _HackingBulletMaterial;
+        public Material _DefaultMaterial;
+
+        private SpriteRenderer _SpriteRender;
+        Rigidbody2D _rb;
+        Animator _am;
 
         public Transform CharacterCenterPos;
         public Vector2 BoxSize;
@@ -27,15 +38,18 @@ namespace Scripts.Player
         [SerializeField] private Vector2 _playerInput;
         [SerializeField] private Vector2 _moveSpeed;
         [SerializeField][Range(0, 1)] private float _airMoveMulplier;
+
         public float _dashForce;
         public float _dashDuration;
         public float _dashCooldown;
-        private int _facingDir;
+
+        public int facingDir { get; private set; }
 
         [Header("Attack Details")]
         [SerializeField] private float _preDelay;
         [SerializeField] private Vector2 _attackForce;
         [SerializeField] private float _attackSpeed;
+        public float attackDistance { get; private set; }
 
         [Header("Jump Details")]
         [SerializeField] private float _jumpForce;
@@ -52,51 +66,40 @@ namespace Scripts.Player
         [Header("Hitted Delay")]
         [SerializeField] private float _hitDelay;
 
-        [Header("Grappling Detail")]
-        [SerializeField] private float _grappleLength;
-        [SerializeField] private Vector2 _clickedPoint;
-        [SerializeField] private LineRenderer _rope;
+        [Header("Player Stats")]
+        [SerializeField] private PlayerStat _playerStat;
+        public ulong _skillAction;
 
-        private DistanceJoint2D _joint;
+        public PlayerSkillComponent skillHandler { get; private set; }
+        public BuffManager buffManager { get; private set; }
+
+        public Vector2 _clickedPoint { get; private set; }
+        public LineRenderer rope { get; private set; }
+        public float grappleLength { get; private set; }
+        public DistanceJoint2D joint { get; private set; }
 
 
-        Rigidbody2D _rb;
-        Animator _am;
         PlayerInput _Input;
-        // 대시, 백대시, 앉기 전용 New Input System 생성
-        PlayerMove _playerMove;
+
         // 앉기 전용 콜라이더 생성
         public BoxCollider2D _boxCol;
 
-        private IdleState _idleState;
-        private WalkState _walkState;
-        private AttackState _attackState;
-        private FallState _fallState;
-        private JumpState _jumpState;
-        private JumpAttackState _jumpAttackState;
+        public IdleState idleState { get; private set; }
+        public WalkState walkState { get; private set; }
+        public AttackState attackState { get; private set; }
+        public FallState fallState { get; private set; }
+        public JumpState jumpState { get; private set; }
+        public JumpAttackState jumpAttackState { get; private set; }
         // 대시, 백대시, 앉기 변수 생성
-        private DashState _dashState;
-        private BackDashState _backdashState;
-        private SitState _sitState;
-        private HittedState _hittedState;
-        private GrappleState _grappleState;
+        public DashState dashState { get; private set; }
+        public BackDashState backdashState { get; private set; }
+        public SitState sitState { get; private set; }
+        public HittedState hittedState { get; private set; }
+        public GrappleState grappleState { get; private set; }
 
         public Vector3 playerPosition
         {
             get { return transform.position; }
-        }
-        public float grapplingLength
-        {
-            get { return _grappleLength; }
-        }
-
-        public LineRenderer lineRender
-        {
-            get { return _rope; }
-        }
-        public DistanceJoint2D jointComponent
-        {
-            get {return _joint; }
         }
         public Vector2 currentMousePosition
         {
@@ -129,11 +132,6 @@ namespace Scripts.Player
             get { return _sitDownUpColiderOffset; }
         }
 
-
-        public JumpAttackState jumpAttackState
-        {
-            get { return _jumpAttackState; }
-        }
         public Vector2 moveSpeed
         {
             get { return _moveSpeed; }
@@ -175,59 +173,27 @@ namespace Scripts.Player
         {
             get { return _Input; }
         }
-        public int facingDir
+
+        public int attackPower
         {
-            get { return _facingDir; }
-        }
-        public IdleState idleState
-        {
-            get { return _idleState; }
-        }
-        public WalkState walkState
-        {
-            get { return _walkState; }
-        }
-        public AttackState AttackState
-        {
-            get { return _attackState; }
-        }
-        public JumpState jumpState
-        {
-            get { return _jumpState; }
-        }
-        public FallState fallState
-        {
-            get { return _fallState; }
-        }
-        // 대시, 백대시, 앉기 사용을 위한 New Input System 적용
-        public PlayerMove playerMove
-        {
-            get { return _playerMove; }
-        }
-        public DashState dashState
-        {
-            get { return _dashState; }
-        }
-        public BackDashState backdashState
-        {
-            get { return _backdashState; }
-        }
-        public SitState sitState
-        {
-            get { return _sitState; }
+            get { return _playerStat._atk; }
         }
 
-        public GrappleState grappleState
+        private bool SetHp(int value)
         {
-            get { return _grappleState; }
+            if (value <= 0)
+            {
+                OnDie();
+                return false;
+            }
+            _playerStat._hp = value;
+            return true;
         }
 
         public void SetAnimTrigger()
         {
             _machine.currentState.SetTrigger();
         }
-
-
         public void SetVelocity(float x, float y)
         {
             _rb.velocity = new Vector2(x, y);
@@ -262,16 +228,16 @@ namespace Scripts.Player
         public void Flip()
         {
             transform.Rotate(0, 180, 0);
-            _facingDir *= -1;
+            facingDir *= -1;
         }
         private void HandleFlip()
         {
-            if (_playerInput.x == 1 && _facingDir == -1)
+            if (_playerInput.x == 1 && facingDir == -1)
             {
                 Flip();
                 return;
             }
-            if (_playerInput.x == -1 && _facingDir == 1)
+            if (_playerInput.x == -1 && facingDir == 1)
             {
                 Flip();
                 return;
@@ -286,7 +252,6 @@ namespace Scripts.Player
         public void AvailableDoubleJump()
         {
             _doubleJump = true;
-
         }
 
         public void SitDown()
@@ -306,27 +271,31 @@ namespace Scripts.Player
             _Input = new PlayerInput();
             _machine = new StateMachine<Player_Temp>();
             _rb = GetComponent<Rigidbody2D>();
-            _facingDir = 1;
             _boxCol = GetComponent<BoxCollider2D>();
-            _airMoveMulplier = .8f;
 
+            buffManager = new BuffManager(this);
+            
+
+            facingDir = 1;
+            _airMoveMulplier = .8f;
             _moveSpeed = new Vector2(6.0f, 0);
+            attackDistance = 10.0f;
 
             _preDelay = 0.1f;
+            _hitDelay = 0.25f;
+
             _attackSpeed = 1f;
             _attackForce = new Vector2(20, 0f);
 
             _doubleJump = true;
-
             _jumpForce = 15.0f;
-            _groundDistance = 0.85f;
+
             _dashForce = 7f;
             _dashDuration = 0.2f;
             _dashCooldown = 0f;
-            _hitDelay = 0.25f;
 
-            _grappleLength = 2.0f;
-
+            _groundDistance = 0.85f;
+            grappleLength = 2.0f;
 
             BoxSize = new Vector2(0.35f, 0.05f);
 
@@ -340,25 +309,15 @@ namespace Scripts.Player
         void Start()
         {
             _am = GetComponentInChildren<Animator>();
-            _joint = gameObject.GetComponent<DistanceJoint2D>();
-            _rope = gameObject.GetComponentInChildren<LineRenderer>();
+            joint = gameObject.GetComponent<DistanceJoint2D>();
+            rope = gameObject.GetComponentInChildren<LineRenderer>();
+            _SpriteRender = gameObject.GetComponentInChildren<SpriteRenderer>();
 
+            joint.enabled = false;
+            rope.enabled = false;
 
-            _joint.enabled = false;
-            _rope.enabled = false;
-
-            _idleState = new IdleState(this, _machine, "Idle", _rb, _am);
-            _walkState = new WalkState(this, _machine, "Walk", _rb, _am);
-            _attackState = new AttackState(this, _machine, "Attack", _rb, _am);
-            _fallState = new FallState(this, _machine, "Jump/Fall", _rb, _am);
-            _jumpState = new JumpState(this, _machine, "Jump/Fall", _rb, _am);
-            _jumpAttackState = new JumpAttackState(this, _machine, "JumpAttack", _rb, _am);
-            // 앉기 애니메니션 생성자
-            _sitState = new SitState(this, _machine, "SitDown", _rb, _am);
-            _dashState = new DashState(this, _machine, "Dash", _rb, _am);
-            _backdashState = new BackDashState(this, _machine, "BackDash", _rb, _am);
-            _hittedState = new HittedState(this, _machine, "Hitted", _rb, _am);
-            _grappleState = new GrappleState(this, _machine, "Grappled", _rb, _am);
+            skillHandler = new PlayerSkillComponent(this);
+            InitStates();
 
             _machine.BeginMachine(idleState);
         }
@@ -376,22 +335,37 @@ namespace Scripts.Player
             //_Input.Player.Hook.canceled += ctx => ClickedPoint = Vector2.zero;
         }
 
-
-
         void Update()
         {
             CheckOnGround();
-            _machine.currentState.EntityUpdate();
-        }
+            HandleSkill();
 
+            _machine.currentState.EntityUpdate();
+            buffManager.UpdateBuff();
+        }
         private void OnDrawGizmos()
         {
             Debug.DrawRay(CharacterCenterPos.position, Vector2.down * _groundDistance, Color.black);
+            Debug.DrawRay(CharacterCenterPos.position, Vector2.right * facingDir * attackDistance, Color.black);
             Gizmos.DrawWireCube(CharacterCenterPos.position + Vector3.down * _groundDistance, BoxSize);
         }
 
         public void TakeDamage(int atk, IAttacker attacker)
         {
+            //무적이면 무시
+            if ((_skillAction & (ulong)eSkillBitMask.Immotal) == 0)
+            {
+                return;
+            }
+
+            bool IsDead;
+            //데미지 계산
+            IsDead = SetHp(atk);
+            if (IsDead)
+            {
+                return;
+            }
+            //연출
             Vector3 dir = (attacker.GetAttackerPos() - CharacterCenterPos.position).normalized;
             dir.y = 0;
 
@@ -400,7 +374,73 @@ namespace Scripts.Player
             SetVelocity(dir.x * -1, _rb.velocity.y);
 
             //피격상태로 전환
-            _machine.ChangeState(_hittedState);
+            _machine.ChangeState(hittedState);
+        }
+
+        private void HandleSkill()
+        {
+            //SkillTest
+            if (_Input.Player.SKill_HackingBullet.WasPerformedThisFrame())
+            {
+                skillHandler.prepareHackBullet();
+            }
+
+            if (_Input.Player.Skill_Invisible.WasPerformedThisFrame())
+            {
+                skillHandler.InvisibleSkillProcess();
+            }
+
+            if (_Input.Player.Skill_Immotal.WasPerformedThisFrame())
+            {
+                //5초간 무적상태로 만들기, 쿨다운 90초
+                skillHandler.ImmotalSKillProcess();
+            }
+
+            if (_Input.Player.Skill_Blaster.WasPerformedThisFrame())
+            {
+                //20초 동안, 쿨다운 1분
+                //공격시 레이저를 발사하는 공격으로 변환
+                skillHandler.LaserBlasterProcess();
+            }
+        }
+        private void OnDie()
+        {
+            
+        }
+
+        private void InitStates()
+        {
+            idleState = new IdleState(this, _machine, "Idle", _rb, _am);
+            walkState = new WalkState(this, _machine, "Walk", _rb, _am);
+            attackState = new AttackState(this, _machine, "Attack", _rb, _am);
+            fallState = new FallState(this, _machine, "Jump/Fall", _rb, _am);
+            jumpState = new JumpState(this, _machine, "Jump/Fall", _rb, _am);
+            jumpAttackState = new JumpAttackState(this, _machine, "JumpAttack", _rb, _am);
+            // 앉기 애니메니션 생성자
+            sitState = new SitState(this, _machine, "SitDown", _rb, _am);
+            dashState = new DashState(this, _machine, "Dash", _rb, _am);
+            backdashState = new BackDashState(this, _machine, "BackDash", _rb, _am);
+            hittedState = new HittedState(this, _machine, "Hitted", _rb, _am);
+            grappleState = new GrappleState(this, _machine, "Grappled", _rb, _am);
+        }
+
+        public Vector3 GetAttackerPos()
+        {
+            return transform.position;
+        }
+        public void Attack(IDamageable target)
+        {
+
+        }
+
+        public void ChangeInvisibleMaterial()
+        {
+            _SpriteRender.material = _invisibleMaterial;
+        }
+
+        public void ResetMaterial()
+        {
+            _SpriteRender.material = _DefaultMaterial;
         }
     }
 

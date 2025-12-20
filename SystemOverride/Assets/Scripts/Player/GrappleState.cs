@@ -23,8 +23,8 @@ namespace Scripts.Player
         {
             base.Enter();
             IsAchored = false;
-            _playerJoint = _owner.jointComponent;
-            _ropeRender = _owner.lineRender;
+            _playerJoint = _owner.joint;
+            _ropeRender = _owner.rope;
 
             if (!TryHook())
             {
@@ -95,7 +95,7 @@ namespace Scripts.Player
             {
                 _owner.Flip();
             }
-            _playerJoint.distance = _owner.grapplingLength;
+            _playerJoint.distance = _owner.grappleLength;
 
             _playerJoint.enabled = true;
             IsAchored = true;
@@ -137,9 +137,19 @@ namespace Scripts.Player
             Vector2 playerPos = _owner.playerPosition;
             Vector2 dir = (_anchor.point - playerPos).normalized;
             //360도 돌아가면 안되기 때문에, 각도가 특정방향 이상되면 더 이상 입력을 못받도록 해야하나?
-            Vector2 swingDirection = new Vector2(-dir.y, dir.x);
+            Vector2 swingDirection = new Vector2(dir.y, -dir.x);
 
-            _rb.AddForce(swingDirection * -_owner.playerInput.x * 5);
+            Vector2 achorToPlayerDir = (playerPos - _anchor.point);
+
+
+            float degree = Mathf.Atan2(achorToPlayerDir.y, achorToPlayerDir.x) * Mathf.Rad2Deg;
+
+            if (degree > -10f || degree < -170f)
+            {
+                _rb.velocity = new Vector2(_rb.velocity.x, _rb.velocity.y * 0.5f);
+            }
+
+            _rb.AddForce(swingDirection * _owner.playerInput.x * 5);
         }
     }
 }
