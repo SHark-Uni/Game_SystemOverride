@@ -13,7 +13,7 @@ namespace Scripts.Player
         LineRenderer _ropeRender;
         DistanceJoint2D _playerJoint;
         bool IsAchored;
-        public GrappleState(Player_Temp owner, StateMachine<Player_Temp> stateMachine, string name, Rigidbody2D rb, Animator am) 
+        public GrappleState(Player owner, StateMachine<Player> stateMachine, string name, Rigidbody2D rb, Animator am) 
             : base(owner, stateMachine, name, rb, am)
         {
             

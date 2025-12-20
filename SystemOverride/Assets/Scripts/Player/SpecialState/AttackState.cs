@@ -5,7 +5,7 @@ using UnityEngine;
 using Scripts.Common;
 using Scripts.Player.Bullets;
 using Scripts.StateMachine;
-using Scipts.Skill;
+using Scripts.Skill;
 
 namespace Scripts.Player
 {
@@ -14,7 +14,7 @@ namespace Scripts.Player
         IDamageable _targetOrNull;
         bool _IsPlayVFX;
         float _preDelay;
-        public AttackState(Player_Temp owner, StateMachine<Player_Temp> stateMachine, string name, Rigidbody2D rb, Animator am)
+        public AttackState(Player owner, StateMachine<Player> stateMachine, string name, Rigidbody2D rb, Animator am)
             : base(owner, stateMachine, name, rb, am)
         {
         }

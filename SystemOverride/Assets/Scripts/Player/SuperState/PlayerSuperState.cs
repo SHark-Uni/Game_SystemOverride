@@ -6,12 +6,12 @@ using Scripts.StateMachine;
 
 namespace Scripts.Player
 {
-    public class PlayerSuperState : EntityState<Player_Temp>
+    public class PlayerSuperState : EntityState<Player>
     {
         protected PlayerInput.PlayerActions _inputAction;
         // 대시, 백대시, 앉기 상태용 New Input System 생성
 
-        public PlayerSuperState(Player_Temp owner, StateMachine<Player_Temp> stateMachine, string name, Rigidbody2D rb, Animator am)
+        public PlayerSuperState(Player owner, StateMachine<Player> stateMachine, string name, Rigidbody2D rb, Animator am)
             : base(owner, stateMachine, name, rb, am)
         {
             _inputAction = _owner.Input.Player;

@@ -1,4 +1,4 @@
-using Scipts.Skill;
+using Scripts.Skill;
 using Scripts.Common;
 using Scripts.Player;
 using System.Collections;
@@ -7,9 +7,10 @@ using UnityEngine;
 
 namespace Scripts.Skill
 {
+    using Scripts.Player;
     public class InvisiblePlayer : Buff
     {
-        public InvisiblePlayer(BuffState data, Player_Temp caster) 
+        public InvisiblePlayer(BuffState data, Player caster) 
             : base(data, caster)
         {
 

@@ -16,7 +16,7 @@ namespace Scripts.Player
         float _backdashCoolStamp;
 
         // Start is called before the first frame update
-        public PlayerOnGroundState(Player_Temp owner, StateMachine<Player_Temp> stateMachine, string name, Rigidbody2D rb, Animator am)
+        public PlayerOnGroundState(Player owner, StateMachine<Player> stateMachine, string name, Rigidbody2D rb, Animator am)
             : base(owner, stateMachine, name, rb, am)
         {
             // 대시 쿨타임 초기화

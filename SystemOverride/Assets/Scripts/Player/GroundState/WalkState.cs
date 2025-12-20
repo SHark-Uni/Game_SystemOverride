@@ -7,7 +7,7 @@ namespace Scripts.Player
 {
     public class WalkState : PlayerOnGroundState
     {
-        public WalkState(Player_Temp owner, StateMachine<Player_Temp> stateMachine, string name, Rigidbody2D rb, Animator am)
+        public WalkState(Player owner, StateMachine<Player> stateMachine, string name, Rigidbody2D rb, Animator am)
             : base(owner, stateMachine, name, rb, am)
         {
         }

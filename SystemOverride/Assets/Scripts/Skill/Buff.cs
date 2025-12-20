@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Scripts.Common;
-using Scripts.Player;
 
-namespace Scipts.Skill
+using Scripts.Common;
+
+namespace Scripts.Skill
 {
+    using Scripts.Player;
     public abstract class Buff
     {
         protected BuffState _data;
-        protected Player_Temp _caster;
+        protected Player _caster;
 
-        public Buff(BuffState data, Player_Temp caster)
+        public Buff(BuffState data, Player caster)
         {
             _data = data;
             _caster = caster;

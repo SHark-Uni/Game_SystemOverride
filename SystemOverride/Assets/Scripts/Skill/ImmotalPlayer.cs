@@ -1,15 +1,17 @@
-using Scipts.Skill;
 using Scripts.Common;
 using Scripts.Player;
+
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
 namespace Scripts.Skill
 {
+    using Scripts.Player;
     public class ImmotalPlayer : Buff
     {
-        public ImmotalPlayer(BuffState data, Player_Temp caster) 
+        public ImmotalPlayer(BuffState data, Player caster) 
             : base(data, caster)
         {
         }

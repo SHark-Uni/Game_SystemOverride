@@ -1,4 +1,4 @@
-using Scipts.Skill;
+using Scripts.Skill;
 using Scripts.Player;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,8 +7,8 @@ using UnityEngine;
 public class BuffManager
 {
     private List<Buff> _BuffList;
-    private Player_Temp _owner;
-    public BuffManager(Player_Temp owner)
+    private Player _owner;
+    public BuffManager(Player owner)
     {
         _owner = owner;
         _BuffList = new List<Buff>();

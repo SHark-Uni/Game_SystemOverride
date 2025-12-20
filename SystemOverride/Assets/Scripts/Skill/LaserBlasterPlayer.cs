@@ -1,4 +1,3 @@
-using Scipts.Skill;
 using Scripts.Common;
 using Scripts.Player;
 using System.Collections;
@@ -7,9 +6,10 @@ using UnityEngine;
 
 namespace Scripts.Skill
 {
+    using Scripts.Player;
     public class LaserBlasterPlayer : Buff
     {
-        public LaserBlasterPlayer(BuffState data, Player_Temp caster) 
+        public LaserBlasterPlayer(BuffState data, Player caster) 
             : base(data, caster)
         {
         }

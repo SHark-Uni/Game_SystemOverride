@@ -9,7 +9,7 @@ namespace Scripts.Player
     public class SitState : PlayerOnGroundState
     {
         private BoxCollider2D _boxCol;
-        public SitState(Player_Temp owner, StateMachine<Player_Temp> stateMachine, string name, Rigidbody2D rb, Animator am)
+        public SitState(Player owner, StateMachine<Player> stateMachine, string name, Rigidbody2D rb, Animator am)
             : base(owner, stateMachine, name, rb, am)
         {
         }

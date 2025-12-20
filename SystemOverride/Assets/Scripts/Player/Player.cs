@@ -6,15 +6,14 @@ using UnityEngine.InputSystem;
 using Scripts.Skill;
 using Scripts.Common;
 using Scripts.Monster;
-using Scripts.Player;
 using Scripts.Player.Bullets;
 using Scripts.StateMachine;
 
 namespace Scripts.Player
 {
-    public class Player_Temp : MonoBehaviour, IDamageable, IAttacker
+    public class Player : MonoBehaviour, IDamageable, IAttacker
     {
-        private StateMachine<Player_Temp> _machine;
+        private StateMachine<Player> _machine;
         
         [SerializeField] private Transform _firePoint;
         [SerializeField] private bool _onGround;
@@ -269,7 +268,7 @@ namespace Scripts.Player
         private void Awake()
         {
             _Input = new PlayerInput();
-            _machine = new StateMachine<Player_Temp>();
+            _machine = new StateMachine<Player>();
             _rb = GetComponent<Rigidbody2D>();
             _boxCol = GetComponent<BoxCollider2D>();
 

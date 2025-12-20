@@ -7,45 +7,38 @@ using Scripts.StateMachine;
 
 namespace Scripts.Player
 {
-    public class BackDashState : PlayerOnGroundState
+    public class DashState : PlayerOnGroundState
     {
         private SpriteRenderer _playerSpriteRenderer;
-        private float _dashTimeStamp;
-        private float _orginGravity;
-        public BackDashState(Player_Temp owner, StateMachine<Player_Temp> stateMachine, string name, Rigidbody2D rb, Animator am)
+
+        public DashState(Player owner, StateMachine<Player> stateMachine, string name, Rigidbody2D rb, Animator am)
             : base(owner, stateMachine, name, rb, am)
         {
         }
-
+        private float _dashTimeStamp;
+        private float _orginGravity;
 
         public override void Enter()
         {
             base.Enter();
-            // 쿨타임 1초로 변경
-            _owner._dashCooldown = 1f;
 
             _orginGravity = _rb.gravityScale;
             _dashTimeStamp = Time.time;
-            _owner.SetVelocity(-_owner._dashForce * _owner.facingDir, _rb.velocity.y);
+
+            _owner.SetVelocity(_owner._dashForce * _owner.facingDir, _rb.velocity.y);
             _rb.gravityScale = 0;
         }
 
         public override void EntityUpdate()
         {
             base.EntityUpdate();
-            // 쿨타임이 0보다 클 경우 TIme.deltaTime으로 시간 감소해서 0까지 줄어들게 하는 조건
-            if (_owner._dashCooldown > 0)
-            {
-                _owner._dashCooldown -= Time.deltaTime;
-
-                if (_owner._dashCooldown < 0) _owner._dashCooldown = 0;
-            }
 
             if (_dashTimeStamp + _owner._dashDuration < Time.time)
             {
                 _stateMachine.ChangeState(_owner.idleState);
             }
         }
+
         public override void Exit()
         {
             base.Exit();

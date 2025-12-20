@@ -11,7 +11,7 @@ namespace Scripts.Player
     {
         float _preDelay;
 
-        public JumpAttackState(Player_Temp owner, StateMachine<Player_Temp> stateMachine, string name, Rigidbody2D rb, Animator am)
+        public JumpAttackState(Player owner, StateMachine<Player> stateMachine, string name, Rigidbody2D rb, Animator am)
             : base(owner, stateMachine, name, rb, am)
         {
         }

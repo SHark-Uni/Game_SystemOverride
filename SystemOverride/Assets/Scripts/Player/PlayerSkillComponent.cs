@@ -8,8 +8,8 @@ namespace Scripts.Player
 {
     public class PlayerSkillComponent
     {
-        Player_Temp _player;
-        public PlayerSkillComponent(Player_Temp player)
+        Player _player;
+        public PlayerSkillComponent(Player player)
         {
             _player = player;
 
