@@ -15,3 +15,9 @@ MonoBehaviour:
   _audioClips:
   - _name: Shoot
     _clip: {fileID: 8300000, guid: 1e49d2774d889414ca6b11d9120eb77c, type: 3}
+  - _name: Laser
+    _clip: {fileID: 8300000, guid: 03950a537f0158043b2b32e123f6dba4, type: 3}
+  - _name: Invisible
+    _clip: {fileID: 8300000, guid: 932e3b7fd8cedb140b83223d1b4c0584, type: 3}
+  - _name: Hitted
+    _clip: {fileID: 8300000, guid: c081d3de8850fe64db890f78dc2947d8, type: 3}

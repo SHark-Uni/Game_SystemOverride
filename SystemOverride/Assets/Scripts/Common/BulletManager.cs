@@ -23,7 +23,7 @@ namespace Scripts.Common
                 _instance = this;
 
                 _bulletPool = new ObjectPool<Bullet>();
-                _bulletPool.Init(128, _bulletPrefab);
+                _bulletPool.Init(ConfigManager.BulletPoolSize, _bulletPrefab);
                 DontDestroyOnLoad(gameObject);
                 return;
             }

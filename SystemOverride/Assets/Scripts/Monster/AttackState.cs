@@ -31,7 +31,8 @@ namespace Scripts.Monster
             _timer += Time.deltaTime;
 
             // 0.5초 동안 기 모으기 (렉 걸린 척)
-            if (_timer < _monster._attackWaitTime) return;
+            if (_timer < _monster._attackWaitTime) 
+                return;
 
             // 대시 발사! (딱 한 번만 실행)
             if (!_isDashing)

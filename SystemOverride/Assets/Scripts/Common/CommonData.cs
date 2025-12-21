@@ -6,7 +6,8 @@ using UnityEngine;
 
 
 namespace Scripts.Common
-{ 
+{
+
 	public enum eLayerMask
 	{
 		Player = 1 << 6,

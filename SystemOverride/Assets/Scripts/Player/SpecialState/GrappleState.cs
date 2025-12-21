@@ -76,7 +76,7 @@ namespace Scripts.Player
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(renderPos);
 
             //Á¡ RayCast
-            _anchor = Physics2D.Raycast(worldPos, Vector2.zero, Mathf.Infinity, (int)eLayerMask.Ground);
+            _anchor = Physics2D.Raycast(worldPos, Vector2.zero, Mathf.Infinity, (int)eLayerMask.Hook);
 
             if (_anchor.collider != null)
             {

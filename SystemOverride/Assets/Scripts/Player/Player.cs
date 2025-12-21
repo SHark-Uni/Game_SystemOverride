@@ -71,12 +71,10 @@ namespace Scripts.Player
 
         public PlayerSkillComponent skillHandler { get; private set; }
         public BuffManager buffManager { get; private set; }
-
         public Vector2 _clickedPoint { get; private set; }
         public LineRenderer rope { get; private set; }
         public float grappleLength { get; private set; }
         public DistanceJoint2D joint { get; private set; }
-
 
         PlayerInput _Input;
 
@@ -212,7 +210,7 @@ namespace Scripts.Player
 
         private void CheckOnGround()
         {
-            RaycastHit2D hit = Physics2D.BoxCast(CharacterCenterPos.position, BoxSize, 0f, Vector2.down, _groundDistance, (int)eLayerMask.Ground);
+            RaycastHit2D hit = Physics2D.BoxCast(CharacterCenterPos.position, BoxSize, 0f, Vector2.down, _groundDistance, (int)eLayerMask.Ground | (int)eLayerMask.Hook);
             if (hit.collider != null)
             {
                 _onGround = true;
@@ -422,6 +420,7 @@ namespace Scripts.Player
             hittedState = new HittedState(this, _machine, "Hitted", _rb, _am);
             grappleState = new GrappleState(this, _machine, "Grappled", _rb, _am);
         }
+
 
         public Vector3 GetAttackerPos()
         {

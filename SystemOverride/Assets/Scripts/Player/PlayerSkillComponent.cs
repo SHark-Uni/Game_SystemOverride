@@ -109,13 +109,8 @@ namespace Scripts.Player
         {
             SkillState state = _mySkillList[(ulong)eSkillId.HackBullet];
 
-            if (!state._CanCasting)
-            {
-                return;
-            }
-
             state.SetUpdateTime(Time.time);
-            state._CanCasting = false;
+
             HackBulletPlayer buff = new HackBulletPlayer(
                 data: new BuffState(state._id, state._elapsedTime, true, 1),
                 caster: _player

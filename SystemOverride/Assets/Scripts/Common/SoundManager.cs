@@ -25,7 +25,7 @@ public class SoundManager : MonoBehaviour
         if (_instance == null)
         {
             _instance = this;
-            DontDestroyOnLoad(this);
+            //DontDestroyOnLoad(this);
             Init();
             return;
         }
@@ -36,7 +36,7 @@ public class SoundManager : MonoBehaviour
     private void Init()
     {
         _audioPool = new ObjectPool<Entity_SFX>();
-        _audioPool.Init(24, _prefab);
+        _audioPool.Init(ConfigManager.SoundSourcePoolSize, _prefab);
 
         _BGM = GetComponent<AudioSource>();
         volume = 1f;
@@ -47,6 +47,7 @@ public class SoundManager : MonoBehaviour
         _clipCache = _clips.GetDictionary();
     }
 
+    //처음 딜레이 발생한다음에, 플레이 몇초뒤 효과음 플레이
     public void PlaySFX(string key, float delay, Vector3 pos)
     {
         AudioClip clip;
@@ -59,7 +60,7 @@ public class SoundManager : MonoBehaviour
         Entity_SFX ret = _audioPool.alloc(pos, Quaternion.identity);
         StartCoroutine(DelayAndPlaySFX(ret,clip, delay));
     }
-
+    //효과음의 길이만큼 그냥 플레이
     public void PlaySFX(string key, Vector3 pos)
     {
         AudioClip clip;
