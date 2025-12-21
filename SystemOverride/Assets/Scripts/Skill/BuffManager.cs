@@ -68,7 +68,6 @@ public class BuffManager
         return null;
     }
 
-
     public void InsertBuff(Buff buff)
     {
         if (buff.IsCountBaseSkill())
