@@ -9,9 +9,25 @@ namespace Scripts.Boss
 {
     public class BossIdleState : BossOnGroundState
     {
+        public float _bossidleTime = 2;
+
         public BossIdleState(Boss_Temp owner, BossStateMachine<Boss_Temp> stateMachine, string name, Rigidbody2D rb, Animator am)
             : base(owner, stateMachine, name, rb, am)
         {
+        }
+
+        void Idle()
+        {
+            _bossidleTime -= Time.deltaTime;
+
+            _bossAm.SetBool("Idle", true);
+
+            if (_bossidleTime <= 0)
+            {
+                _bossStateMachine.ChangeState(_bossOwner.bossWalkState);
+                _bossidleTime = 2;
+                _bossAm.SetBool("Idle", false);
+            } 
         }
 
         public override void Enter()
@@ -24,15 +40,12 @@ namespace Scripts.Boss
         {
             base.EntityUpdate();
 
-            //키입력을 한다면, Walk 상태로 전파
-            /* if (_bossOwner.playerInput.x != 0)
-            {
-                _bossStateMachine.ChangeState(_bossOwner.bossWalkState);
-            } */
+            Idle();
         }
 
         public override void Exit()
         {
+            
             base.Exit();
         }
     }

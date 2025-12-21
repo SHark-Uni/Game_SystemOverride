@@ -17,10 +17,15 @@ namespace Scipts.Boss
         [SerializeField] private bool _bossonGround;
         public PhysicsMaterial2D _bosssloopyMaterial;
         public PhysicsMaterial2D _bossfrictionMaterial;
+        public Transform _playerPos;
 
         public Transform BossCenterPos;
         public Vector2 BossBoxSize;
         public BoxCollider2D BossboxCol;
+
+        public int _bossHP = 100;
+        public int _bossAtk = 5;
+        public int _bossDef = 5;
 
         [Header("Move Details")]
         [SerializeField] private Vector2 _bossInput;
@@ -30,6 +35,7 @@ namespace Scipts.Boss
         public float _bossdashDuration;
         public float _bossdashCooldown;
         private int _bossfacingDir;
+        public float _bossattackCooldown;
 
         [Header("Attack Details")]
         [SerializeField] private float _bosspreDelay;
@@ -97,34 +103,11 @@ namespace Scipts.Boss
         public void BossSetVelocity(float x, float y)
         {
             _bossrb.velocity = new Vector2(x, y);
-            HandleFlip();
         }
 
         public void SetVelocity(in Vector2 force)
         {
             _bossrb.velocity = force;
-            HandleFlip();
-        }
-
-        private void Flip()
-        {
-            transform.Rotate(0, 180, 0);
-            _bossfacingDir *= -1;
-        }
-        private void HandleFlip()
-        { // 추후에 입력
-            /*
-            if (_playerInput.x == 1 && _bossfacingDir == -1)
-            {
-                Flip();
-                return;
-            }
-            if (_playerInput.x == -1 && _bossfacingDir == 1)
-            {
-                Flip();
-                return;
-            }
-            */
         }
 
         private void CheckOnGround()
@@ -171,6 +154,7 @@ namespace Scipts.Boss
             _bossdashForce = 5f;
             _bossdashDuration = 0.2f;
             _bossdashCooldown = 10f;
+            _bossattackCooldown = 3f;
 
             BossBoxSize = new Vector2(0.35f, 0.3f);
 

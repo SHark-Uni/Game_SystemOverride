@@ -12,6 +12,17 @@ namespace Scripts.Boss
         public BossDeathState(Boss_Temp owner, BossStateMachine<Boss_Temp> stateMachine, string name, Rigidbody2D rb, Animator am)
                     : base(owner, stateMachine, name, rb, am)
         {
+            name = "Death";
+        }
+
+        void Death()
+        {
+            if(_bossOwner._bossHP <= 0)
+            {
+                Debug.Log("보스 사망");
+                // 사망 후 오브젝트 삭제
+                Object.Destroy(_bossOwner.gameObject, 2f);
+            }
         }
 
         public override void Enter()
@@ -22,6 +33,8 @@ namespace Scripts.Boss
         public override void EntityUpdate()
         {
             base.EntityUpdate();
+
+            Death();
         }
 
         public override void Exit()
