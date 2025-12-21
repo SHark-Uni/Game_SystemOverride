@@ -14,32 +14,30 @@ namespace Scripts.Boss
         {
         }
 
-        float BossAttackPlayer(float bossAtk)
+        void BossAttackPlayer(float bossAtk)
         {
             Debug.Log("BossAttackPlayer 함수 실행");
-
             // 보스와 플레이어의 콜라이더가 겹침
             Collider2D _vshit = Physics2D.OverlapCircle(_bossOwner.transform.position, 2f, LayerMask.GetMask("Player"));
 
             //base.EntityUpdate();
             if (_vshit == null)
             {
-                _bossAm.SetBool("Attack", true); // 이게 문제
+                _bossAm.SetBool("Attack", true);
+                SoundManager.PlaySFX("BossAttack", _bossOwner.transform.position);
                 //Debug.Log("Attack 애니메이션 재생");
                 _bossStateMachine.ChangeState(_bossOwner.bossIdleState);
                 Debug.Log("보스 공격 상태에서 플레이어와 콜라이더가 안 겹침, 정지 상태로 전환");
-                return bossAtk = 0;
+                bossAtk = 0;
             }
             else if (_vshit != null)
             {
-                _bossAm.SetBool("Attack", true); // 이게 문제
+                _bossAm.SetBool("Attack", true);
+                SoundManager.PlaySFX("BossAttack", _bossOwner.transform.position);
                 //Debug.Log("Attack 애니메이션 재생");
                 _bossStateMachine.ChangeState(_bossOwner.bossIdleState);
                 Debug.Log("보스 공격 상태에서 플레이어와 콜라이더가 겹침, 5의 데미지");
-                
-                return bossAtk;
             }
-            return bossAtk;
         }
 
         public override void Enter()
