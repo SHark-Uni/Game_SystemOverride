@@ -24,7 +24,8 @@ namespace Scripts.Boss
             //base.EntityUpdate();
             if (_vshit == null)
             {
-                _bossAm.SetBool("Attack", true);
+                _bossAm.SetBool("Attack", true); // 이게 문제
+                //Debug.Log("Attack 애니메이션 재생");
                 _bossStateMachine.ChangeState(_bossOwner.bossIdleState);
                 Debug.Log("보스 공격 상태에서 플레이어와 콜라이더가 안 겹침, 정지 상태로 전환");
                 _bossAm.SetBool("Attack", false);
@@ -32,7 +33,8 @@ namespace Scripts.Boss
             }
             else if (_vshit != null)
             {
-                _bossAm.SetBool("Attack", true);
+                _bossAm.SetBool("Attack", true); // 이게 문제
+                //Debug.Log("Attack 애니메이션 재생");
                 _bossStateMachine.ChangeState(_bossOwner.bossIdleState);
                 Debug.Log("보스 공격 상태에서 플레이어와 콜라이더가 겹침, 5의 데미지");
                 _bossAm.SetBool("Attack", false);
