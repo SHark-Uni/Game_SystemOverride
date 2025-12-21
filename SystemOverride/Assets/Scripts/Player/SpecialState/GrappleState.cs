@@ -26,6 +26,7 @@ namespace Scripts.Player
             _playerJoint = _owner.joint;
             _ropeRender = _owner.rope;
 
+            SoundManager.instance.PlaySFX("Whip", _owner.playerPosition);
             if (!TryHook())
             {
                 EndHooking();

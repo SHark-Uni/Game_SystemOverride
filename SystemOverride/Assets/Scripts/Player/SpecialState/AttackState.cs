@@ -27,6 +27,7 @@ namespace Scripts.Player
             
             if ((_owner._skillAction & (ulong)eSkillBitMask.LaserBuster) != 0)
             {
+                SoundManager._instance.PlaySFX("Laser", _owner.playerPosition);
                 return;
             }
 
@@ -78,7 +79,6 @@ namespace Scripts.Player
                     //Material 바꾸기
                     sr.material = _owner._HackingBulletMaterial;
                     //횟수 차감 하기
-                    Debug.Log("HackBullet Shoot In AttackState!");
                     Buff buf = _owner.buffManager.FindCountBaseSkillOrNull((int)eSkillId.HackBullet);
                     buf.DecreaseCount();
                     break;

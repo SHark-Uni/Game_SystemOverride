@@ -76,7 +76,7 @@ namespace Scripts.Player
 
             state.SetUpdateTime(Time.time);
             state._CanCasting = false;
-            InvisiblePlayer buff = new InvisiblePlayer(
+            ImmotalPlayer buff = new ImmotalPlayer(
                 data: new BuffState(state._id, state._elapsedTime),
                 caster: _player);
 

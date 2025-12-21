@@ -22,6 +22,7 @@ namespace Scripts.Player
 
         public Material _invisibleMaterial;
         public Material _HackingBulletMaterial;
+        public Material _ImmotalMaterial;
         public Material _DefaultMaterial;
 
         private SpriteRenderer _SpriteRender;
@@ -366,6 +367,10 @@ namespace Scripts.Player
             Vector3 dir = (attacker.GetAttackerPos() - CharacterCenterPos.position).normalized;
             dir.y = 0;
 
+            //피격음 연출
+            SoundManager.instance.PlaySFX("Hitted", transform.position);
+
+            //피격 VFX 연출
             Vector3 spawnPos = CharacterCenterPos.position + dir;
             VFXManager.instance.PlayEffect(eVFXId.onHitVFX, spawnPos, Quaternion.identity);
             SetVelocity(dir.x * -1, _rb.velocity.y);
@@ -431,9 +436,9 @@ namespace Scripts.Player
 
         }
 
-        public void ChangeInvisibleMaterial()
+        public void ChangeMaterial(Material material)
         {
-            _SpriteRender.material = _invisibleMaterial;
+            _SpriteRender.material = material;
         }
 
         public void ResetMaterial()
