@@ -18,20 +18,14 @@ public class SoundDataBase : ScriptableObject
     public Dictionary<string, AudioClip> GetDictionary()
     {
         Dictionary<string, AudioClip> ret = new Dictionary<string, AudioClip>();
-        
+
         for (int i = 0; i < _audioClips.Count; i++)
         {
-            Debug.Log(_audioClips[i]._name);
             if (_audioClips[i]._name == null)
                 continue;
             ret[_audioClips[i]._name] = _audioClips[i]._clip;
         }
 
-        bool Test = ret.TryGetValue("Shoot", out AudioClip clip);
-        if (Test == false)
-        {
-            Debug.Log("Shoot을 못찾아연!");
-        }
         return ret;
     }
 

@@ -8,7 +8,7 @@ using Scripts.Common;
 
 namespace Scripts.Monster
 {
-    public class Monster : MonoBehaviour //, IHitable
+    public class Monster : MonoBehaviour, IDamageable, IAttacker, Common.IPoolable //, IHitable
     {
         //2종류.3종류,...50종류
         public StateMachine<Monster> _machine { get; private set; }
@@ -20,6 +20,8 @@ namespace Scripts.Monster
         public PatrolState StatePatrol { get; private set; }
         public ChaseState StateChase { get; private set; }
         public AttackState StateAttack { get; private set; }
+
+        public int attackPower => throw new System.NotImplementedException();
 
         // 몬스터 스탯
         private int _maxHp;
@@ -60,6 +62,11 @@ namespace Scripts.Monster
 
             _spriteRenderer = GetComponent<SpriteRenderer>();
             // 변수 설정
+            Init();
+        }
+
+        private void Init()
+        {
             _attackRange = 2f;
             _dashSpeed = 20f;
             _patrolSpeed = 2f;
@@ -104,26 +111,6 @@ namespace Scripts.Monster
 
 
         }
-
-
-        public void TakeDamage(int _damage)
-        {
-            // 이미 죽은 시체 또 때리는 거 방지
-            if (_currentHp <= 0) return;
-
-            _currentHp -= _damage;
-            _animator.SetTrigger("Hit");
-
-            if (_currentHp <= 0)
-            {
-                Die();
-            }
-            else
-            {
-                // 추격 상태로 만드는 로직
-            }
-        }
-
 
         public void Die()
         {
@@ -273,6 +260,46 @@ namespace Scripts.Monster
             }
         }
 
+        // 피격시 어떤 행동을 할것인지 구현.
+        public void TakeDamage(int atk, IAttacker attacker)
+        {
+            // 이미 죽은 시체 또 때리는 거 방지
+            if (_currentHp <= 0) return;
+
+            _currentHp -= atk;
+            _animator.SetTrigger("Hit");
+
+            if (_currentHp <= 0)
+            {
+                Die();
+            }
+            else
+            {
+                // 추격 상태로 만드는 로직
+            }
+        }
+
+
+        public void Attack(IDamageable target)
+        {
+            
+        }
+      
+        public Vector3 GetAttackerPos()
+        {
+            return transform.position;
+        }
+
+        public void OnAlloc()
+        {
+            Init();
+        }
+
+        public void OnRelease()
+        {
+            //물리정보 초기화.
+            _rb.velocity = new Vector2(0, 0);
+        }
     }
 }
 

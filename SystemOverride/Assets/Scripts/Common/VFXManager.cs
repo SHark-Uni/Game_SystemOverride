@@ -15,7 +15,6 @@ namespace Scripts.Common
         [Header("onHitVFX Details")]
         [SerializeField] private Entity_VFX _hitVfxPrefab;
         [SerializeField] private float _hitVfxDuration;
-        [SerializeField] private int _hitVfxPoolCapacity;
 
         [Header("Laser VFX")]
         [SerializeField] private Entity_VFX _LaserPrefab;
@@ -29,7 +28,6 @@ namespace Scripts.Common
                 _instance = this;
                 
                 _hitVfxDuration = 0.25f;
-                _hitVfxPoolCapacity = 256;
 
                 Init();
                 DontDestroyOnLoad(this);
@@ -101,8 +99,8 @@ namespace Scripts.Common
             _HitVFXPool = new ObjectPool<Entity_VFX>();
             _LaserPool = new ObjectPool<Entity_VFX>();
 
-            _HitVFXPool.Init(_hitVfxPoolCapacity, _hitVfxPrefab);
-            _LaserPool.Init(48, _LaserPrefab);
+            _HitVFXPool.Init(ConfigManager.HitVFXPoolSize, _hitVfxPrefab);
+            _LaserPool.Init(ConfigManager.VFXDefaultPoolSize, _LaserPrefab);
         }
     }
 }
