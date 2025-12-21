@@ -191,6 +191,7 @@ namespace Scipts.Boss
         void Update()
         {
             CheckOnGround();
+
             _bossMachine.bosscurrentState.EntityUpdate();
         }
 

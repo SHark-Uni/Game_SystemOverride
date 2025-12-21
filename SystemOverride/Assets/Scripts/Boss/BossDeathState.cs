@@ -12,7 +12,6 @@ namespace Scripts.Boss
         public BossDeathState(Boss_Temp owner, BossStateMachine<Boss_Temp> stateMachine, string name, Rigidbody2D rb, Animator am)
                     : base(owner, stateMachine, name, rb, am)
         {
-            name = "Death";
         }
 
         void Death()
@@ -20,6 +19,8 @@ namespace Scripts.Boss
             if(_bossOwner._bossHP <= 0)
             {
                 Debug.Log("보스 사망");
+                _bossAm.SetBool("Death", true);
+                SoundManager.instance.PlaySFX("BossDead", _bossOwner.transform.position);
                 // 사망 후 오브젝트 삭제
                 Object.Destroy(_bossOwner.gameObject, 2f);
             }

@@ -101,6 +101,11 @@ namespace Scripts.Boss
                     _bossattackCoolStamp = _bossattackCoolTime;
                 }
             }
+
+            if(_bossOwner._bossHP <= 0)
+            {
+                _bossStateMachine.ChangeState(_bossOwner.bossDeathState);
+            }
         }
 
         public override void Exit()
