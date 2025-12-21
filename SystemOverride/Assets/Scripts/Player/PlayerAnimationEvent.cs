@@ -7,11 +7,11 @@ namespace Scripts.Player
 {
     public class PlayerAnimationEvent : MonoBehaviour
     {
-        Player_Temp _player;
+        Player _player;
 
         private void Start()
         {
-            _player = GetComponentInParent<Player_Temp>();
+            _player = GetComponentInParent<Player>();
         }
 
         public void OnAttackEnd()

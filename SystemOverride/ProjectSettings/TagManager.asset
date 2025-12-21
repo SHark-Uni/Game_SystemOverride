@@ -17,9 +17,9 @@ TagManager:
   - Player
   - Monster
   - Ground
-  - Boss
   - Wall
-  - 
+  - Hook
+  - Ghost_Player
   - 
   - 
   - 

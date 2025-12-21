@@ -129,7 +129,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""SKill"",
+                    ""name"": ""SKill_HackingBullet"",
                     ""type"": ""Button"",
                     ""id"": ""059bbe2f-7a4a-4f30-addb-d7871d4f1ab6"",
                     ""expectedControlType"": """",
@@ -181,6 +181,33 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Skill_Invisible"",
+                    ""type"": ""Button"",
+                    ""id"": ""8dd3bc21-9925-422c-86d9-d477698072a6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Skill_Immotal"",
+                    ""type"": ""Button"",
+                    ""id"": ""5e7cb4ac-b020-40d2-9a64-1bb9afa76cf4"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Skill_Blaster"",
+                    ""type"": ""Button"",
+                    ""id"": ""e23b0619-5d35-4a32-855e-ed35928f8724"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -198,7 +225,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""up"",
                     ""id"": ""edd39cde-9760-4aea-9fb7-d58bb0185e12"",
-                    ""path"": ""<Keyboard>/upArrow"",
+                    ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";KeyBoard"",
@@ -209,7 +236,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""down"",
                     ""id"": ""74fda205-bf99-4713-bf5f-1f6a338b5b25"",
-                    ""path"": ""<Keyboard>/downArrow"",
+                    ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";KeyBoard"",
@@ -220,7 +247,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""left"",
                     ""id"": ""425c4b51-5012-4e00-9464-856956354e1f"",
-                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";KeyBoard"",
@@ -231,7 +258,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""right"",
                     ""id"": ""758f60c2-61dc-4318-b48f-8de6ea8fee08"",
-                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";KeyBoard"",
@@ -263,11 +290,11 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""814c8432-b7e9-4488-a0af-715b00bac086"",
-                    ""path"": ""<Keyboard>/x"",
+                    ""id"": ""622a7a7a-fa51-4903-9794-ef52435b5a64"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";KeyBoard"",
+                    ""groups"": """",
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -275,44 +302,11 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""4319000b-1d3c-4d53-9ce9-f96bae516957"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";KeyBoard"",
-                    ""action"": ""SKill"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""10e6355b-c33e-4657-ac70-b2c6fd4042de"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";KeyBoard"",
-                    ""action"": ""SKill"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e5e6fd8d-6aa1-4a68-bb65-4a87b624201d"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";KeyBoard"",
-                    ""action"": ""SKill"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""2eb94726-1a49-4715-a6c5-ba811b45d9fd"",
-                    ""path"": ""<Keyboard>/r"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";KeyBoard"",
-                    ""action"": ""SKill"",
+                    ""action"": ""SKill_HackingBullet"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -370,6 +364,39 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""HookKeyboard"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5687d45e-a108-459a-8cc4-21733f1e76d7"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyBoard"",
+                    ""action"": ""Skill_Invisible"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d1b64add-4c4b-4473-a929-3d5d8fccebda"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyBoard"",
+                    ""action"": ""Skill_Immotal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a6a1d8c5-e229-45f0-b5cb-75a7d5c7b160"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyBoard"",
+                    ""action"": ""Skill_Blaster"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -399,12 +426,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
-        m_Player_SKill = m_Player.FindAction("SKill", throwIfNotFound: true);
+        m_Player_SKill_HackingBullet = m_Player.FindAction("SKill_HackingBullet", throwIfNotFound: true);
         m_Player_SitDown = m_Player.FindAction("SitDown", throwIfNotFound: true);
         m_Player_BackDash = m_Player.FindAction("BackDash", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Hook = m_Player.FindAction("Hook", throwIfNotFound: true);
         m_Player_HookKeyboard = m_Player.FindAction("HookKeyboard", throwIfNotFound: true);
+        m_Player_Skill_Invisible = m_Player.FindAction("Skill_Invisible", throwIfNotFound: true);
+        m_Player_Skill_Immotal = m_Player.FindAction("Skill_Immotal", throwIfNotFound: true);
+        m_Player_Skill_Blaster = m_Player.FindAction("Skill_Blaster", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -489,12 +519,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_Attack;
-    private readonly InputAction m_Player_SKill;
+    private readonly InputAction m_Player_SKill_HackingBullet;
     private readonly InputAction m_Player_SitDown;
     private readonly InputAction m_Player_BackDash;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Hook;
     private readonly InputAction m_Player_HookKeyboard;
+    private readonly InputAction m_Player_Skill_Invisible;
+    private readonly InputAction m_Player_Skill_Immotal;
+    private readonly InputAction m_Player_Skill_Blaster;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -523,9 +556,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
         /// <summary>
-        /// Provides access to the underlying input action "Player/SKill".
+        /// Provides access to the underlying input action "Player/SKill_HackingBullet".
         /// </summary>
-        public InputAction @SKill => m_Wrapper.m_Player_SKill;
+        public InputAction @SKill_HackingBullet => m_Wrapper.m_Player_SKill_HackingBullet;
         /// <summary>
         /// Provides access to the underlying input action "Player/SitDown".
         /// </summary>
@@ -546,6 +579,18 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/HookKeyboard".
         /// </summary>
         public InputAction @HookKeyboard => m_Wrapper.m_Player_HookKeyboard;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Skill_Invisible".
+        /// </summary>
+        public InputAction @Skill_Invisible => m_Wrapper.m_Player_Skill_Invisible;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Skill_Immotal".
+        /// </summary>
+        public InputAction @Skill_Immotal => m_Wrapper.m_Player_Skill_Immotal;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Skill_Blaster".
+        /// </summary>
+        public InputAction @Skill_Blaster => m_Wrapper.m_Player_Skill_Blaster;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -584,9 +629,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Attack.started += instance.OnAttack;
             @Attack.performed += instance.OnAttack;
             @Attack.canceled += instance.OnAttack;
-            @SKill.started += instance.OnSKill;
-            @SKill.performed += instance.OnSKill;
-            @SKill.canceled += instance.OnSKill;
+            @SKill_HackingBullet.started += instance.OnSKill_HackingBullet;
+            @SKill_HackingBullet.performed += instance.OnSKill_HackingBullet;
+            @SKill_HackingBullet.canceled += instance.OnSKill_HackingBullet;
             @SitDown.started += instance.OnSitDown;
             @SitDown.performed += instance.OnSitDown;
             @SitDown.canceled += instance.OnSitDown;
@@ -602,6 +647,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @HookKeyboard.started += instance.OnHookKeyboard;
             @HookKeyboard.performed += instance.OnHookKeyboard;
             @HookKeyboard.canceled += instance.OnHookKeyboard;
+            @Skill_Invisible.started += instance.OnSkill_Invisible;
+            @Skill_Invisible.performed += instance.OnSkill_Invisible;
+            @Skill_Invisible.canceled += instance.OnSkill_Invisible;
+            @Skill_Immotal.started += instance.OnSkill_Immotal;
+            @Skill_Immotal.performed += instance.OnSkill_Immotal;
+            @Skill_Immotal.canceled += instance.OnSkill_Immotal;
+            @Skill_Blaster.started += instance.OnSkill_Blaster;
+            @Skill_Blaster.performed += instance.OnSkill_Blaster;
+            @Skill_Blaster.canceled += instance.OnSkill_Blaster;
         }
 
         /// <summary>
@@ -625,9 +679,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Attack.started -= instance.OnAttack;
             @Attack.performed -= instance.OnAttack;
             @Attack.canceled -= instance.OnAttack;
-            @SKill.started -= instance.OnSKill;
-            @SKill.performed -= instance.OnSKill;
-            @SKill.canceled -= instance.OnSKill;
+            @SKill_HackingBullet.started -= instance.OnSKill_HackingBullet;
+            @SKill_HackingBullet.performed -= instance.OnSKill_HackingBullet;
+            @SKill_HackingBullet.canceled -= instance.OnSKill_HackingBullet;
             @SitDown.started -= instance.OnSitDown;
             @SitDown.performed -= instance.OnSitDown;
             @SitDown.canceled -= instance.OnSitDown;
@@ -643,6 +697,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @HookKeyboard.started -= instance.OnHookKeyboard;
             @HookKeyboard.performed -= instance.OnHookKeyboard;
             @HookKeyboard.canceled -= instance.OnHookKeyboard;
+            @Skill_Invisible.started -= instance.OnSkill_Invisible;
+            @Skill_Invisible.performed -= instance.OnSkill_Invisible;
+            @Skill_Invisible.canceled -= instance.OnSkill_Invisible;
+            @Skill_Immotal.started -= instance.OnSkill_Immotal;
+            @Skill_Immotal.performed -= instance.OnSkill_Immotal;
+            @Skill_Immotal.canceled -= instance.OnSkill_Immotal;
+            @Skill_Blaster.started -= instance.OnSkill_Blaster;
+            @Skill_Blaster.performed -= instance.OnSkill_Blaster;
+            @Skill_Blaster.canceled -= instance.OnSkill_Blaster;
         }
 
         /// <summary>
@@ -725,12 +788,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnAttack(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "SKill" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "SKill_HackingBullet" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnSKill(InputAction.CallbackContext context);
+        void OnSKill_HackingBullet(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "SitDown" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
@@ -766,5 +829,26 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnHookKeyboard(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Skill_Invisible" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSkill_Invisible(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Skill_Immotal" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSkill_Immotal(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Skill_Blaster" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSkill_Blaster(InputAction.CallbackContext context);
     }
 }

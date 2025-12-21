@@ -17,7 +17,11 @@ namespace Scripts.Common
         [SerializeField] private float _hitVfxDuration;
         [SerializeField] private int _hitVfxPoolCapacity;
 
-        private ObjectPool<Entity_VFX> _HitVFXpool;
+        [Header("Laser VFX")]
+        [SerializeField] private Entity_VFX _LaserPrefab;
+
+        private ObjectPool<Entity_VFX> _HitVFXPool;
+        private ObjectPool<Entity_VFX> _LaserPool;
         private void Awake()
         {
             if (_instance == null)
@@ -51,6 +55,9 @@ namespace Scripts.Common
                 case eVFXId.onHitVFX:
                     PlayHitVFX(position, rotate);
                     break;
+                case eVFXId.laserVFX:
+                    PlayLaserVFX(position, rotate);
+                    break;
                 default:
                     break;
             }
@@ -61,16 +68,29 @@ namespace Scripts.Common
             switch (id)
             {
                 case eVFXId.onHitVFX:
-                    _HitVFXpool.release(vfx);
+                    _HitVFXPool.release(vfx);
+                    break;
+                case eVFXId.laserVFX:
+                    _LaserPool.release(vfx);
                     break;
                 default:
                     break;
             }
         }
 
+        private void PlayLaserVFX(Vector3 position, Quaternion rotate)
+        {
+            Entity_VFX laser = _LaserPool.alloc(position, rotate);
+
+            laser.SetId(eVFXId.laserVFX);
+            laser.gameObject.SetActive(true);
+
+            laser.ActiveEffect(0.35f);
+        }
+
         private void PlayHitVFX(Vector3 position, Quaternion roate)
         {
-            Entity_VFX ret = _HitVFXpool.alloc(position, roate);
+            Entity_VFX ret = _HitVFXPool.alloc(position, roate);
             ret.SetId(eVFXId.onHitVFX);
             ret.gameObject.SetActive(true);
 
@@ -78,8 +98,11 @@ namespace Scripts.Common
         }
         private void Init()
         {
-            _HitVFXpool = new ObjectPool<Entity_VFX>();
-            _HitVFXpool.Init(_hitVfxPoolCapacity, _hitVfxPrefab);
+            _HitVFXPool = new ObjectPool<Entity_VFX>();
+            _LaserPool = new ObjectPool<Entity_VFX>();
+
+            _HitVFXPool.Init(_hitVfxPoolCapacity, _hitVfxPrefab);
+            _LaserPool.Init(48, _LaserPrefab);
         }
     }
 }
