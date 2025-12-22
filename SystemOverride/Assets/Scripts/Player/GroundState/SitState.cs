@@ -8,7 +8,7 @@ namespace Scripts.Player
 {
     public class SitState : PlayerOnGroundState
     {
-        private BoxCollider2D _boxCol;
+        private CapsuleCollider2D _boxCol;
         public SitState(Player owner, StateMachine<Player> stateMachine, string name, Rigidbody2D rb, Animator am)
             : base(owner, stateMachine, name, rb, am)
         {
@@ -31,10 +31,7 @@ namespace Scripts.Player
         public override void Exit()
         {
             base.Exit();
-
-
         }
-
         void OnSitDown()
         {
             if (_inputAction.SitDown.WasReleasedThisFrame())
@@ -43,8 +40,5 @@ namespace Scripts.Player
                 _owner.StandUp();
             }
         }
-
-
-
     }
 }

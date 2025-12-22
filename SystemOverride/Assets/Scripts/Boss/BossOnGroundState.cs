@@ -9,8 +9,6 @@ namespace Scripts.Boss
 {
     public class BossOnGroundState : BossSuperState
     {
-        private BossStateMachine<Boss_Temp> _bossStateMachine;
-
         // 대시 쿨타임 변수 생성
         const float _bossdashCoolTime = 10f;
         float _dashCoolStamp;
@@ -84,7 +82,7 @@ namespace Scripts.Boss
                 _bossStateMachine.ChangeState(_bossOwner.bossWalkState);
             }
             // 보스와 플레이어의 콜라이더가 겹치고, 거리가 2 이내라면
-            else if (_vshit != null && hit.distance <= 2f) 
+            else if (_vshit != null && hit.distance <= 2f)
             {
                 // 공격 쿨타임 감소
                 if (_bossattackCoolStamp > 0)
@@ -102,7 +100,7 @@ namespace Scripts.Boss
                 }
             }
 
-            if(_bossOwner._bossHP <= 0)
+            if (_bossOwner._bossHP <= 0)
             {
                 _bossStateMachine.ChangeState(_bossOwner.bossDeathState);
             }
@@ -114,5 +112,3 @@ namespace Scripts.Boss
         }
     }
 }
-
-

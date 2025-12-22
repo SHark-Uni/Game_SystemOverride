@@ -32,7 +32,7 @@ namespace Scripts.Player
         public Transform CharacterCenterPos;
         public Vector2 BoxSize;
         // 앉기에서 콜라이더 적용을 위한 콜라이더 생성
-        public BoxCollider2D boxCol;
+        public CapsuleCollider2D capCol;
 
         [Header("Move Details")]
         [SerializeField] private Vector2 _playerInput;
@@ -58,9 +58,9 @@ namespace Scripts.Player
         [SerializeField] private bool _doubleJump;
 
         [Header("SitDown Deatils")]
-        [SerializeField] private Vector2 _sitDownColiderBoxSize;
+        [SerializeField] private Vector2 _sitDownColiderCapSize;
         [SerializeField] private Vector2 _sitDownColiderOffset;
-        [SerializeField] private Vector2 _sitDownUpColiderBoxSize;
+        [SerializeField] private Vector2 _sitDownUpColiderCapSize;
         [SerializeField] private Vector2 _sitDownUpColiderOffset;
 
         [Header("Hitted Delay")]
@@ -80,7 +80,7 @@ namespace Scripts.Player
         PlayerInput _Input;
 
         // 앉기 전용 콜라이더 생성
-        public BoxCollider2D _boxCol;
+        public CapsuleCollider2D _capCol;
 
         public IdleState idleState { get; private set; }
         public WalkState walkState { get; private set; }
@@ -112,18 +112,18 @@ namespace Scripts.Player
         {
             get { return _firePoint.position; }
         }
-        public Vector2 sitDownColiderBoxSize
+        public Vector2 sitDownColiderCapSize
         {
-            get { return _sitDownColiderBoxSize; }
+            get { return _sitDownColiderCapSize; }
         }
         public Vector2 sitDownColiderOffset
         {
             get { return _sitDownColiderOffset; }
         }
 
-        public Vector2 sitDownUpColiderBoxSize
+        public Vector2 sitDownUpColiderCapSize
         {
-            get { return _sitDownUpColiderBoxSize; }
+            get { return _sitDownUpColiderCapSize; }
         }
         public Vector2 sitDownUpColiderOffset
         {
@@ -254,14 +254,14 @@ namespace Scripts.Player
 
         public void SitDown()
         {
-            _boxCol.size = _sitDownColiderBoxSize;
-            _boxCol.offset = _sitDownColiderOffset;
+            _capCol.size = _sitDownColiderCapSize;
+            _capCol.offset = _sitDownColiderOffset;
         }
 
         public void StandUp()
         {
-            _boxCol.size = _sitDownUpColiderBoxSize;
-            _boxCol.offset = _sitDownUpColiderOffset;
+            _capCol.size = _sitDownUpColiderCapSize;
+            _capCol.offset = _sitDownUpColiderOffset;
         }
 
         private void Awake()
@@ -269,7 +269,7 @@ namespace Scripts.Player
             _Input = new PlayerInput();
             _machine = new StateMachine<Player>();
             _rb = GetComponent<Rigidbody2D>();
-            _boxCol = GetComponent<BoxCollider2D>();
+            _capCol = GetComponent<CapsuleCollider2D>();
 
             buffManager = new BuffManager(this);
             
@@ -297,10 +297,10 @@ namespace Scripts.Player
 
             BoxSize = new Vector2(0.35f, 0.05f);
 
-            _sitDownColiderBoxSize = new Vector2(0.7f, 0.1f);
+            _sitDownColiderCapSize = new Vector2(0.7f, 0.1f);
             _sitDownColiderOffset = new Vector2(0.08f, -0.1f);
 
-            _sitDownUpColiderBoxSize = new Vector2(0.7f, 1.3f);
+            _sitDownUpColiderCapSize = new Vector2(0.7f, 1.3f);
             _sitDownUpColiderOffset = new Vector2(0.08f, -0.1f);
         }
 
