@@ -10,7 +10,6 @@ namespace Scripts.Boss
     public class Boss_Temp : MonoBehaviour
     {
         private BossStateMachine<Boss_Temp> _bossMachine;
-        //ì˜¤ë¸Œì íŠ¸ í’€ì´ í•„ìš”í•˜ë‹¤ë©´ ì—¬ê¸°
 
         [SerializeField] private Transform _bossfirePoint;
         [SerializeField] private bool _bossonGround;
@@ -44,8 +43,8 @@ namespace Scripts.Boss
         public float _floorAttackDelay = 0.5f;     
         public float _floorStateDuration = 2.0f;   
         public float _floorPrefabLifeTime = 1.0f;     
-        private BossFloorAttackState _bossFloorAttackState;
-        public BossFloorAttackState StateFloorAttack => _bossFloorAttackState; // ¿ÜºÎ¿¡¼­ Á¢±Ù¿ë ÇÁ·ÎÆÛÆ¼
+        //private BossFloorAttackState _bossFloorAttackState;
+       // public BossFloorAttackState StateFloorAttack => _bossFloorAttackState; // ¿ÜºÎ¿¡¼­ Á¢±Ù¿ë ÇÁ·ÎÆÛÆ¼
 
         [Header("Laser Attack Deatils")]
         public GameObject _turretPrefab;
@@ -55,7 +54,6 @@ namespace Scripts.Boss
         Rigidbody2D _bossrb;
         Animator _bossam;
 
-        // ìƒíƒœê°’ ì„¤ì • ë³€ìˆ˜
         private BossIdleState _bossidleState;
         private BossWalkState _bosswalkState;
         private BossFirstPatternState _bossFirstPatternState;
