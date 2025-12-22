@@ -9,8 +9,8 @@ namespace Scripts.Boss
 {
     public class Boss_Temp : MonoBehaviour
     {
-        private BossStateMachine<Boss_> _bossMachine;
-        //Ïò§Î∏åÏ†ùÌä∏ ÌíÄÏù¥ ÌïÑÏöîÌïòÎã§Î©¥ Ïó¨Í∏∞
+        private BossStateMachine<Boss_Temp> _bossMachine;
+        //ø¿∫Í¡ß∆Æ «Æ¿Ã « ø‰«œ¥Ÿ∏È ø©±‚
 
         [SerializeField] private Transform _bossfirePoint;
         [SerializeField] private bool _bossonGround;
@@ -30,8 +30,7 @@ namespace Scripts.Boss
         [Header("Move Details")]
         [SerializeField] private Vector2 _bossInput;
         [SerializeField] private Vector2 _bossmoveSpeed;
-        private int _bossfacingDir;
-        public float _bossattackCooldown;
+        [SerializeField] private float _bossgroundDistance;
 
         [Header("Attack Details")]
         [SerializeField] private float _bosspreDelay;
@@ -40,7 +39,7 @@ namespace Scripts.Boss
         Rigidbody2D _bossrb;
         Animator _bossam;
 
-        // ÏÉÅÌÉúÍ∞í ÏÑ§Ï†ï Î≥ÄÏàò
+        // ªÛ≈¬∞™ º≥¡§ ∫Øºˆ
         private BossIdleState _bossidleState;
         private BossWalkState _bosswalkState;
         private BossFirstPatternState _bossFirstPatternState;
@@ -50,11 +49,8 @@ namespace Scripts.Boss
         private BossHitState _bosshitState;
 
         public Vector2 bossmoveSpeed { get { return _bossmoveSpeed; } }
-        //public float bossairMoveMulplier { get { return _bossairMoveMulplier; } }
-        //public float bossjumpforce { get { return _bossjumpForce; } }
         public float bosspreDelay { get { return _bosspreDelay; } }
         public Vector2 bossattackForce { get { return _bossattackForce; } }
-        //public float bossattackSpeed { get { return _bossattackSpeed; } }
         public int bossfacingDir { get { return _bossfacingDir; } }
         public BossIdleState bossIdleState { get { return _bossidleState; } }
         public BossWalkState bossWalkState { get { return _bosswalkState; } }
@@ -104,26 +100,23 @@ namespace Scripts.Boss
             _bosspreDelay = 0.4f;
             _bossattackForce = new Vector2(15, 0f);
 
-            _bossattackCooldown = 3f;
-
             BossBoxSize = new Vector2(0.35f, 0.3f);
+        }
 
-        private void Start()
+        void Start()
         {
             _bossam = GetComponent<Animator>();
 
             _bossidleState = new BossIdleState(this, _bossMachine, "Idle", _bossrb, _bossam);
             _bosswalkState = new BossWalkState(this, _bossMachine, "Move", _bossrb, _bossam);
-            _bossFirstPatternState = new BossFirstPatternState(this, _bossMachine, "BossFirstPattern", _bossrb, _bossam);
-            _bossSecondPatternState = new BossSecondPatternState(this, _bossMachine, "BossSecondPattern", _bossrb, _bossam);
+            _bossFirstPatternState = new BossFirstPatternState(this, _bossMachine, "FirstPattern", _bossrb, _bossam);
+            _bossSecondPatternState = new BossSecondPatternState(this, _bossMachine, "SecondPattern", _bossrb, _bossam);
             _bossdeathState = new BossDeathState(this, _bossMachine, "Death", _bossrb, _bossam);
             _bossattackState = new BossAttackState(this, _bossMachine, "Attack", _bossrb, _bossam);
             _bosshitState = new BossHitState(this, _bossMachine, "Hit", _bossrb, _bossam);
 
             _bossMachine.BeginMachine(bossIdleState);
         }
-
-        //Ï∂îÌõÑ OnEnable Íµ¨ÌòÑ
 
         void Update()
         {

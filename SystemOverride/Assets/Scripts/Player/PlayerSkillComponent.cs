@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Scripts.Player
 {
+    using Scripts.Common;
     public class PlayerSkillComponent
     {
         Player _player;

@@ -15,7 +15,7 @@ namespace Scripts.Boss
 
         public void OnAttackEnd()
         {
-            _boss.SetAnimTrigger();
+            _boss.BossSetAnimTrigger();
         }
     }
 }
