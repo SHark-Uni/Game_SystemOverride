@@ -21,7 +21,8 @@ namespace Scripts.Skill
             base.OnActive();
             _caster._skillAction = _caster._skillAction | (ulong)eSkillBitMask.Invisible;
             _caster.gameObject.layer = (int)eLayerNumber.Ghost;
-            _caster.ChangeInvisibleMaterial();
+            _caster.ChangeMaterial(_caster._invisibleMaterial);
+            SoundManager.instance.PlaySFX("Invisible", _caster.playerPosition);
         }
 
         public override void OnUpdate()
