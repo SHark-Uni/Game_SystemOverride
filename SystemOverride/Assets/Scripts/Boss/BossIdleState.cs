@@ -1,4 +1,3 @@
-using Scripts.Boss;
 using Scripts.BossStateMachine;
 using System.Collections;
 using System.Collections.Generic;
@@ -42,7 +41,6 @@ namespace Scripts.Boss
 
         public override void Exit()
         {
-            
             base.Exit();
         }
     }

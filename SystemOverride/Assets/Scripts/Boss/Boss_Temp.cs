@@ -1,4 +1,3 @@
-using Scripts.Boss;
 using Scripts.BossStateMachine;
 using Scripts.Common;
 using System.Collections;
@@ -10,8 +9,8 @@ namespace Scripts.Boss
 {
     public class Boss_Temp : MonoBehaviour
     {
-        private BossStateMachine<Boss_Temp> _bossMachine;
-        //ø¿∫Í¡ß∆Æ «Æ¿Ã « ø‰«œ¥Ÿ∏È ø©±‚
+        private BossStateMachine<Boss_> _bossMachine;
+        //Ïò§Î∏åÏ†ùÌä∏ ÌíÄÏù¥ ÌïÑÏöîÌïòÎã§Î©¥ Ïó¨Í∏∞
 
         [SerializeField] private Transform _bossfirePoint;
         [SerializeField] private bool _bossonGround;
@@ -22,6 +21,7 @@ namespace Scripts.Boss
         public Transform BossCenterPos;
         public Vector2 BossBoxSize;
         public BoxCollider2D BossboxCol;
+        public int _bossfacingDir;
 
         public int _bossHP = 100;
         public int _bossAtk = 5;
@@ -40,7 +40,7 @@ namespace Scripts.Boss
         Rigidbody2D _bossrb;
         Animator _bossam;
 
-        // ªÛ≈¬∞™ º≥¡§ ∫Øºˆ
+        // ÏÉÅÌÉúÍ∞í ÏÑ§Ï†ï Î≥ÄÏàò
         private BossIdleState _bossidleState;
         private BossWalkState _bosswalkState;
         private BossFirstPatternState _bossFirstPatternState;
@@ -81,7 +81,6 @@ namespace Scripts.Boss
 
         private void CheckOnGround()
         {
-            /*
             RaycastHit2D hit = Physics2D.BoxCast(BossCenterPos.position, BossBoxSize, 0f, Vector2.down, _bossgroundDistance, (int)eLayerMask.Ground);
             if (hit.collider != null)
             {
@@ -90,7 +89,7 @@ namespace Scripts.Boss
             else
             {
                 _bossonGround = false;
-            }*/
+            }
         }
 
         private void Awake()
@@ -108,7 +107,7 @@ namespace Scripts.Boss
             _bossattackCooldown = 3f;
 
             BossBoxSize = new Vector2(0.35f, 0.3f);
-        }
+
         private void Start()
         {
             _bossam = GetComponent<Animator>();
@@ -124,7 +123,7 @@ namespace Scripts.Boss
             _bossMachine.BeginMachine(bossIdleState);
         }
 
-        //√ﬂ»ƒ OnEnable ±∏«ˆ
+        //Ï∂îÌõÑ OnEnable Íµ¨ÌòÑ
 
         void Update()
         {
@@ -135,8 +134,8 @@ namespace Scripts.Boss
 
         private void OnDrawGizmos()
         {
-          //  Debug.DrawRay(BossCenterPos.position, Vector2.down * _bossgroundDistance, Color.black);
-            //Gizmos.DrawWireCube(BossCenterPos.position + Vector3.down * _bossgroundDistance, BossBoxSize);
+            Debug.DrawRay(BossCenterPos.position, Vector2.down * _bossgroundDistance, Color.black);
+            Gizmos.DrawWireCube(BossCenterPos.position + Vector3.down * _bossgroundDistance, BossBoxSize);
         }
     }
 }
