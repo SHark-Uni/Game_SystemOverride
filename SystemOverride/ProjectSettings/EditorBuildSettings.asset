@@ -27,21 +27,21 @@ EditorBuildSettings:
     path: Assets/Scenes/GUN_WUNG_PACK01/OverScene.unity
     guid: db83d2948b4e0564bbc18944ba896278
   - enabled: 1
-    path: Assets/GUN_WUNG_SCENE_PACK1/MainMenu.unity
+    path: Assets/Scenes/GUN_WUNG_SCENE_PACK1/MainMenu.unity
     guid: eaf0684a04de6b6478d83f74bd8fd2f8
   - enabled: 1
-    path: Assets/GUN_WUNG_SCENE_PACK1/GameScene.unity
+    path: Assets/Scenes/GUN_WUNG_SCENE_PACK1/GameScene.unity
     guid: 6e7eacc178810194a82597ab3d7d5c4a
   - enabled: 1
-    path: Assets/GUN_WUNG_SCENE_PACK1/OptionScene.unity
+    path: Assets/Scenes/GUN_WUNG_SCENE_PACK1/OptionScene.unity
     guid: 49b5e06065f6b0844b4dcbed241ecbb8
   - enabled: 1
-    path: Assets/GUN_WUNG_SCENE_PACK1/StorageScene.unity
+    path: Assets/Scenes/GUN_WUNG_SCENE_PACK1/StorageScene.unity
     guid: 70049410d42f32642a20804200c73ee3
   - enabled: 1
-    path: Assets/GUN_WUNG_SCENE_PACK1/EndingScene.unity
+    path: Assets/Scenes/GUN_WUNG_SCENE_PACK1/EndingScene.unity
     guid: e531aaa0128df504fafcd05fee01bd8b
   - enabled: 1
-    path: Assets/GUN_WUNG_SCENE_PACK1/OverScene.unity
+    path: Assets/Scenes/GUN_WUNG_SCENE_PACK1/OverScene.unity
     guid: ea51c058418ef1442b149e371176ef02
   m_configObjects: {}
