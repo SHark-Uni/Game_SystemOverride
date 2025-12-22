@@ -9,10 +9,11 @@ namespace Scripts.Monster
     {
         private float _timer;
         private bool _isDashing;
-
+        protected Monster _monster;
         public AttackState(Monster monster, StateMachine<Monster> stateMachine) 
             : base(monster, stateMachine, "IsAttack")
         {
+            _monster = monster;
         }
 
 
