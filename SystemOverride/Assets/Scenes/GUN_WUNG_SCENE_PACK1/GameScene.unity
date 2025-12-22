@@ -1953,7 +1953,7 @@ GameObject:
   - component: {fileID: 646645869}
   - component: {fileID: 646645868}
   m_Layer: 5
-  m_Name: Frame 4
+  m_Name: SkillIcon4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2546,7 +2546,7 @@ GameObject:
   - component: {fileID: 712706774}
   - component: {fileID: 712706773}
   m_Layer: 5
-  m_Name: Frame 0
+  m_Name: CharcterImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3148,7 +3148,7 @@ GameObject:
   - component: {fileID: 1117558478}
   - component: {fileID: 1117558477}
   m_Layer: 5
-  m_Name: Frame 2
+  m_Name: SkillIcon2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4803,7 +4803,7 @@ GameObject:
   - component: {fileID: 1662915043}
   - component: {fileID: 1662915041}
   m_Layer: 5
-  m_Name: ButtonStoneCircle 1
+  m_Name: OptionButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5327,7 +5327,7 @@ GameObject:
   - component: {fileID: 1768812196}
   - component: {fileID: 1768812195}
   m_Layer: 5
-  m_Name: Frame 1
+  m_Name: SKillIcon1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5968,7 +5968,7 @@ GameObject:
   - component: {fileID: 1886409741}
   - component: {fileID: 1886409740}
   m_Layer: 5
-  m_Name: Frame 3
+  m_Name: SkillIcon3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6295,7 +6295,7 @@ GameObject:
   - component: {fileID: 1916121118}
   - component: {fileID: 1916121120}
   m_Layer: 5
-  m_Name: CardBoard
+  m_Name: CharacterStatusUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

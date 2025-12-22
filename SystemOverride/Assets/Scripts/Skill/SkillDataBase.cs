@@ -5,6 +5,7 @@ using Scripts.Common;
 
 namespace Scripts.Skill
 {
+    using Scripts.Common;
     [CreateAssetMenu(fileName = "SkillData", menuName = "Skill/SkillData")]
     public class SkillDataBase : ScriptableObject
     {

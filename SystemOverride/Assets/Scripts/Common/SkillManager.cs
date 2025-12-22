@@ -4,46 +4,51 @@ using System.Collections.Generic;
 using UnityEngine;
 using Scripts.Player;
 using Scripts.Skill;
-public class SkillManager : MonoBehaviour
-{
-    private static SkillManager _instance;
-    public SkillDataBase _skillData;
 
-    //스킬의 정보를 가져올 수 있음. UI
-    Dictionary<ulong, SkillData> _skillDataStore;
-    public static SkillManager instance
+namespace Scripts.Common
+{
+    public class SkillManager : MonoBehaviour
     {
-        get { return _instance; }
-    }
-    private void Awake()
-    {
-        if (_instance == null)
+        private static SkillManager _instance;
+        public SkillDataBase _skillData;
+
+        //스킬의 정보를 가져올 수 있음. UI
+        Dictionary<ulong, SkillData> _skillDataStore;
+        public static SkillManager instance
         {
-            _instance = this;
-            DontDestroyOnLoad(this);
-            Init();
+            get { return _instance; }
+        }
+        private void Awake()
+        {
+            if (_instance == null)
+            {
+                _instance = this;
+                DontDestroyOnLoad(this);
+                Init();
+                return;
+            }
+            Destroy(this);
             return;
         }
-        Destroy(this);
-        return;
-    }
 
-    private void Init()
-    {
-        _skillDataStore = _skillData.GetDictionary();
-    }
-
-    public bool TryGetSkillBaseData(ulong id, out SkillData ret)
-    {
-        bool _isValid;
-        _isValid = _skillDataStore.TryGetValue(id, out ret);
-        if (_isValid)
+        private void Init()
         {
-            return true;
+            _skillDataStore = _skillData.GetDictionary();
         }
-        return false;
+
+        public bool TryGetSkillBaseData(ulong id, out SkillData ret)
+        {
+            bool _isValid;
+            _isValid = _skillDataStore.TryGetValue(id, out ret);
+            if (_isValid)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+
     }
-
-
-
 }
+
