@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scripts.Boss_Temp
+namespace Scripts.Boss
 {
     public class BossAnimationEvent : MonoBehaviour
     {
@@ -15,12 +15,12 @@ namespace Scripts.Boss_Temp
 
         public void OnAttackEnd()
         {
-            _boss.SetAnimTrigger();
+            _boss.BossSetAnimTrigger();
         }
 
         public void OnSoundEnd()
         {
-            _bossTemp.BossSetAnimTrigger();
+            _boss.BossSetAnimTrigger();
         }
     }
 }

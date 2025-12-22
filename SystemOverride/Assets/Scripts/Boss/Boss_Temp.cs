@@ -30,7 +30,7 @@ namespace Scripts.Boss
         [Header("Move Details")]
         [SerializeField] private Vector2 _bossInput;
         [SerializeField] private Vector2 _bossmoveSpeed;
-        private int _bossfacingDir;
+        [SerializeField] private float _bossgroundDistance;
         public float _bossattackCooldown;
 
         [Header("Attack Details")]
@@ -112,6 +112,7 @@ namespace Scripts.Boss
             _bossattackCooldown = 3f;
 
             BossBoxSize = new Vector2(0.35f, 0.3f);
+        }
 
         private void Start()
         {
