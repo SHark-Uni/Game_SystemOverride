@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossAnimationEvent : MonoBehaviour
+namespace Scripts.Boss_Temp
 {
-    // Start is called before the first frame update
-    void Start()
+    public class BossAnimationEvent : MonoBehaviour
     {
-        
-    }
+        Boss_Temp _boss;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        void Start()
+        {
+            _boss = GetComponentInParent<Boss_Temp>();
+        }
+
+        public void OnAttackEnd()
+        {
+            _boss.SetAnimTrigger();
+        }
     }
 }
