@@ -29,3 +29,9 @@ MonoBehaviour:
     _clip: {fileID: 8300000, guid: 14dd37fa5e25d6e4380c6375c8c622c1, type: 3}
   - _name: Jump
     _clip: {fileID: 8300000, guid: fb6c0b7cb8249bf4eb0f8d78029006d2, type: 3}
+  - _name: BossOpening
+    _clip: {fileID: 8300000, guid: f5c4072a3e6806d48976dba9742c330e, type: 3}
+  - _name: BossAttack
+    _clip: {fileID: 8300000, guid: 9a99cb19f8b62a84783eb747e9a918a7, type: 3}
+  - _name: BossDead
+    _clip: {fileID: 8300000, guid: ae5f73b915a09bf4088f442e0df2ae43, type: 3}
