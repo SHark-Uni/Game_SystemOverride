@@ -6,11 +6,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Scipts.Boss
+namespace Scipts.Boss_Temp
 {
     public class Boss_Temp : MonoBehaviour
     {
-        private BossStateMachine<Boss_Temp> _bossMachine;
+        private BossStateMachine<Boss_> _bossMachine;
         //오브젝트 풀이 필요하다면 여기
 
         [SerializeField] private Transform _bossfirePoint;
@@ -30,29 +30,12 @@ namespace Scipts.Boss
         [Header("Move Details")]
         [SerializeField] private Vector2 _bossInput;
         [SerializeField] private Vector2 _bossmoveSpeed;
-        [SerializeField][Range(0, 1)] private float _bossairMoveMulplier;
-        public float _bossdashForce;
-        public float _bossdashDuration;
-        public float _bossdashCooldown;
         private int _bossfacingDir;
         public float _bossattackCooldown;
 
         [Header("Attack Details")]
         [SerializeField] private float _bosspreDelay;
         [SerializeField] private Vector2 _bossattackForce;
-        [SerializeField] private float _bossattackSpeed;
-
-        [Header("Jump Details")]
-        [SerializeField] private float _bossjumpForce;
-        [SerializeField] private float _bossgroundDistance;
-        [SerializeField] private float _bossslideDistance;
-        [SerializeField] private bool _bossdoubleJump;
-
-        [Header("SitDown Deatils")]
-        [SerializeField] private Vector2 _bosssitDownColiderBoxSize;
-        [SerializeField] private Vector2 _bosssitDownColiderOffset;
-        [SerializeField] private Vector2 _bosssitDownUpColiderBoxSize;
-        [SerializeField] private Vector2 _bosssitDownUpColiderOffset;
 
         Rigidbody2D _bossrb;
         Animator _bossam;
@@ -66,16 +49,12 @@ namespace Scipts.Boss
         private BossAttackState _bossattackState;
         private BossHitState _bosshitState;
 
-        public Vector2 bosssitDownColiderBoxSize { get { return _bosssitDownColiderBoxSize; } }
-        public Vector2 bosssitDownColiderOffset { get { return _bosssitDownColiderOffset; } }
-        public Vector2 bosssitDownUpColiderBoxSize { get { return _bosssitDownUpColiderBoxSize; } }
-        public Vector2 bosssitDownUpColiderOffset { get { return _bosssitDownUpColiderOffset; } }
         public Vector2 bossmoveSpeed { get { return _bossmoveSpeed; } }
-        public float bossairMoveMulplier { get { return _bossairMoveMulplier; } }
-        public float bossjumpforce { get { return _bossjumpForce; } }
+        //public float bossairMoveMulplier { get { return _bossairMoveMulplier; } }
+        //public float bossjumpforce { get { return _bossjumpForce; } }
         public float bosspreDelay { get { return _bosspreDelay; } }
         public Vector2 bossattackForce { get { return _bossattackForce; } }
-        public float bossattackSpeed { get { return _bossattackSpeed; } }
+        //public float bossattackSpeed { get { return _bossattackSpeed; } }
         public int bossfacingDir { get { return _bossfacingDir; } }
         public BossIdleState bossIdleState { get { return _bossidleState; } }
         public BossWalkState bossWalkState { get { return _bosswalkState; } }
@@ -113,50 +92,23 @@ namespace Scipts.Boss
             }
         }
 
-        public void BossSitDown()
-        {
-            BossboxCol.size = _bosssitDownColiderBoxSize;
-            BossboxCol.offset = _bosssitDownColiderOffset;
-        }
-
-        public void BossStandUp()
-        {
-            BossboxCol.size = _bosssitDownUpColiderBoxSize;
-            BossboxCol.offset = _bosssitDownUpColiderOffset;
-        }
-
         private void Awake()
         {
             _bossMachine = new BossStateMachine<Boss_Temp>();
             _bossrb = GetComponent<Rigidbody2D>();
             _bossfacingDir = 1;
             BossboxCol = GetComponent<BoxCollider2D>();
-            _bossairMoveMulplier = .8f;
 
             _bossmoveSpeed = new Vector2(4.0f, 0);
 
             _bosspreDelay = 0.4f;
-            _bossattackSpeed = 1f;
             _bossattackForce = new Vector2(15, 0f);
 
-            _bossjumpForce = 12f;
-            _bossgroundDistance = 1f;
-            _bossdashForce = 5f;
-            _bossdashDuration = 0.2f;
-            _bossdashCooldown = 10f;
             _bossattackCooldown = 3f;
 
             BossBoxSize = new Vector2(0.35f, 0.3f);
 
-            // 보스 앉기의 콜라이더, offset 크기 설정
-            _bosssitDownColiderBoxSize = new Vector2(0.7f, 0.2f);
-            _bosssitDownColiderOffset = new Vector2(0f, -0.15f);
-            // 보스 일어나기의 콜라이더, offset 크기 설정
-            _bosssitDownUpColiderBoxSize = new Vector2(0.7f, 0.35f);
-            _bosssitDownUpColiderOffset = new Vector2(0f, 0f);
-        }
-
-        void Start()
+        private void Start()
         {
             _bossam = GetComponent<Animator>();
 
