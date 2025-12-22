@@ -12,32 +12,24 @@ namespace Scripts.Boss
         public BossAttackState(Boss_Temp owner, BossStateMachine<Boss_Temp> stateMachine, string name, Rigidbody2D rb, Animator am)
                 : base(owner, stateMachine, name, rb, am)
         {
+            name = "Attack";
         }
 
-        void BossAttackPlayer(float bossAtk)
+        public void BossAttackPlayer(float bossAtk)
         {
             Debug.Log("BossAttackPlayer 함수 실행");
             // 보스와 플레이어의 콜라이더가 겹침
             Collider2D _vshit = Physics2D.OverlapCircle(_bossOwner.transform.position, 2f, LayerMask.GetMask("Player"));
 
-            //base.EntityUpdate();
-            if (_vshit == null)
+            SoundManager.instance.PlaySFX("BossAttack", _bossOwner.transform.position);
+
+            if(_bossTrigger == true)
             {
-                _bossAm.SetBool("Attack", true);
-                SoundManager.instance.PlaySFX("BossAttack", _bossOwner.transform.position);
-                //Debug.Log("Attack 애니메이션 재생");
                 _bossStateMachine.ChangeState(_bossOwner.bossIdleState);
-                Debug.Log("보스 공격 상태에서 플레이어와 콜라이더가 안 겹침, 정지 상태로 전환");
-                bossAtk = 0;
             }
-            else if (_vshit != null)
-            {
-                _bossAm.SetBool("Attack", true);
-                SoundManager.instance.PlaySFX("BossAttack", _bossOwner.transform.position);
-                //Debug.Log("Attack 애니메이션 재생");
-                _bossStateMachine.ChangeState(_bossOwner.bossIdleState);
-                Debug.Log("보스 공격 상태에서 플레이어와 콜라이더가 겹침, 5의 데미지");
-            }
+
+            Debug.Log("보스 공격 상태에서 플레이어와 콜라이더가 겹침, 5의 데미지");
+            
         }
 
         public override void Enter()

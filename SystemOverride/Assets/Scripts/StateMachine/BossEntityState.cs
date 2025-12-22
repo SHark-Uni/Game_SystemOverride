@@ -31,7 +31,7 @@ namespace Scripts.BossStateMachine
         public virtual void Enter()
         {
             _bossTrigger = false;
-            //_bossAm.SetBool(_bossName, true);
+            _bossAm.SetBool(_bossName, true);
         }
 
         public virtual void EntityUpdate()
@@ -40,7 +40,7 @@ namespace Scripts.BossStateMachine
 
         public virtual void Exit()
         {
-            //_bossAm.SetBool(_bossName, false);
+            _bossAm.SetBool(_bossName, false);
         }
 
         public void SetTrigger()
