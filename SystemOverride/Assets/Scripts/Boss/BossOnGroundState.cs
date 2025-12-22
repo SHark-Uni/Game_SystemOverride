@@ -1,4 +1,3 @@
-using Scipts.Boss;
 using Scripts.BossStateMachine;
 using System.Collections;
 using System.Collections.Generic;
@@ -86,15 +85,15 @@ namespace Scripts.Boss
                 // 공격 쿨타임 감소
                 if (_bossattackCoolStamp > 0)
                 {
-                    //Debug.Log("쿨타임 중 " + _bossattackCoolStamp);
+                    Debug.Log("쿨타임 중 " + _bossattackCoolStamp);
+
                     _bossattackCoolStamp -= Time.deltaTime;
+
                 }
                 // 일반 공격 쿨타임 도달 시 보스 공격 상태로 전환
                 else if (_bossattackCoolStamp < 0)
                 {
-                    //Debug.Log(_bossattackCoolStamp + "보스 공격 상태로 전환");
-
-                    //_bossAm.SetBool("Idle", false);
+                    Debug.Log(_bossattackCoolStamp + "보스 공격 상태로 전환");
 
                     _bossStateMachine.ChangeState(_bossOwner.bossAttackState);
 

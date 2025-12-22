@@ -1,4 +1,3 @@
-using Scipts.Boss;
 using Scripts.Boss;
 using Scripts.BossStateMachine;
 using System.Collections;
@@ -12,7 +11,7 @@ namespace Scripts.Boss
         public BossWalkState(Boss_Temp owner, BossStateMachine<Boss_Temp> stateMachine, string name, Rigidbody2D rb, Animator am)
                 : base(owner, stateMachine, name, rb, am)
         {
-            
+            name = "Move";
         }
 
         public override void Enter()
@@ -36,15 +35,10 @@ namespace Scripts.Boss
                 Vector2 direction = (_playerpos - _bosspos).normalized;
                 Vector3 Pos3D = direction;
 
-                _bossAm.SetBool("Move", true);
-
                 _bossOwner.transform.Translate(Pos3D * 1f * Time.deltaTime);
             }
             else if (dist <= 2f)
             {
-                //Debug.Log("보스 이동 상태, 2 이하");
-                _bossAm.SetBool("Move", false);
-
                 return;
             }
         }

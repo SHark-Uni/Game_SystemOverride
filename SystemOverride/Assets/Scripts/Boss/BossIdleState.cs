@@ -1,5 +1,3 @@
-using Scipts.Boss;
-using Scripts.Boss;
 using Scripts.BossStateMachine;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,19 +12,17 @@ namespace Scripts.Boss
         public BossIdleState(Boss_Temp owner, BossStateMachine<Boss_Temp> stateMachine, string name, Rigidbody2D rb, Animator am)
             : base(owner, stateMachine, name, rb, am)
         {
+            name = "Idle";
         }
 
         void Idle()
         {
             _bossidleTime -= Time.deltaTime;
 
-            _bossAm.SetBool("Idle", true);
-
             if (_bossidleTime <= 0)
             {
                 _bossStateMachine.ChangeState(_bossOwner.bossWalkState);
                 _bossidleTime = 2;
-                _bossAm.SetBool("Idle", false);
             } 
         }
 
@@ -45,7 +41,6 @@ namespace Scripts.Boss
 
         public override void Exit()
         {
-            
             base.Exit();
         }
     }
