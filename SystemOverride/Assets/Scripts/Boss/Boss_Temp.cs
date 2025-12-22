@@ -6,11 +6,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Scipts.Boss_Temp
+namespace Scripts.Boss
 {
     public class Boss_Temp : MonoBehaviour
     {
-        private BossStateMachine<Boss_> _bossMachine;
+        private BossStateMachine<Boss_Temp> _bossMachine;
         //오브젝트 풀이 필요하다면 여기
 
         [SerializeField] private Transform _bossfirePoint;
@@ -81,6 +81,7 @@ namespace Scipts.Boss_Temp
 
         private void CheckOnGround()
         {
+            /*
             RaycastHit2D hit = Physics2D.BoxCast(BossCenterPos.position, BossBoxSize, 0f, Vector2.down, _bossgroundDistance, (int)eLayerMask.Ground);
             if (hit.collider != null)
             {
@@ -89,7 +90,7 @@ namespace Scipts.Boss_Temp
             else
             {
                 _bossonGround = false;
-            }
+            }*/
         }
 
         private void Awake()
@@ -107,7 +108,7 @@ namespace Scipts.Boss_Temp
             _bossattackCooldown = 3f;
 
             BossBoxSize = new Vector2(0.35f, 0.3f);
-
+        }
         private void Start()
         {
             _bossam = GetComponent<Animator>();
@@ -134,8 +135,8 @@ namespace Scipts.Boss_Temp
 
         private void OnDrawGizmos()
         {
-            Debug.DrawRay(BossCenterPos.position, Vector2.down * _bossgroundDistance, Color.black);
-            Gizmos.DrawWireCube(BossCenterPos.position + Vector3.down * _bossgroundDistance, BossBoxSize);
+          //  Debug.DrawRay(BossCenterPos.position, Vector2.down * _bossgroundDistance, Color.black);
+            //Gizmos.DrawWireCube(BossCenterPos.position + Vector3.down * _bossgroundDistance, BossBoxSize);
         }
     }
 }

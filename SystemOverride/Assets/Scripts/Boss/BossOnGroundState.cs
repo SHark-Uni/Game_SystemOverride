@@ -1,4 +1,3 @@
-using Scipts.Boss;
 using Scripts.BossStateMachine;
 using System.Collections;
 using System.Collections.Generic;
@@ -39,7 +38,7 @@ namespace Scripts.Boss
 
         public void SetAnimTrigger()
         {
-            _bossStateMachine.
+            //_bossStateMachine.
         }
 
         void BossFlip()

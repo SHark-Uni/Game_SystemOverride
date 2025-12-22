@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scripts.Boss_Temp
+namespace Scripts.Boss
 {
     public class BossAnimationEvent : MonoBehaviour
     {
