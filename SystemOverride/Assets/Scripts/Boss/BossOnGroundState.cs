@@ -38,7 +38,7 @@ namespace Scripts.Boss
 
         public void SetAnimTrigger()
         {
-            _bossStateMachine.
+            _bossStateMachine.bosscurrentState.SetTrigger();
         }
 
         void BossFlip()
