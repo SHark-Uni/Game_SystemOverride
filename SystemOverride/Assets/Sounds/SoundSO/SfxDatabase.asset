@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87a18cd18808576478e9a1235e9b55c8, type: 3}
+  m_Name: SfxDatabase
+  m_EditorClassIdentifier: 
+  _audioClips:
+  - _name: Shoot
+    _clip: {fileID: 8300000, guid: 1e49d2774d889414ca6b11d9120eb77c, type: 3}
+  - _name: Laser
+    _clip: {fileID: 8300000, guid: 03950a537f0158043b2b32e123f6dba4, type: 3}
+  - _name: Invisible
+    _clip: {fileID: 8300000, guid: 932e3b7fd8cedb140b83223d1b4c0584, type: 3}
+  - _name: Hitted
+    _clip: {fileID: 8300000, guid: c081d3de8850fe64db890f78dc2947d8, type: 3}
+  - _name: BossAttack
+    _clip: {fileID: 8300000, guid: 9a99cb19f8b62a84783eb747e9a918a7, type: 3}
+  - _name: BossDead
+    _clip: {fileID: 8300000, guid: ae5f73b915a09bf4088f442e0df2ae43, type: 3}
+  - _name: BossOpening
+    _clip: {fileID: 8300000, guid: f5c4072a3e6806d48976dba9742c330e, type: 3}
