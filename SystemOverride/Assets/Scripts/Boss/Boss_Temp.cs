@@ -60,16 +60,11 @@ namespace Scipts.Boss
         // 상태값 설정 변수
         private BossIdleState _bossidleState;
         private BossWalkState _bosswalkState;
-        private BossDashState _bossdashState;
-        private BossBackDashState _bossbadkdashState;
-        private BossJumpState _bossjumpState;
         private BossFirstPatternState _bossFirstPatternState;
         private BossSecondPatternState _bossSecondPatternState;
         private BossDeathState _bossdeathState;
         private BossAttackState _bossattackState;
-        private BossFallState _bossfallState;
         private BossHitState _bosshitState;
-        private BossSitState _bosssitState;
 
         public Vector2 bosssitDownColiderBoxSize { get { return _bosssitDownColiderBoxSize; } }
         public Vector2 bosssitDownColiderOffset { get { return _bosssitDownColiderOffset; } }
@@ -84,16 +79,11 @@ namespace Scipts.Boss
         public int bossfacingDir { get { return _bossfacingDir; } }
         public BossIdleState bossIdleState { get { return _bossidleState; } }
         public BossWalkState bossWalkState { get { return _bosswalkState; } }
-        public BossDashState bossDashState { get { return _bossdashState; } }
-        public BossBackDashState bossBackDashState { get { return _bossbadkdashState; } }
-        public BossJumpState bossJumpState { get { return _bossjumpState; } }
         public BossFirstPatternState bossFirstPatternState { get { return _bossFirstPatternState; } }
         public BossSecondPatternState bossSecondPatternState { get { return _bossSecondPatternState; } }
         public BossDeathState bossDeathState { get { return _bossdeathState; } }
         public BossAttackState bossAttackState { get { return _bossattackState; } }
-        public BossFallState bossFallState { get { return _bossfallState; } }
         public BossHitState bossHitState { get { return _bosshitState; } }
-        public BossSitState bossSitState { get { return _bosssitState; } }
 
         public void BossSetAnimTrigger()
         {
@@ -170,18 +160,13 @@ namespace Scipts.Boss
         {
             _bossam = GetComponent<Animator>();
 
-            _bossidleState = new BossIdleState(this, _bossMachine, "BossIdle", _bossrb, _bossam);
-            _bosswalkState = new BossWalkState(this, _bossMachine, "BossWalk", _bossrb, _bossam);
-            _bossdashState = new BossDashState(this, _bossMachine, "BossDash", _bossrb, _bossam);
-            _bossbadkdashState = new BossBackDashState(this, _bossMachine, "BossBackDash", _bossrb, _bossam);
-            _bossjumpState = new BossJumpState(this, _bossMachine, "BossJump", _bossrb, _bossam);
+            _bossidleState = new BossIdleState(this, _bossMachine, "Idle", _bossrb, _bossam);
+            _bosswalkState = new BossWalkState(this, _bossMachine, "Move", _bossrb, _bossam);
             _bossFirstPatternState = new BossFirstPatternState(this, _bossMachine, "BossFirstPattern", _bossrb, _bossam);
             _bossSecondPatternState = new BossSecondPatternState(this, _bossMachine, "BossSecondPattern", _bossrb, _bossam);
-            _bossdeathState = new BossDeathState(this, _bossMachine, "BossDeath", _bossrb, _bossam);
-            _bossattackState = new BossAttackState(this, _bossMachine, "BossAttack", _bossrb, _bossam);
-            _bossfallState = new BossFallState(this, _bossMachine, "BossFall", _bossrb, _bossam);
-            _bosshitState = new BossHitState(this, _bossMachine, "BossHit", _bossrb, _bossam);
-            _bosssitState = new BossSitState(this, _bossMachine, "BossSit", _bossrb, _bossam);
+            _bossdeathState = new BossDeathState(this, _bossMachine, "Death", _bossrb, _bossam);
+            _bossattackState = new BossAttackState(this, _bossMachine, "Attack", _bossrb, _bossam);
+            _bosshitState = new BossHitState(this, _bossMachine, "Hit", _bossrb, _bossam);
 
             _bossMachine.BeginMachine(bossIdleState);
         }
