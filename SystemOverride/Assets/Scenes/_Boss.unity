@@ -5029,27 +5029,15 @@ MonoBehaviour:
   BossCenterPos: {fileID: 2005366764}
   BossBoxSize: {x: 0, y: 0}
   BossboxCol: {fileID: 2005366765}
+  _bossfacingDir: 0
   _bossHP: 100
   _bossAtk: 5
   _bossDef: 5
   _bossInput: {x: 0, y: 0}
   _bossmoveSpeed: {x: 0, y: 0}
-  _bossairMoveMulplier: 0
-  _bossdashForce: 0
-  _bossdashDuration: 0
-  _bossdashCooldown: 0
-  _bossattackCooldown: 0
+  _bossgroundDistance: 0
   _bosspreDelay: 0
   _bossattackForce: {x: 0, y: 0}
-  _bossattackSpeed: 0
-  _bossjumpForce: 0
-  _bossgroundDistance: 0
-  _bossslideDistance: 0
-  _bossdoubleJump: 0
-  _bosssitDownColiderBoxSize: {x: 0, y: 0}
-  _bosssitDownColiderOffset: {x: 0, y: 0}
-  _bosssitDownUpColiderBoxSize: {x: 0, y: 0}
-  _bosssitDownUpColiderOffset: {x: 0, y: 0}
 --- !u!1 &2042977412
 GameObject:
   m_ObjectHideFlags: 0
@@ -5332,7 +5320,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.098
+  m_Volume: 0.043
   m_Pitch: 1
   Loop: 0
   Mute: 0

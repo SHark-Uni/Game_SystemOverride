@@ -17,5 +17,10 @@ namespace Scripts.Boss
         {
             _boss.BossSetAnimTrigger();
         }
+
+        public void OnSoundEnd()
+        {
+            _boss.BossSetAnimTrigger();
+        }
     }
 }
