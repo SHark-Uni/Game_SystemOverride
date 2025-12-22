@@ -54,6 +54,21 @@ namespace Scipts.Boss
         [SerializeField] private Vector2 _bosssitDownUpColiderBoxSize;
         [SerializeField] private Vector2 _bosssitDownUpColiderOffset;
 
+
+        [Header("Floor Attack Deatils")]
+        public GameObject _floorAttackPrefab;    
+        public Transform _floorAttackSpawnPoint;  
+        public float _floorAttackDelay = 0.5f;     
+        public float _floorStateDuration = 2.0f;   
+        public float _floorPrefabLifeTime = 1.0f;     
+        private BossFloorAttackState _bossFloorAttackState;
+        public BossFloorAttackState StateFloorAttack => _bossFloorAttackState; // 외부에서 접근용 프로퍼티
+
+        [Header("Laser Attack Deatils")]
+        public GameObject _turretPrefab;
+        public Transform[] _ceilingSpawnPoints;
+        public float _turretTurnSpeed = 200f;
+
         Rigidbody2D _bossrb;
         Animator _bossam;
 

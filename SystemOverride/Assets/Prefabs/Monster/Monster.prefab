@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3951224101558797695}
   - component: {fileID: 3503866454248196769}
   - component: {fileID: 5448176297074794312}
-  m_Layer: 2
+  m_Layer: 7
   m_Name: Monster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,8 +30,8 @@ Transform:
   m_GameObject: {fileID: 5060177011194989586}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.43, y: 0.95, z: 25.319}
-  m_LocalScale: {x: 3.9964, y: 3.9964, z: 3.9964}
+  m_LocalPosition: {x: -2.53, y: 3.56, z: 25.319}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8196663681545307551}
@@ -169,18 +169,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.018860526, y: -0.09025499}
+  m_Offset: {x: 0.0271146, y: -0.30771488}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.71, y: 0.67}
+    oldSize: {x: 2.21875, y: 2.09375}
     newSize: {x: 0.71, y: 0.67}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.22146554, y: 0.4974097}
+  m_Size: {x: 0.4790823, y: 1.5178784}
   m_EdgeRadius: 0
 --- !u!114 &5448176297074794312
 MonoBehaviour:
@@ -199,19 +199,20 @@ MonoBehaviour:
   _chaseSpeed: 0
   _detectionRange: 0
   _attackDamage: 0
+  _idleWaitTime: 0
   _patrolRange: 0
+  _patrolDuration: 0
   _cliffCheckPos: {fileID: 8196663681545307551}
-  _groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
+  _groundLayer: 256
   _cliffCheckDistance: 0
   _wallCheckDistance: 0
   _attackRange: 0
   _dashSpeed: 0
+  _attackWaitTime: 0.5
+  _dashDuration: 0.3
+  _attackTotalTime: 1.5
+  _hitRecoveryTime: 0.5
   _target: {fileID: 0}
-  _obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 73
   _verticalDetectionRange: 0
 --- !u!1 &5590670117403205064
 GameObject:
@@ -222,7 +223,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8196663681545307551}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CliffCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -238,7 +239,7 @@ Transform:
   m_GameObject: {fileID: 5590670117403205064}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.023, y: -0.353, z: 128.19003}
+  m_LocalPosition: {x: 0.209, y: -1.051, z: 128.19003}
   m_LocalScale: {x: 0.2501957, y: 0.2501957, z: 0.2501957}
   m_ConstrainProportionsScale: 0
   m_Children: []
