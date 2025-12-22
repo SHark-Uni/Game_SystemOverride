@@ -17,6 +17,7 @@ namespace Scripts.Player
         {
             base.Enter();
 
+            SoundManager.instance.PlaySFX("Jump", _owner.playerPosition);
             _owner.SetVelocity(0, _owner.jumpForce);
         }
         public override void EntityUpdate()

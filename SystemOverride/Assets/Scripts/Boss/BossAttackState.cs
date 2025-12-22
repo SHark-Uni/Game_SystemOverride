@@ -14,20 +14,20 @@ namespace Scripts.Boss
             name = "Attack";
         }
 
-        void BossAttackPlayer(float bossAtk)
+        public void BossAttackPlayer(float bossAtk)
         {
-            Debug.Log("BossAttackPlayer ÇÔ¼ö ½ÇÇà");
-            // º¸½º¿Í ÇÃ·¹ÀÌ¾îÀÇ Äİ¶óÀÌ´õ°¡ °ãÄ§
+            Debug.Log("BossAttackPlayer í•¨ìˆ˜ ì‹¤í–‰");
+            // ë³´ìŠ¤ì™€ í”Œë ˆì´ì–´ì˜ ì½œë¼ì´ë”ê°€ ê²¹ì¹¨
             Collider2D _vshit = Physics2D.OverlapCircle(_bossOwner.transform.position, 2f, LayerMask.GetMask("Player"));
 
-            //base.EntityUpdate();
             SoundManager.instance.PlaySFX("BossAttack", _bossOwner.transform.position);
-            //Debug.Log("Attack ¾Ö´Ï¸ŞÀÌ¼Ç Àç»ı");
+
             if(_bossTrigger == true)
             {
                 _bossStateMachine.ChangeState(_bossOwner.bossIdleState);
             }
-            Debug.Log("º¸½º °ø°İ »óÅÂ¿¡¼­ ÇÃ·¹ÀÌ¾î¿Í Äİ¶óÀÌ´õ°¡ °ãÄ§, 5ÀÇ µ¥¹ÌÁö");
+
+            Debug.Log("ë³´ìŠ¤ ê³µê²© ìƒíƒœì—ì„œ í”Œë ˆì´ì–´ì™€ ì½œë¼ì´ë”ê°€ ê²¹ì¹¨, 5ì˜ ë°ë¯¸ì§€");
             
         }
 
@@ -38,7 +38,7 @@ namespace Scripts.Boss
 
         public override void EntityUpdate()
         {
-            Debug.Log("BossAttackState EntityUpdate ½ÇÇà");
+            Debug.Log("BossAttackState EntityUpdate ì‹¤í–‰");
 
             base.EntityUpdate();
 

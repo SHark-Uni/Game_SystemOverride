@@ -726,9 +726,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1394383929
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 07d88014b499e244fafaafede0a241cf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1440,7 +1440,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: d7d2c584d6f68bb458b635fa566bf2bd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1458,7 +1458,7 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1394383929
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
@@ -1602,6 +1602,7 @@ MonoBehaviour:
   _sloopyMaterial: {fileID: 6200000, guid: bd3f92a2102265e4aa33485d420ccae7, type: 2}
   _invisibleMaterial: {fileID: 2100000, guid: f2a221326b9cce642adfaed0081a752d, type: 2}
   _HackingBulletMaterial: {fileID: 2100000, guid: c7c79cf4f074f8f4ba526cf8a5e8142f, type: 2}
+  _ImmotalMaterial: {fileID: 2100000, guid: 784a09ec68b4d894289ac0c913ca75e1, type: 2}
   _DefaultMaterial: {fileID: 2100000, guid: d11286787f221ea448874984309ce7f2, type: 2}
   CharacterCenterPos: {fileID: 1661470313}
   BoxSize: {x: 0, y: 0}
@@ -1743,7 +1744,7 @@ Transform:
   m_GameObject: {fileID: 1971255350}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.035977066, y: -0.4063793, z: 0.08207801}
+  m_LocalPosition: {x: -2.05, y: 0.37, z: 0.08207801}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

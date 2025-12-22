@@ -21,3 +21,11 @@ MonoBehaviour:
     _clip: {fileID: 8300000, guid: 932e3b7fd8cedb140b83223d1b4c0584, type: 3}
   - _name: Hitted
     _clip: {fileID: 8300000, guid: c081d3de8850fe64db890f78dc2947d8, type: 3}
+  - _name: Immotal
+    _clip: {fileID: 8300000, guid: 8488f3af864887142a5b012f4314b585, type: 3}
+  - _name: BlasterMode
+    _clip: {fileID: 8300000, guid: 1c6639dfc62aff247aee97bb827f4235, type: 3}
+  - _name: Whip
+    _clip: {fileID: 8300000, guid: 14dd37fa5e25d6e4380c6375c8c622c1, type: 3}
+  - _name: Jump
+    _clip: {fileID: 8300000, guid: fb6c0b7cb8249bf4eb0f8d78029006d2, type: 3}

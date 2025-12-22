@@ -5316,7 +5316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1ec27c3ded680449b4e97cf1d6f8fe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clips: {fileID: 11400000, guid: 2abe0669192e4624b80edda3efa8861d, type: 2}
+  _clips: {fileID: 11400000, guid: 7592414e21452e143889c3025033c45d, type: 2}
   _prefab: {fileID: 5931092295379298818, guid: a7594fd59bac4d549b1cf861a742e898, type: 3}
   _BGM: {fileID: 0}
   volume: 0
@@ -5332,7 +5332,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.514
+  m_Volume: 0.098
   m_Pitch: 1
   Loop: 0
   Mute: 0
