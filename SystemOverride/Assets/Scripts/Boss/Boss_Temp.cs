@@ -1,4 +1,3 @@
-using Scripts.Boss;
 using Scripts.BossStateMachine;
 using Scripts.Common;
 using System.Collections;
@@ -6,12 +5,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Scipts.Boss_Temp
+namespace Scripts.Boss
 {
     public class Boss_Temp : MonoBehaviour
     {
         private BossStateMachine<Boss_> _bossMachine;
-        //¿ÀºêÁ§Æ® Ç®ÀÌ ÇÊ¿äÇÏ´Ù¸é ¿©±â
+        //ì˜¤ë¸Œì íŠ¸ í’€ì´ í•„ìš”í•˜ë‹¤ë©´ ì—¬ê¸°
 
         [SerializeField] private Transform _bossfirePoint;
         [SerializeField] private bool _bossonGround;
@@ -22,6 +21,7 @@ namespace Scipts.Boss_Temp
         public Transform BossCenterPos;
         public Vector2 BossBoxSize;
         public BoxCollider2D BossboxCol;
+        public int _bossfacingDir;
 
         public int _bossHP = 100;
         public int _bossAtk = 5;
@@ -40,7 +40,7 @@ namespace Scipts.Boss_Temp
         Rigidbody2D _bossrb;
         Animator _bossam;
 
-        // »óÅÂ°ª ¼³Á¤ º¯¼ö
+        // ìƒíƒœê°’ ì„¤ì • ë³€ìˆ˜
         private BossIdleState _bossidleState;
         private BossWalkState _bosswalkState;
         private BossFirstPatternState _bossFirstPatternState;
@@ -123,7 +123,7 @@ namespace Scipts.Boss_Temp
             _bossMachine.BeginMachine(bossIdleState);
         }
 
-        //ÃßÈÄ OnEnable ±¸Çö
+        //ì¶”í›„ OnEnable êµ¬í˜„
 
         void Update()
         {

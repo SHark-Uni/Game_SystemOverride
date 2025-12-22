@@ -1,4 +1,3 @@
-using Scipts.Boss;
 using Scripts.Boss;
 using Scripts.BossStateMachine;
 using System.Collections;
