@@ -8,9 +8,10 @@ namespace Scripts.Monster
     public class IdleState : MonsterSuperState
     {
         private float _idleTimer;
-        
+        protected Monster _monster;
         public IdleState(Monster monster, StateMachine<Monster> _stateMachine) : base(monster, _stateMachine, "IsIdle")
         {
+            _monster = monster;
         }
 
         public override void Enter()

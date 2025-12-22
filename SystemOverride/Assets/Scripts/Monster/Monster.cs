@@ -8,7 +8,7 @@ using Scripts.Common;
 
 namespace Scripts.Monster
 {
-    public class Monster : MonoBehaviour, IDamageable, IAttacker, Common.IPoolable //, IHitable
+    public class Monster : MonoBehaviour, IDamageable, IAttacker, Common.IPoolable
     {
         //2종류.3종류,...50종류
         public StateMachine<Monster> _machine { get; private set; }
@@ -20,8 +20,8 @@ namespace Scripts.Monster
         public PatrolState StatePatrol { get; private set; }
         public ChaseState StateChase { get; private set; }
         public AttackState StateAttack { get; private set; }
-
-        public int attackPower => throw new System.NotImplementedException();
+        public HitState StateHit { get; private set; }
+        public int attackPower => (int)_attackDamage;
 
         // 몬스터 스탯
         private int _maxHp;
@@ -51,6 +51,9 @@ namespace Scripts.Monster
         public float _attackWaitTime = 0.5f;   // 공격 전 대기 시간 
         public float _dashDuration = 0.3f;       // 실제 돌진하는 시간
         public float _attackTotalTime = 1.5f;    // 전체 공격 모션 시간
+        private float _lastTouchDamageTime;
+        // Hit 변수 설정
+        public float _hitRecoveryTime;
         // 플레이어 위치 받기
         public Transform _target;
         public float _verticalDetectionRange;
@@ -67,17 +70,19 @@ namespace Scripts.Monster
 
         private void Init()
         {
-            _attackRange = 2f;
+            _attackRange = 3.5f;
             _dashSpeed = 20f;
             _patrolSpeed = 2f;
             _patrolRange = 3f;
-            _chaseSpeed = 4f;
+            _chaseSpeed = 6f;
             _detectionRange = 7.5f;
             _verticalDetectionRange = 1f;
-            _wallCheckDistance = 0.6f;
-            _cliffCheckDistance = 1f;
+            _wallCheckDistance = 2f;
+            _cliffCheckDistance = 0.3f;
             _idleWaitTime = 1.5f;
             _patrolDuration = 3.0f;
+            _hitRecoveryTime = 0.5f;
+            _attackDamage = 10f;
         }
 
         private void Start()
@@ -88,6 +93,7 @@ namespace Scripts.Monster
             StatePatrol = new PatrolState(this, _machine);
             StateChase = new ChaseState(this, _machine);
             StateAttack = new AttackState(this, _machine);
+            StateHit = new HitState(this, _machine);
             _currentHp = _maxHp;
             _startPosition = transform.position;
 
@@ -184,6 +190,7 @@ namespace Scripts.Monster
             // 벽에 막혔거나 없으면 못 본 척
             return 9999f;
         }
+
         // 플레이어를 향해 특정 속도로 이동하기 위해 만든 함수
         public void MoveToTarget(float _speed)
         {
@@ -193,12 +200,6 @@ namespace Scripts.Monster
 
             _rb.velocity = new Vector2(_dir * _speed, 0);
             Flip(_dir);
-        }
-
-        // 정찰 상태 범위 체크를 위해 
-        public Vector2 GetStartPosition()
-        {
-            return _startPosition;
         }
 
         // 낭떠러지 체크
@@ -218,6 +219,86 @@ namespace Scripts.Monster
 
             return hit.collider != null;
         }
+        private bool CanTouchAttack()
+        {
+            // (현재 시간 - 마지막 공격 시간)이 대기 시간보다 크면 공격 가능(True)
+            return Time.time - _lastTouchDamageTime >= _attackWaitTime;
+        }
+
+
+        // 충돌처리 ( 몬스터 공격, 몸박공격 ) 
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                if (_machine.currentState != StateAttack) return;
+
+                if (!CanTouchAttack())
+                {
+                    return;
+                }
+
+                IDamageable target = collision.gameObject.GetComponent<IDamageable>();
+
+                if (target != null)
+                {
+
+                    Attack(target);
+
+
+                }
+
+            }
+        }
+
+
+        public void TakeDamage(int atk, IAttacker attacker)
+        {
+
+            if (_currentHp <= 0) return;
+
+            _currentHp -= atk;
+            _animator.SetTrigger("IsHit");
+
+            if (_currentHp > 0)
+            {
+                _machine.ChangeState(StateHit);
+            }
+            else
+            {
+                Die();
+            }
+        }
+
+
+        public void Attack(IDamageable target)
+        {
+            if (target != null)
+            {
+                target.TakeDamage(this.attackPower, this);
+            }
+
+        }
+
+        public Vector3 GetAttackerPos()
+        {
+            return transform.position;
+        }
+
+        public void OnAlloc()
+        {
+            Init();
+            _rb.velocity = Vector2.zero;
+            GetComponent<Collider2D>().enabled = true;
+            this.enabled = true;
+        }
+
+        public void OnRelease()
+        {
+            //물리정보 초기화.
+            _rb.velocity = new Vector2(0, 0);
+        }
+
 
         private void OnDrawGizmos()
         {
@@ -258,47 +339,6 @@ namespace Scripts.Monster
                 Gizmos.color = Color.cyan;
                 Gizmos.DrawLine(_cliffCheckPos.position, _cliffCheckPos.position + Vector3.down * _cliffCheckDistance);
             }
-        }
-
-        // 피격시 어떤 행동을 할것인지 구현.
-        public void TakeDamage(int atk, IAttacker attacker)
-        {
-            // 이미 죽은 시체 또 때리는 거 방지
-            if (_currentHp <= 0) return;
-
-            _currentHp -= atk;
-            _animator.SetTrigger("Hit");
-
-            if (_currentHp <= 0)
-            {
-                Die();
-            }
-            else
-            {
-                // 추격 상태로 만드는 로직
-            }
-        }
-
-
-        public void Attack(IDamageable target)
-        {
-            
-        }
-      
-        public Vector3 GetAttackerPos()
-        {
-            return transform.position;
-        }
-
-        public void OnAlloc()
-        {
-            Init();
-        }
-
-        public void OnRelease()
-        {
-            //물리정보 초기화.
-            _rb.velocity = new Vector2(0, 0);
         }
     }
 }

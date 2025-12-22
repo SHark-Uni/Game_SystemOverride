@@ -9,9 +9,11 @@ namespace Scripts.Monster
 {
     public class ChaseState : MonsterSuperState
     {
+        protected Monster _monster;
         public ChaseState(Monster monster, StateMachine<Monster> stateMachine) 
             : base(monster, stateMachine, "IsChase")
         {
+            _monster = monster;
         }
 
         public override void Enter()
