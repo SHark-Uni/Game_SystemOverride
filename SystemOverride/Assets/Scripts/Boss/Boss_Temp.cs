@@ -65,6 +65,11 @@ namespace Scripts.Boss
             _bossMachine.bosscurrentState.SetTrigger();
         }
 
+        public void BossSetSoundTrigger()
+        {
+            _bossMachine.bosscurrentState.SetTrigger();
+        }
+
         public void BossSetVelocity(float x, float y)
         {
             _bossrb.velocity = new Vector2(x, y);
@@ -117,8 +122,6 @@ namespace Scripts.Boss
 
             _bossMachine.BeginMachine(bossIdleState);
         }
-
-        //추후 OnEnable 구현
 
         void Update()
         {
