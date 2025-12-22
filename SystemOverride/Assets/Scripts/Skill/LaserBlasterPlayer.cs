@@ -17,6 +17,7 @@ namespace Scripts.Skill
         {
             base.OnActive();
             _caster._skillAction = _caster._skillAction | (ulong)eSkillBitMask.LaserBuster;
+            SoundManager.instance.PlaySFX("BlasterMode", _caster.playerPosition);
         }
 
         public override void OnUpdate()

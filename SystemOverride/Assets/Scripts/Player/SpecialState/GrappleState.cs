@@ -26,6 +26,7 @@ namespace Scripts.Player
             _playerJoint = _owner.joint;
             _ropeRender = _owner.rope;
 
+            SoundManager.instance.PlaySFX("Whip", _owner.playerPosition);
             if (!TryHook())
             {
                 EndHooking();
@@ -143,7 +144,6 @@ namespace Scripts.Player
 
 
             float degree = Mathf.Atan2(achorToPlayerDir.y, achorToPlayerDir.x) * Mathf.Rad2Deg;
-
             if (degree > -10f || degree < -170f)
             {
                 _rb.velocity = new Vector2(_rb.velocity.x, _rb.velocity.y * 0.5f);

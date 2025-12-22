@@ -2,20 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scripts.Boss
+namespace Scripts.Boss_Temp
 {
     public class BossAnimationEvent : MonoBehaviour
     {
-        Boss_Temp _bossTemp;
+        Boss_Temp _boss;
 
         void Start()
         {
-            _bossTemp = GetComponentInParent<Boss_Temp>();
+            _boss = GetComponentInParent<Boss_Temp>();
         }
 
         public void OnAttackEnd()
         {
-            _bossTemp.BossSetAnimTrigger();
+            _boss.SetAnimTrigger();
         }
 
         public void OnSoundEnd()

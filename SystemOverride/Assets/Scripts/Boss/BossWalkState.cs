@@ -11,7 +11,7 @@ namespace Scripts.Boss
         public BossWalkState(Boss_Temp owner, BossStateMachine<Boss_Temp> stateMachine, string name, Rigidbody2D rb, Animator am)
                 : base(owner, stateMachine, name, rb, am)
         {
-            name = "Move";
+            name = "Walk";
         }
 
         public override void Enter()
@@ -24,12 +24,11 @@ namespace Scripts.Boss
             base.EntityUpdate();
             Vector2 _playerpos = _bossOwner._playerPos.position;
             Vector2 _bosspos = _bossOwner.transform.position;
-            // º¸½º¿Í ÇÃ·¹ÀÌ¾î »çÀÌÀÇ °Å¸® °è»ê
+            // ë³´ìŠ¤ì™€ í”Œë ˆì´ì–´ ì‚¬ì´ì˜ ê±°ë¦¬ ê³„ì‚°
             float dist = Vector2.Distance(_playerpos, _bosspos);
 
-            if (dist > 2) // ÇÃ·¹ÀÌ¾î¿Í º¸½ºÀÇ °Å¸®°¡ 2 ÀÌ»óÀÏ ¶§¸¸ ÀÌµ¿
+            if (dist > 2) // í”Œë ˆì´ì–´ì™€ ë³´ìŠ¤ì˜ ê±°ë¦¬ê°€ 2 ì´ìƒì¼ ë•Œë§Œ ì´ë™
             {
-                //Debug.Log("º¸½º ÀÌµ¿ »óÅÂ");
                 float dir = _playerpos.x - _bosspos.x;
 
                 Vector2 direction = (_playerpos - _bosspos).normalized;
