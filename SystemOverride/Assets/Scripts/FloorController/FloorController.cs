@@ -5,44 +5,35 @@ using UnityEngine.SceneManagement;
 
 public class FloorController : MonoBehaviour
 {
-    public GameObject floor1_Right;
-    public GameObject floor2;
-    public GameObject floor2_Right;
-    public GameObject floor3;
-    public GameObject floor3_Right;
-    public GameObject player;
-
-    Vector2 _playerPos;
-    Vector2 _floor1Pos;
-    Vector2 _floor2Pos;
-    Vector2 _floor3Pos;
-    Vector2 _floor1_Right_Pos;
-    Vector2 _floor2_Right_Pos;
-    Vector2 _floor3_Right_Pos;
+    public Transform player;
+    public Transform bossPoint; // 보스 지점(같은 씬)
 
     void Start()
     {
-        _playerPos = player.transform.position;
-        _floor1_Right_Pos = floor1_Right.transform.position;
-        _floor2Pos = floor2.transform.position;
-        _floor2_Right_Pos = floor2_Right.transform.position;
-        _floor3Pos = floor3.transform.position;
-        _floor3_Right_Pos = floor3_Right.transform.position;
+        if (player == null) Debug.LogWarning("FloorController: player가 할당되지 않았습니다.");
     }
 
-    void Update()
+    // 트리거나 다른 스크립트에서 호출해서 플레이어를 순간이동시킬 때 사용
+    public void TeleportPlayer(Transform target)
     {
-        if (Input.GetKeyDown(KeyCode.F) && _playerPos == _floor1_Right_Pos)
+        if (player == null || target == null) return;
+
+        // Rigidbody2D가 있다면 속도를 0으로 초기화해서 순간이동 충돌 문제 방지
+        var rb = player.GetComponent<Rigidbody2D>();
+        if (rb != null) rb.velocity = Vector2.zero;
+
+        player.position = target.position;
+        Debug.Log($"[FloorController] Teleported player to {target.name} at {target.position}");
+    }
+
+    // 보스 지점으로 이동 (옵션)
+    public void TeleportToBoss()
+    {
+        if (bossPoint == null)
         {
-            _playerPos = _floor2Pos;
+            Debug.LogWarning("[FloorController] bossPoint가 설정되지 않았습니다.");
+            return;
         }
-        else if (Input.GetKeyDown(KeyCode.F) && _playerPos == _floor2_Right_Pos)
-        {
-            _playerPos = _floor3Pos;
-        }
-        else if (Input.GetKeyDown(KeyCode.F) && _playerPos == _floor3_Right_Pos)
-        {
-            SceneManager.LoadScene("_Boss");
-        }
+        TeleportPlayer(bossPoint);
     }
 }

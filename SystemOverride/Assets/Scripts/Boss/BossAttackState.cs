@@ -19,7 +19,7 @@ namespace Scripts.Boss
         {
             Debug.Log("BossAttackPlayer 함수 실행");
             // 보스와 플레이어의 콜라이더가 겹침
-            Collider2D _vshit = Physics2D.OverlapCircle(_bossOwner.transform.position, 2f, LayerMask.GetMask("Player"));
+            //Collider2D _vshit = Physics2D.OverlapCircle(_bossOwner.transform.position, 2f, LayerMask.GetMask("Player"));
 
             //base.EntityUpdate();
             //Debug.Log("Attack 애니메이션 재생");
