@@ -351,6 +351,7 @@ namespace Scripts.Player
 
         public void TakeDamage(int atk, IAttacker attacker)
         {
+            Debug.Log("Player TakeDamage 호출됨");
             //무적이면 무시
             if ((_skillAction & (ulong)eSkillBitMask.Immotal) == 0)
             {
@@ -362,6 +363,7 @@ namespace Scripts.Player
             IsDead = SetHp(atk);
             if (IsDead)
             {
+
                 return;
             }
             //연출
@@ -445,11 +447,6 @@ namespace Scripts.Player
         public void ResetMaterial()
         {
             _SpriteRender.material = _DefaultMaterial;
-        }
-
-        public void TakeDamage(int damage)
-        {
-            _playerStat._hp -= damage;
         }
     }
 
