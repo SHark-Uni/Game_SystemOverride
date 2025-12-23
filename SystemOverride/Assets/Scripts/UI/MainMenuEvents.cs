@@ -9,7 +9,7 @@ public class MainMenuEvents : MonoBehaviour
     public void OnClickGameStart()
     {
         LoadingManager.instance.ChangeSceneWithLoadingPanel(eSceneType._GameScene, transform.position);
-        SoundManager.instance.ChangeBGM("_GameScene");
+        
     }
 
 
