@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace scipts.Boss
+namespace scripts.Boss
 {
     public class LaserTurret : MonoBehaviour
     {
@@ -16,9 +16,41 @@ namespace scipts.Boss
         {
             _target = target;
             _trunSpeed = _speed;
-            _warningLine.SetActive(true);
-            _warningLine.GetComponent<SpriteRenderer>().color = Color.yellow; // 노란색 경고
-            _beamHitBox.SetActive(false);
+            if (_warningLine != null)
+            {
+                _warningLine.SetActive(true);
+                _warningLine.GetComponent<SpriteRenderer>().color = Color.yellow;
+            }
+            if (_beamHitBox != null) _beamHitBox.SetActive(false);
+        }
+
+        public void StartAttackSequence(float trackTime, float lockTime, float fireTime)
+        {
+            StartCoroutine(AttackRoutine(trackTime, lockTime, fireTime));
+        }
+
+        IEnumerator AttackRoutine(float trackTime, float lockTime, float fireTime)
+        {
+            // 1. 조준 단계 (Track)
+            float timer = 0f;
+            while (timer < trackTime)
+            {
+                timer += Time.deltaTime;
+                TrackTarget(); // 계속 플레이어를 따라옴
+                yield return null;
+            }
+
+            // 2. 고정 및 경고 단계 (LockOn)
+            LockOn();
+            yield return new WaitForSeconds(lockTime);
+
+            // 3. 발사 단계 (Fire)
+            Fire();
+            // (선택사항) 발사 시 화면 흔들림 효과 등 추가 가능
+            yield return new WaitForSeconds(fireTime);
+
+            // 4. 종료 (Destroy)
+            Destroy(gameObject);
         }
 
         public void TrackTarget()

@@ -10,7 +10,7 @@ namespace Scripts.Boss
     public class Boss_Temp : MonoBehaviour
     {
         private BossStateMachine<Boss_Temp> _bossMachine;
-        //Ïò§Î∏åÏ†ùÌä∏ ÌíÄÏù¥ ÌïÑÏöîÌïòÎã§Î©¥ Ïó¨Í∏∞
+        //?§Î∏å?ùÌä∏ ?Ä???ÑÏöî?òÎã§Î©??¨Í∏∞
 
         [SerializeField] private Transform _bossfirePoint;
         [SerializeField] private bool _bossonGround;
@@ -22,6 +22,7 @@ namespace Scripts.Boss
         public Vector2 BossBoxSize;
         public BoxCollider2D BossboxCol;
         public int _bossfacingDir;
+        public bool IsGrounded => _bossonGround; // ø‹∫Œø°º≠ _bossonGround ∞™¿ª ¿–±‚ ¿ß«— ∫Øºˆ
 
         public int _bossHP = 100;
         public int _bossAtk = 5;
@@ -42,20 +43,21 @@ namespace Scripts.Boss
         public GameObject _floorAttackPrefab;    
         public Transform _floorAttackSpawnPoint;  
         public float _floorAttackDelay = 0.5f;     
-        public float _floorStateDuration = 2.0f;   
+        public float _floorStateDuration = 0.5f;   
         public float _floorPrefabLifeTime = 1.0f;     
-        private BossFloorAttackState _bossFloorAttackState;
         public BossFloorAttackState StateFloorAttack => _bossFloorAttackState; // ø‹∫Œø°º≠ ¡¢±ŸøÎ «¡∑Œ∆€∆º
 
         [Header("Laser Attack Deatils")]
-        public GameObject _turretPrefab;
-        public Transform[] _ceilingSpawnPoints;
-        public float _turretTurnSpeed = 200f;
+        public GameObject _turretPrefab;   // ∑π¿Ã¿˙ ≈Õ∑ø «¡∏Æ∆’ ≥÷¥¬ ∞˜
+        public Transform[] _ceilingSpawnPoints; // √µ¿Â Ω∫∆˘ ¿ßƒ°µÈ πËø≠
 
         Rigidbody2D _bossrb;
         Animator _bossam;
 
-        // ÏÉÅÌÉúÍ∞í ÏÑ§Ï†ï Î≥ÄÏàò
+        public Rigidbody2D BossRb => _bossrb;
+        public Animator BossAnim => _bossam;
+
+        // ?ÅÌÉúÍ∞??§Ï†ï Î≥Ä??
         private BossIdleState _bossidleState;
         private BossWalkState _bosswalkState;
         private BossFirstPatternState _bossFirstPatternState;
@@ -63,7 +65,8 @@ namespace Scripts.Boss
         private BossDeathState _bossdeathState;
         private BossAttackState _bossattackState;
         private BossHitState _bosshitState;
-
+        private BossFloorAttackState _bossFloorAttackState;
+        public BossLazerAttackState _bossLazerAttackState;
         public Vector2 bossmoveSpeed { get { return _bossmoveSpeed; } }
         public float bosspreDelay { get { return _bosspreDelay; } }
         public Vector2 bossattackForce { get { return _bossattackForce; } }
@@ -75,7 +78,7 @@ namespace Scripts.Boss
         public BossDeathState bossDeathState { get { return _bossdeathState; } }
         public BossAttackState bossAttackState { get { return _bossattackState; } }
         public BossHitState bossHitState { get { return _bosshitState; } }
-
+        public BossFloorAttackState bossFloorAttackState { get { return _bossFloorAttackState;} }
         public void BossSetAnimTrigger()
         {
             _bossMachine.bosscurrentState.SetTrigger();
@@ -96,7 +99,7 @@ namespace Scripts.Boss
             _bossrb.velocity = force;
         }
 
-        private void CheckOnGround()
+        public void CheckOnGround()
         {
             RaycastHit2D hit = Physics2D.BoxCast(BossCenterPos.position, BossBoxSize, 0f, Vector2.down, _bossgroundDistance, (int)eLayerMask.Ground);
             if (hit.collider != null)
@@ -113,6 +116,7 @@ namespace Scripts.Boss
         {
             _bossMachine = new BossStateMachine<Boss_Temp>();
             _bossrb = GetComponent<Rigidbody2D>();
+            _bossam = GetComponent<Animator>();
             _bossfacingDir = 1;
             BossboxCol = GetComponent<BoxCollider2D>();
 
@@ -126,7 +130,7 @@ namespace Scripts.Boss
 
         void Start()
         {
-            _bossam = GetComponent<Animator>();
+           
 
             _bossidleState = new BossIdleState(this, _bossMachine, "Idle", _bossrb, _bossam);
             _bosswalkState = new BossWalkState(this, _bossMachine, "Move", _bossrb, _bossam);
@@ -135,7 +139,8 @@ namespace Scripts.Boss
             _bossdeathState = new BossDeathState(this, _bossMachine, "Death", _bossrb, _bossam);
             _bossattackState = new BossAttackState(this, _bossMachine, "Attack", _bossrb, _bossam);
             _bosshitState = new BossHitState(this, _bossMachine, "Hit", _bossrb, _bossam);
-
+            _bossFloorAttackState = new BossFloorAttackState(this, _bossMachine, "Floor", _bossrb, _bossam);
+            _bossLazerAttackState = new BossLazerAttackState(this, _bossMachine, _bossrb, _bossam);
             _bossMachine.BeginMachine(bossIdleState);
         }
 
@@ -144,6 +149,18 @@ namespace Scripts.Boss
             CheckOnGround();
 
             _bossMachine.bosscurrentState.EntityUpdate();
+            // ≈◊Ω∫∆ÆøÎ
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                Debug.Log("πŸ¥⁄ ¬Ô±‚ ∆–≈œ º≥¡§");
+                _bossMachine.ChangeState(StateFloorAttack);
+            }
+            // ≈◊Ω∫∆ÆøÎ
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                Debug.Log("∑π¿Ã¿˙ ∆–≈œ πﬂµø");             
+                _bossMachine.ChangeState(_bossLazerAttackState);
+            }
         }
 
         private void OnDrawGizmos()
