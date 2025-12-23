@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Scipts.Boss;
+using Scripts.Boss;
 
 namespace Scipts.Boss
 {
