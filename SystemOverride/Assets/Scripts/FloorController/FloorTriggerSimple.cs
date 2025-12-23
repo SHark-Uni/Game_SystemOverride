@@ -18,26 +18,31 @@ public class FloorTriggerSimple : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Player")) return;
+        // Bullet 태그인지 확인
+        if (!other.CompareTag("Bullet")) return;
 
+        // teleportTarget이 설정되어 있는지 확인
         if (teleportTarget == null)
         {
             Debug.LogWarning($"[FloorTriggerSimple] teleportTarget이 설정되지 않았습니다: {name}");
             return;
         }
-
+        // FloorController가 할당되어 있으면 그쪽을 통해 이동
         if (floorController != null)
         {
             // FloorController가 있으면 그쪽 메서드 통해 이동
             floorController.TeleportPlayer(teleportTarget);
         }
         else
+        // FloorController가 없으면 직접 이동
         {
-            // 간단하게 직접 이동
+            // 플레이어의 Rigidbody2D 컴포넌트 가져오기
             var rb = other.GetComponent<Rigidbody2D>();
+            // Rigidbody2D가 있다면 속도를 0으로 초기화해서 순간이동 충돌 문제 방지
             if (rb != null) rb.velocity = Vector2.zero;
+            // 플레이어 위치를 teleportTarget 위치로 설정
             other.transform.position = teleportTarget.position;
-            Debug.Log($"[FloorTriggerSimple] Player teleported to {teleportTarget.name} by {name}");
+            Debug.Log($"[FloorTriggerSimple] Bullet teleported to {teleportTarget.name} by {name}");
         }
     }
 }
