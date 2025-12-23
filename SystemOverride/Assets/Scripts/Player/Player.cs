@@ -410,7 +410,7 @@ namespace Scripts.Player
         }
         private void OnDie()
         {
-            
+            SceneLoader.instance.LoadScene(eSceneType._Ending);
         }
 
         private void InitStates()
