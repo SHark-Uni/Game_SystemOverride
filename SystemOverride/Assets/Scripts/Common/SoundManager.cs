@@ -9,7 +9,11 @@ public class SoundManager : MonoBehaviour
     public static SoundManager _instance;
 
     public SoundDataBase _clips;
+    public SoundDataBase _bgms;
+
     private Dictionary<string, AudioClip> _clipCache;
+    private Dictionary<string, AudioClip> _bgmCache;
+
     public Entity_SFX _prefab;
     [SerializeField] private AudioSource _BGM;
     public float volume;
@@ -39,12 +43,17 @@ public class SoundManager : MonoBehaviour
         _audioPool.Init(ConfigManager.SoundSourcePoolSize, _prefab);
 
         _BGM = GetComponent<AudioSource>();
+
         volume = 1f;
     }
 
     private void Start()
     {
         _clipCache = _clips.GetDictionary();
+        _bgmCache = _bgms.GetDictionary();
+
+        _BGM.loop = true;
+        PlayBGM("_Main");
     }
 
     //처음 딜레이 발생한다음에, 플레이 몇초뒤 효과음 플레이
@@ -96,17 +105,26 @@ public class SoundManager : MonoBehaviour
         _audioPool.release(sfx);
     }
 
-    public void PlayBGM(AudioClip clip)
+    private void PlayBGM(string key)
     {
+        AudioClip clip;
+        if (!_bgmCache.TryGetValue(key, out clip))
+        {
+            return;
+        }
+      
         _BGM.clip = clip;
-        _BGM.volume = volume;
-        _BGM.loop = true;
-
         _BGM.Play();
     }
 
-    public void ChangeBGM(AudioClip clip)
+    public void ChangeBGM(string key)
     {
+        AudioClip clip;
+        if (!_bgmCache.TryGetValue(key, out clip))
+        {
+            return;
+        }
+
         _BGM.Stop();
         _BGM.clip = clip;
         _BGM.Play();
