@@ -1,4 +1,6 @@
 using UnityEngine;
+using Scripts.Player;
+using Scripts.Player.Bullets;
 
 [RequireComponent(typeof(Collider2D))]
 public class FloorTriggerSimple : MonoBehaviour
@@ -19,7 +21,18 @@ public class FloorTriggerSimple : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Bullet 태그인지 확인
-        if (!other.CompareTag("Bullet")) return;
+        if (!other.CompareTag("Bullet"))
+        {
+            return;
+        }
+        
+
+        //by junGi
+        Bullet bullet = other.GetComponent<Bullet>();
+        if (bullet.IsHackingBullet)
+        { 
+            //이동하면 됩니다.
+        }
 
         // teleportTarget이 설정되어 있는지 확인
         if (teleportTarget == null)

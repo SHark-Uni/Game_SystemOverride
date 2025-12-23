@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 131008125}
   - component: {fileID: 131008124}
   - component: {fileID: 131008126}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Clip (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -712,10 +712,13 @@ MonoBehaviour:
   _firePoint: {fileID: 1396425179}
   _onGround: 0
   _sloopyMaterial: {fileID: 6200000, guid: bd3f92a2102265e4aa33485d420ccae7, type: 2}
-  _frictionMaterial: {fileID: 6200000, guid: a7b52549d0c083747bcc217c8c57bd92, type: 2}
+  _invisibleMaterial: {fileID: 2100000, guid: f2a221326b9cce642adfaed0081a752d, type: 2}
+  _HackingBulletMaterial: {fileID: 2100000, guid: c7c79cf4f074f8f4ba526cf8a5e8142f, type: 2}
+  _ImmotalMaterial: {fileID: 2100000, guid: 784a09ec68b4d894289ac0c913ca75e1, type: 2}
+  _DefaultMaterial: {fileID: 2100000, guid: d11286787f221ea448874984309ce7f2, type: 2}
   CharacterCenterPos: {fileID: 876174928}
   BoxSize: {x: 0, y: 0}
-  boxCol: {fileID: 0}
+  capCol: {fileID: 0}
   _playerInput: {x: 0, y: 0}
   _moveSpeed: {x: 0, y: 0}
   _airMoveMulplier: 0
@@ -729,15 +732,17 @@ MonoBehaviour:
   _groundDistance: 0
   _slideDistance: 0
   _doubleJump: 0
-  _sitDownColiderBoxSize: {x: 0, y: 0}
+  _sitDownColiderCapSize: {x: 0, y: 0}
   _sitDownColiderOffset: {x: 0, y: 0}
-  _sitDownUpColiderBoxSize: {x: 0, y: 0}
+  _sitDownUpColiderCapSize: {x: 0, y: 0}
   _sitDownUpColiderOffset: {x: 0, y: 0}
   _hitDelay: 0
-  _grappleLength: 0
-  _clickedPoint: {x: 0, y: 0}
-  _rope: {fileID: 0}
-  _boxCol: {fileID: 0}
+  _playerStat:
+    _hp: 0
+    _atk: 0
+    _def: 0
+  _skillAction: 0
+  _capCol: {fileID: 0}
 --- !u!70 &751882385
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -961,6 +966,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _clips: {fileID: 11400000, guid: 7592414e21452e143889c3025033c45d, type: 2}
+  _bgms: {fileID: 11400000, guid: b3303d026d301684480edd1c3da99668, type: 2}
   _prefab: {fileID: 5931092295379298818, guid: a7594fd59bac4d549b1cf861a742e898, type: 3}
   _BGM: {fileID: 0}
   volume: 0
@@ -1102,7 +1108,7 @@ GameObject:
   - component: {fileID: 994252996}
   - component: {fileID: 994252995}
   - component: {fileID: 994252997}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Clip (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1362,6 +1368,7 @@ GameObject:
   - component: {fileID: 1276226828}
   - component: {fileID: 1276226829}
   - component: {fileID: 1276226827}
+  - component: {fileID: 1276226830}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1412,7 +1419,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hitVfxPrefab: {fileID: 5825478712497154476, guid: 6d1416658886a5040bd8ed6a15ad0830, type: 3}
   _hitVfxDuration: 0
-  _hitVfxPoolCapacity: 0
+  _LaserPrefab: {fileID: 5095054123672462003, guid: 9014b3fb4d1a82641a09a411e4b86f49, type: 3}
+--- !u!114 &1276226830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276226826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22e5927bb6ebab145abc46bde65ed599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _skillData: {fileID: 11400000, guid: 9b498550f282c824b87935e44c37464e, type: 2}
 --- !u!1 &1358719491
 GameObject:
   m_ObjectHideFlags: 0
@@ -1424,7 +1444,7 @@ GameObject:
   - component: {fileID: 1358719493}
   - component: {fileID: 1358719492}
   - component: {fileID: 1358719494}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Clip (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

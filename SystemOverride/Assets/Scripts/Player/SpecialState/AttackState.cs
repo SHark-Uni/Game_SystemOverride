@@ -78,6 +78,7 @@ namespace Scripts.Player
                 case eBulletType.Hacking:
                     //Material 바꾸기
                     sr.material = _owner._HackingBulletMaterial;
+                    bullet.SetHakcingBullet();
                     //횟수 차감 하기
                     Buff buf = _owner.buffManager.FindCountBaseSkillOrNull((int)eSkillId.HackBullet);
                     buf.DecreaseCount();
