@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -2980977780684663148}
   - component: {fileID: 8860990290924736113}
   - component: {fileID: 7647458166032387015}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Bullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -122,10 +122,10 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

@@ -74,6 +74,7 @@ namespace Scripts.Player
             switch (bulletTypeId)
             {
                 case eBulletType.Normal:
+                    bullet.SetNormalBuullet();
                     break;
                 case eBulletType.Hacking:
                     //Material ¹Ù²Ù±â
