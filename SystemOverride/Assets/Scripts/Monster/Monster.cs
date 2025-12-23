@@ -82,7 +82,7 @@ namespace Scripts.Monster
             _cliffCheckDistance = 0.3f;
             _idleWaitTime = 1.5f;
             _patrolDuration = 3.0f;
-            _hitRecoveryTime = 0.5f;
+            _hitRecoveryTime = 1.5f;
             _attackDamage = 10f;
         }
 
