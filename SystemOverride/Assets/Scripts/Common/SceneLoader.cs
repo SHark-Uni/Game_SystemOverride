@@ -31,15 +31,18 @@ namespace Scripts.Common
             return;
         }
 
+
         public void LoadScene(eSceneType type)
         {
             Time.timeScale = 1f;
+
             SceneManager.LoadScene(type.ToString());
         }
 
         public void ReloadCurrentScene(eSceneType type)
         {
             Time.timeScale = 1f;
+
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
@@ -49,6 +52,7 @@ namespace Scripts.Common
 
             return SceneManager.LoadSceneAsync(type.ToString());
         }
+
     }
 }
 
