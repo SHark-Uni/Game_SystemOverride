@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Scripts.StateMachine;
+using UnityEngine;
 
 namespace Scripts.Monster
 {
@@ -16,23 +14,24 @@ namespace Scripts.Monster
 
         public override void Enter()
         {
-            base.Enter();
-            _monster.Stop();
+            base.Enter();        
+            monster.Stop();
+            _timer = 0f;
         }
 
         public override void EntityUpdate()
         {
             _timer += Time.deltaTime;
 
-            if(_timer > _monster._hitRecoveryTime)
+            if (_timer > monster._hitRecoveryTime)
             {
-                if(_monster._target != null && _monster.GetToTarget() <= _monster._detectionRange)
+                if (monster._target != null && monster.GetToTarget() <= monster._detectionRange)
                 {
-                    _stateMachine.ChangeState(_monster.StateChase);
+                    _stateMachine.ChangeState(monster.StateChase);
                 }
                 else
                 {
-                    _stateMachine.ChangeState(_monster.StateIdle);  
+                    _stateMachine.ChangeState(monster.StateIdle);
                 }
             }
         }

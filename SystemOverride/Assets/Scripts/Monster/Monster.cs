@@ -70,6 +70,7 @@ namespace Scripts.Monster
 
         private void Init()
         {
+            _maxHp = 50;
             _attackRange = 3.5f;
             _dashSpeed = 20f;
             _patrolSpeed = 2f;
@@ -115,6 +116,12 @@ namespace Scripts.Monster
                 _machine.currentState.EntityUpdate();
             }
 
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                Debug.Log("강제 피격 테스트!");
+                // 데미지 10, 공격자는 null로 임시 테스트
+                TakeDamage(10, null);
+            }
 
         }
 
@@ -299,6 +306,7 @@ namespace Scripts.Monster
             _rb.velocity = new Vector2(0, 0);
         }
 
+       
 
         private void OnDrawGizmos()
         {

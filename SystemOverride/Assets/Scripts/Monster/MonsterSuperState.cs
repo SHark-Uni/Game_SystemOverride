@@ -7,7 +7,7 @@ namespace Scripts.Monster
 {
     public abstract class MonsterSuperState : EntityState<Monster>
     {
-        protected Monster _monster;
+        protected Monster monster;
         private StateMachine<Monster> _stateMachine;
         private string v;
 
