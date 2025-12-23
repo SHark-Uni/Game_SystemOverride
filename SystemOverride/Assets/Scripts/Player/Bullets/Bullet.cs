@@ -29,6 +29,7 @@ namespace Scripts.Player.Bullets
         {
             _rb.velocity = Vector2.zero;
             _sr.material = _defaultMaterial;
+            IsHackingBullet = false;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -65,6 +66,10 @@ namespace Scripts.Player.Bullets
         public void SetHakcingBullet()
         {
             IsHackingBullet = true;
+        }
+        public void SetNormalBuullet()
+        {
+            IsHackingBullet = false;
         }
 
         public void Attack(IDamageable target)

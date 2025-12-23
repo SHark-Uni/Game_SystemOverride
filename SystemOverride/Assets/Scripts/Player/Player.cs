@@ -446,6 +446,11 @@ namespace Scripts.Player
         {
             _SpriteRender.material = _DefaultMaterial;
         }
+
+        public void TakeDamage(int damage)
+        {
+            _playerStat._hp -= damage;
+        }
     }
 
 }

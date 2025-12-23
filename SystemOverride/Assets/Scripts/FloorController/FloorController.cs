@@ -6,6 +6,10 @@ using UnityEngine.SceneManagement;
 public class FloorController : MonoBehaviour
 {
     public Transform player;
+    public Transform bullet;
+    public Transform Floor1;
+    public Transform Floor2;
+    public Transform Floor3;
     public Transform bossPoint; // 보스 지점(같은 씬)
 
     void Start()
@@ -20,8 +24,24 @@ public class FloorController : MonoBehaviour
 
         // Rigidbody2D가 있다면 속도를 0으로 초기화해서 순간이동 충돌 문제 방지
         var rb = player.GetComponent<Rigidbody2D>();
+        // Rigidbody2D가 있다면 속도를 0으로 초기화
         if (rb != null) rb.velocity = Vector2.zero;
+        // target의 위치를 층수로 사용
+        if(bullet == Floor1)
+        {
+            target = Floor2;
+        }
+        else if(bullet == Floor2)
+        {
+            target = Floor3;
+        }
+        else if(bullet == Floor3)
+        {
+            Debug.Log("Boss Teleport");
+            target = bossPoint;
+        }
 
+        // 플레이어 위치를 target 위치로 설정
         player.position = target.position;
         Debug.Log($"[FloorController] Teleported player to {target.name} at {target.position}");
     }
