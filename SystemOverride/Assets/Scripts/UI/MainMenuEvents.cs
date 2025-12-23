@@ -8,10 +8,8 @@ public class MainMenuEvents : MonoBehaviour
 {
     public void OnClickGameStart()
     {
-        LoadingManager.instance.ChangeSceneWithLoadingPanel(eSceneType._GameScene, transform.position);
-        
+        LoadingManager.instance.ChangeSceneWithLoadingPanel(eSceneType._GameScene, transform.position, OnEnterGameScene);
     }
-
 
     public void OnClickOption()
     { 
@@ -23,4 +21,11 @@ public class MainMenuEvents : MonoBehaviour
     {
         Application.Quit();
     }
+
+    private void OnEnterGameScene()
+    {
+        SoundManager.instance.ChangeBGM(eSceneType._GameScene.ToString());
+    }
+
+
 }
