@@ -10,14 +10,14 @@ namespace Scripts.Boss
 {
     public class BossLazerAttackState : BossSuperState
     {
-        private float _trackDuration = 1.5f; // 따라다니는 시간
+        private float _trackDuration =2.5f; // 따라다니는 시간
         private float _lockDuration = 0.5f;  // 멈춰서 경고하는 시간
         private float _fireDuration = 1.0f;  // 빔 쏘는 시간
 
         private float _hideDelay = 1.0f;
         private float _appearDelay = 1.0f;
 
-        private float _totalAttackDuration;
+
 
 
         // 보스 컴포넌트들을 껐다 켰다 하기 위해 저장
@@ -27,7 +27,6 @@ namespace Scripts.Boss
         private Coroutine _attackCoroutine;
         public BossLazerAttackState(Boss_Temp _boss, BossStateMachine<Boss_Temp> _stateMachine, Rigidbody2D _bossrb, Animator _bossam) : base(_boss, _stateMachine, "IsHide", _bossrb, _bossam)
         {
-            _totalAttackDuration = _trackDuration + _lockDuration + _fireDuration;
         }
 
 
@@ -41,7 +40,7 @@ namespace Scripts.Boss
             _bossCollider = _bossOwner.GetComponent<Collider2D>();
 
             _attackCoroutine = _bossOwner.StartCoroutine(AttackSequence());
-
+            SoundManager.instance.PlaySFX("BossLazerCharging", _bossOwner.transform.position);
         }
 
         public override void EntityUpdate()
@@ -59,7 +58,7 @@ namespace Scripts.Boss
             if (_bossCollider) _bossCollider.enabled = true;
 
 
-            // _bossOwner.BossAnim.SetTrigger("Appear");
+            
         }
 
         private IEnumerator AttackSequence()
@@ -76,10 +75,18 @@ namespace Scripts.Boss
 
             // 터렛 소환 및 공격 시작
             SpawnTurretAndFire();
-            yield return new WaitForSeconds(_totalAttackDuration);
+            yield return new WaitForSeconds(_trackDuration + _lockDuration);
+
+            if (SoundManager.instance != null)
+            {
+               
+                SoundManager.instance.PlaySFX("BossLazerFire", _bossOwner.transform.position);
+            }
+
 
             if (_bossRenderer) _bossRenderer.enabled = true;
             if (_bossCollider) _bossCollider.enabled = true;
+
 
             
             _bossOwner.BossAnim.SetTrigger("Appear");

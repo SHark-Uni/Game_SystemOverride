@@ -35,6 +35,7 @@ namespace Scripts.Boss
         public override void Enter()
         {
             base.Enter();
+
         }
 
         public override void EntityUpdate()
