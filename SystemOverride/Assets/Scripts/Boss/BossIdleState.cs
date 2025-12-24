@@ -6,6 +6,7 @@ using Scripts.Boss;
 
 namespace Scripts.Boss
 {
+    
     public class BossIdleState : BossOnGroundState
     {
         public float _bossidleTime = 2;
@@ -44,6 +45,7 @@ namespace Scripts.Boss
         public override void Exit()
         {
             base.Exit();
+            
         }
     }
 }

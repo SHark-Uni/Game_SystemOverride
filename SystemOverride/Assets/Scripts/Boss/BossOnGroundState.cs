@@ -18,6 +18,9 @@ namespace Scripts.Boss
         // 일반 공격 쿨타임 변수 생성
         const float _bossattackCoolTime = 3f;
         float _bossattackCoolStamp;
+        // 공격 사거리 설정
+        const float _attackRangeX = 2.3f;
+        const float _attackRangeY = 1.0f;
 
         public BossOnGroundState(Boss_Temp owner, BossStateMachine<Boss_Temp> stateMachine, string name, Rigidbody2D rb, Animator am)
             : base(owner, stateMachine, name, rb, am)
@@ -34,31 +37,6 @@ namespace Scripts.Boss
             base.Enter();
         }
 
-        public void SetAnimTrigger()
-        {
-            _bossStateMachine.bosscurrentState.SetTrigger();
-        }
-
-        void BossFlip()
-        {
-            Vector2 scale = _bossOwner.transform.localScale;
-            SpriteRenderer _bosssr = _bossOwner.GetComponent<SpriteRenderer>();
-
-            // 보스가 항상 플레이어를 바라보게 설정
-            if (_bossOwner._playerPos.position.x < _bossOwner.transform.position.x)
-            {
-                scale.x = -Mathf.Abs(scale.x);
-                scale = new Vector3(scale.x, 1f, 1f);
-                _bosssr.flipX = true;
-            }
-            else if (_bossOwner._playerPos.position.x > _bossOwner.transform.position.x)
-            {
-                scale.x = Mathf.Abs(scale.x);
-                scale = new Vector3(scale.x, 1f, 1f);
-                _bosssr.flipX = false;
-            }
-        }
-
         public override void EntityUpdate()
         {
             base.EntityUpdate();
@@ -66,6 +44,7 @@ namespace Scripts.Boss
             if (_bossOwner._bossCurrentHp <= 0)
             {
                 _bossStateMachine.ChangeState(_bossOwner.bossDeathState);
+                return;
             }
 
             float hpRatio = (float)_bossOwner._bossCurrentHp / _bossOwner._bossMaxHp;
@@ -93,45 +72,70 @@ namespace Scripts.Boss
             }
 
             BossFlip();
-            // RayCast 시작 위치와 방향 설정
-            Vector2 origin = (Vector2)_bossOwner.transform.position + Vector2.up * 1f;
-
-            // RayCast 생성
-            int layerMask = LayerMask.GetMask("Player");
-            RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.right * _bossOwner.transform.localScale.x, 10f, layerMask);
-            Debug.DrawRay(origin, Vector2.right * _bossOwner.transform.localScale.x * 10f, Color.yellow);
-
-            // 보스와 플레이어의 콜라이더가 겹침
-            Collider2D _vshit = Physics2D.OverlapCircle(_bossOwner.transform.position, 2f, LayerMask.GetMask("Player"));
-
-           
-
-            if (_vshit == null)
+            if (_bossattackCoolStamp > 0)
             {
-                // 플레이어의 콜라이더와 겹치지 않았다면 보스 이동 상태로 전환
+                _bossattackCoolStamp -= Time.deltaTime;
+            }
+
+            // 거리 기반으로 수정
+            // 플레이어와의 거리 계산
+            float xDist = Mathf.Abs(_bossOwner.transform.position.x - _bossOwner._playerPos.position.x);
+
+            // 세로 높이 차이 (절대값)
+            float yDist = Mathf.Abs(_bossOwner.transform.position.y - _bossOwner._playerPos.position.y);
+
+            // [조건] 가로가 사거리 안쪽이고(AND) && 높이 차이가 허용 범위 안쪽일 때만 공격
+            bool canAttack = (xDist <= _attackRangeX) && (yDist <= _attackRangeY);
+
+            if (canAttack)
+            {
+                // 사거리,높이 모두 충족하고, 쿨타임도 끝났으면 공격
+                if (_bossattackCoolStamp <= 0)
+                {
+                    _bossStateMachine.ChangeState(_bossOwner.bossAttackState);
+                    _bossattackCoolStamp = _bossattackCoolTime; // 쿨타임 리셋
+                }
+                else
+                {
+                    // 거리는 되는데 쿨타임 중이면 대기
+                    _bossStateMachine.ChangeState(_bossOwner.bossIdleState);
+                }
+            }
+            else
+            {
+                // 가로가 멀거나, 혹은 너무 높이 있으면 추격
                 _bossStateMachine.ChangeState(_bossOwner.bossWalkState);
             }
-            // 보스와 플레이어의 콜라이더가 겹치고, 거리가 2 이내라면
-            else if (_vshit != null && hit.distance <= 2f)
-            {
-                // 공격 쿨타임 감소
-                if (_bossattackCoolStamp > 0)
-                {
-                    _bossattackCoolStamp -= Time.deltaTime;
-
-                }
-                // 일반 공격 쿨타임 도달 시 보스 공격 상태로 전환
-                else if (_bossattackCoolStamp < 0)
-                {
-
-                    _bossStateMachine.ChangeState(_bossOwner.bossAttackState);
-
-                    _bossattackCoolStamp = _bossattackCoolTime;
-                }
-            }
-
-          
         }
+        
+
+        
+        public void SetAnimTrigger()
+        {
+            _bossStateMachine.bosscurrentState.SetTrigger();
+        }
+
+        void BossFlip()
+        {
+            Vector2 scale = _bossOwner.transform.localScale;
+            SpriteRenderer _bosssr = _bossOwner.GetComponent<SpriteRenderer>();
+
+            // 보스가 항상 플레이어를 바라보게 설정
+            if (_bossOwner._playerPos.position.x < _bossOwner.transform.position.x)
+            {
+                scale.x = -Mathf.Abs(scale.x);
+                scale = new Vector3(scale.x, 1f, 1f);
+                _bosssr.flipX = true;
+            }
+            else if (_bossOwner._playerPos.position.x > _bossOwner.transform.position.x)
+            {
+                scale.x = Mathf.Abs(scale.x);
+                scale = new Vector3(scale.x, 1f, 1f);
+                _bosssr.flipX = false;
+            }
+        }
+
+
 
         public override void Exit()
         {
