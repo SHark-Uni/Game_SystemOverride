@@ -31,8 +31,6 @@ namespace Scripts.Player
             {
                 _stateMachine.ChangeState(_owner.idleState);
             }
-
-
         }
 
         public override void Exit()

@@ -2,6 +2,7 @@ using Scripts.Common;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 namespace Scripts.Monster
 {
@@ -33,12 +34,14 @@ namespace Scripts.Monster
         //스폰 포인트를 정하는 방식 ?
         public void SpawnMonsterAt(Vector2 pos, Quaternion rotate)
         {
-            _monsterPool.alloc(pos, rotate);
+            Monster mos = _monsterPool.alloc(pos, rotate);
+            mos.gameObject.SetActive(true);
             return;
         }
 
         public void ReleasMonster(Monster monster)
         {
+            monster.gameObject.SetActive(false);
             _monsterPool.release(monster);
             return;
         }

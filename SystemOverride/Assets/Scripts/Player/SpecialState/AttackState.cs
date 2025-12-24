@@ -101,10 +101,11 @@ namespace Scripts.Player
                 return;
             }
 
-            Debug.Log(hit.collider.gameObject.name);
-            /*
+            //Debug.Log(hit.collider.gameObject.name);
+            
             _targetOrNull = hit.collider.GetComponent<IDamageable>();
-            _targetOrNull.TakeDamage(_owner.attackPower, _owner);*/
+
+            _targetOrNull.TakeDamage((int)(_owner.attackPower * 1.5f), _owner);
 
             //vfxø¨√‚
             if (_IsPlayVFX == false)

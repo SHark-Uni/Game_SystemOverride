@@ -48,7 +48,7 @@ public class FloorTriggerSimple : MonoBehaviour
             //이동하면 됩니다.
             if (Mathf.Abs(bulletY - Floor1.position.y) <= positionTolerance)
             {
-                floorController.TeleportPlayer(Floor2);
+                floorController.TeleportPlayer(Floor2_Start);
             }
             else if (Mathf.Abs(bulletY - Floor2.position.y) <= positionTolerance)
             {

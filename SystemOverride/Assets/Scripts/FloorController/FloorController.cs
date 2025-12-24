@@ -1,3 +1,5 @@
+using Scripts.Common;
+using Scripts.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -54,6 +56,13 @@ public class FloorController : MonoBehaviour
             Debug.LogWarning("[FloorController] bossPoint가 설정되지 않았습니다.");
             return;
         }
-        TeleportPlayer(bossPoint);
+        LoadingManager.instance.ChangeSceneWithLoadingPanel(eSceneType._Boss, Vector3.zero, OnEnterBoss);
+        //TeleportPlayer(bossPoint);
+    }
+
+    private void OnEnterBoss()
+    {
+        //SoundManager.instance.PlaySFX("BossOpening",Vector3.zero);
+        SoundManager.instance.ChangeBGM("_Boss");
     }
 }

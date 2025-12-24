@@ -321,6 +321,8 @@ namespace Scripts.Player
             skillHandler = new PlayerSkillComponent(this);
             InitStates();
             UIManager.instance.SetMainUI();
+            //ForTest
+            MonsterSpawner.instance.SpawnMonsterAt(new Vector2(13, -1),Quaternion.identity);
 
             _machine.BeginMachine(idleState);
         }
