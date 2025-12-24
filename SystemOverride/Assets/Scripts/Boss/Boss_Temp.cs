@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 namespace Scripts.Boss
 {
-    public class Boss_Temp : MonoBehaviour
+    public class Boss_Temp : MonoBehaviour, IDamageable, IAttacker
     {
         private BossStateMachine<Boss_Temp> _bossMachine;
 
@@ -27,7 +27,6 @@ namespace Scripts.Boss
         public int _bossAtk;
         public int _bossDef;
         public int _bossMaxHp;
-        
 
         [Header("Move Details")]
         [SerializeField] private Vector2 _bossInput;
@@ -64,6 +63,7 @@ namespace Scripts.Boss
 
         public Rigidbody2D BossRb => _bossrb;
         public Animator BossAnim => _bossam;
+        public int attackPower => _bossAtk;
 
         // ?媛??ㅼ 蹂??
         private BossIdleState _bossidleState;
@@ -87,6 +87,8 @@ namespace Scripts.Boss
         public BossAttackState bossAttackState { get { return _bossattackState; } }
         public BossHitState bossHitState { get { return _bosshitState; } }
         public BossFloorAttackState bossFloorAttackState { get { return _bossFloorAttackState; } }
+
+     
         public void BossSetAnimTrigger()
         {
             _bossMachine.bosscurrentState.SetTrigger();
@@ -106,7 +108,49 @@ namespace Scripts.Boss
         {
             _bossrb.velocity = force;
         }
+        public Vector3 GetAttackerPos()
+        {
+            return transform.position;
+        }
+        public void Attack(IDamageable target)
+        {
+            if (target != null)
+            {
+               
+                target.TakeDamage(this.attackPower, this);
+            }
+        }
+        public void CheckAttackHit()
+        {
+            // 현재 상태가 공격 상태(bossAttackState)인지 확인
+            if (_bossMachine.bosscurrentState == bossAttackState)
+            {
+                // 맞다면 공격 상태 안에 있는 진짜 판정 함수를 실행
+                bossAttackState.CheckAttackHit();
+            }
+        }
 
+        public void TakeDamage(int damage, IAttacker attacker)
+        {
+            if (_bossCurrentHp <= 0) return;
+
+            
+            _bossCurrentHp -= damage;
+
+            // 3. 피격 사운드 (일반 몬스터와 다른 묵직한 소리 추천)
+            if (SoundManager.instance != null)
+                SoundManager.instance.PlaySFX("BossHit", transform.position);
+
+            // 사망 체크
+            if (_bossCurrentHp <= 0)
+            {
+                
+                
+                StopAllCoroutines();
+                _bossMachine.ChangeState(bossDeathState);
+            }
+          
+        }
         public void CheckOnGround()
         {
             RaycastHit2D hit = Physics2D.BoxCast(BossCenterPos.position, BossBoxSize, 0f, Vector2.down, _bossgroundDistance, (int)eLayerMask.Ground);
@@ -148,6 +192,7 @@ namespace Scripts.Boss
             _bossattackForce = new Vector2(15, 0f);
 
             BossBoxSize = new Vector2(0.35f, 0.3f);
+         
         }
 
         void Start()
@@ -183,13 +228,16 @@ namespace Scripts.Boss
                 Debug.Log("레이저 패턴 발동");
                 _bossMachine.ChangeState(_bossLazerAttackState);
             }
-            if (Input.GetKeyDown(KeyCode.S))
+            if (Input.GetKeyDown(KeyCode.K))
             {
-                _bossCurrentHp -= 10;
-                Debug.Log("보스 현재 Hp  : "  + _bossCurrentHp);
-               
+                Debug.Log("보스 피격 테스트: 데미지 1");
+
+                // attacker 자리에 null을 넣어도 에러가 안 나게 코드를 짰으므로 null 전달
+                TakeDamage(1, null);
+
             }
         }
+
 
         private void OnDrawGizmos()
         {
