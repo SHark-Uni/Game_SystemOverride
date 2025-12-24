@@ -274,7 +274,7 @@ namespace Scripts.Player
 
             buffManager = new BuffManager(this);
 
-            _playerStat = new PlayerStat(300,300, 5, 5);
+            _playerStat = new PlayerStat(10,10, 5, 5);
 
             facingDir = 1;
             _airMoveMulplier = .8f;
@@ -360,11 +360,9 @@ namespace Scripts.Player
 
         public void TakeDamage(int atk, IAttacker attacker)
         {
-            Debug.Log("Player TakeDamage 호출됨");
             //무적이면 무시
             if (IsUsingSkill(eSkillBitMask.Immotal)) 
             {
-                Debug.Log("Immotal?? 통과");
                 return;
             }
 
@@ -426,6 +424,7 @@ namespace Scripts.Player
         }
         private void OnDie()
         {
+            UIManager.instance.OffMainUI();
             SceneLoader.instance.LoadScene(eSceneType._Ending);
         }
 

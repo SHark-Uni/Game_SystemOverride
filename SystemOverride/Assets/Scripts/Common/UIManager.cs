@@ -50,6 +50,12 @@ public class UIManager : MonoBehaviour
         _HpBar.SetActive(true);
     }
 
+    public void OffMainUI()
+    {
+        _OptionBtn.SetActive(false);
+        _HpBar.SetActive(false);
+    }
+
     public void SetHp(float hpRate)
     {
         _hpScrollBar.fillAmount = hpRate;

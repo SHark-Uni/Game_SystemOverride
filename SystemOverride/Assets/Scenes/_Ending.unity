@@ -295,12 +295,20 @@ PrefabInstance:
       value: GameOverPannel
       objectReference: {fileID: 0}
     - target: {fileID: 409677989378583639, guid: 23544472f4ec96546b8b3e6988e44b48, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 409677989378583639, guid: 23544472f4ec96546b8b3e6988e44b48, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1642400489}
+      objectReference: {fileID: 1642400490}
     - target: {fileID: 409677989378583639, guid: 23544472f4ec96546b8b3e6988e44b48, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: OnReturnToMainScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 409677989378583639, guid: 23544472f4ec96546b8b3e6988e44b48, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MainMenuEvents, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8237278394606778425, guid: 23544472f4ec96546b8b3e6988e44b48, type: 3}
       propertyPath: m_LocalPosition.x

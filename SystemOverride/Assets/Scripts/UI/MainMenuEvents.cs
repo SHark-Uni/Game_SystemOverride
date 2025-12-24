@@ -14,9 +14,10 @@ public class MainMenuEvents : MonoBehaviour
     public void OnClickOptionBtn()
     {
         UIManager.instance.TurnOnOptionPanel();
+        
     }
 
-    private void OnReturnToMainScene()
+    public void OnReturnToMainScene()
     {
         SceneLoader.instance.LoadScene(eSceneType._Main);
     }

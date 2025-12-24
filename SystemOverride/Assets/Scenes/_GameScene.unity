@@ -2750,7 +2750,7 @@ Transform:
   m_GameObject: {fileID: 291356398}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 142.19676, y: 34.4016, z: -10.252552}
+  m_LocalPosition: {x: 13.524109, y: 18.193739, z: -10.252552}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4978,6 +4978,7 @@ GameObject:
   - component: {fileID: 765744393}
   - component: {fileID: 765744392}
   - component: {fileID: 765744391}
+  - component: {fileID: 765744394}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -5035,6 +5036,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &765744394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765744390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ab2393d949e6ac488a8a0cb74d5ff50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &772642166
 GameObject:
   m_ObjectHideFlags: 0
@@ -15156,7 +15169,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1088452927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15171,7 +15184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _OptionBtnPrefab: {fileID: 4126100969713564534, guid: 63ef74e4f6d9bee4e957d6caf242d925, type: 3}
   _HpBarPrefab: {fileID: 4139299266069385313, guid: c0c4987a34600c34e9f2b11fdf595609, type: 3}
-  _OptionPannel: {fileID: 7468777472400178605, guid: 148ee8de8b5505e43a40a1940d5562e3, type: 3}
+  _OptionPannel: {fileID: 3894129290105483023, guid: af4d3c04dcb5bcd4482baefb43050aec, type: 3}
   _hpScrollBar: {fileID: 0}
 --- !u!114 &1088452928
 MonoBehaviour:
@@ -16251,7 +16264,7 @@ Transform:
   m_GameObject: {fileID: 1243459568}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 153.1, y: 32.6, z: 0}
+  m_LocalPosition: {x: 20.9, y: 15.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16278,7 +16291,7 @@ DistanceJoint2D:
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
-  m_Distance: 156.53233
+  m_Distance: 26.260616
   m_MaxDistanceOnly: 0
 --- !u!120 &1243459572
 LineRenderer:
@@ -18879,7 +18892,7 @@ Tilemap:
       - {fileID: 21300000, guid: 35ae66998946519458b0c28a203d4aac, type: 3}
       - {fileID: 21300000, guid: 00c08ee933aa72840978e9f3e09b8bd9, type: 3}
       - {fileID: 21300000, guid: 3783f91b747024849b070fcaac1c2997, type: 3}
-      m_AnimationSpeed: 10.000001
+      m_AnimationSpeed: 10
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 68, y: -4, z: 0}
@@ -27257,7 +27270,7 @@ Transform:
   m_GameObject: {fileID: 1861972689}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 145.72412, y: 34.893738, z: -10.252552}
+  m_LocalPosition: {x: 13.524109, y: 18.193739, z: -10.252552}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
