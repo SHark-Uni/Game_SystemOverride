@@ -30,6 +30,7 @@ public class MainMenuEvents : MonoBehaviour
     private void OnEnterGameScene()
     {
         SoundManager.instance.ChangeBGM(eSceneType._GameScene.ToString());
+        UIManager.instance.SetMainUI();
     }
 
 
