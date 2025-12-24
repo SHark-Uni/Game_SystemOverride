@@ -17,6 +17,11 @@ public class MainMenuEvents : MonoBehaviour
 
     }
 
+    private void OnReturnToMainScene()
+    {
+        SceneLoader.instance.LoadScene(eSceneType._Main);
+    }
+
     public void OnClickQuit()
     {
         Application.Quit();
@@ -26,6 +31,7 @@ public class MainMenuEvents : MonoBehaviour
     {
         SoundManager.instance.ChangeBGM(eSceneType._GameScene.ToString());
     }
+
 
 
 }
