@@ -40,12 +40,14 @@ namespace Scripts.Player
                     return;
                 }
                 _stateMachine.ChangeState(_owner.attackState);
+                return;
             }
 
 
             if (_inputAction.Jump.WasPerformedThisFrame())
             {
                 _stateMachine.ChangeState(_owner.jumpState);
+                return;
             }
 
 
@@ -53,6 +55,7 @@ namespace Scripts.Player
             if (_owner.onGround == false)
             {
                 _stateMachine.ChangeState(_owner.fallState);
+                return;
             }
 
             // 대시 ChangeState 생성
@@ -65,8 +68,8 @@ namespace Scripts.Player
                 if (_inputAction.Dash.WasPerformedThisFrame())
                 {
                     _stateMachine.ChangeState(_owner.dashState);
-
                     _dashCoolStamp = _dashCoolTime;
+                    return;
                 }
             }
             // 백대시 ChangeState 생성
@@ -82,11 +85,13 @@ namespace Scripts.Player
 
                     _backdashCoolStamp = _backdashCoolTime;
                 }
+                return;
             }
 
             if (_inputAction.SitDown.WasPerformedThisFrame())
             {
                 _stateMachine.ChangeState(_owner.sitState);
+                return;
             }
         }
         public override void Exit()

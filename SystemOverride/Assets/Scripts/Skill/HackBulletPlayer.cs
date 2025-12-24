@@ -17,7 +17,8 @@ namespace Scripts.Skill
         public override void OnActive()
         {
             base.OnActive();
-            _caster._skillAction |= (ulong)eSkillBitMask.HackBullet;
+            _caster.SetUseSkill(eSkillBitMask.HackBullet);
+            //_caster._skillAction |= (ulong)eSkillBitMask.HackBullet;
         }
 
         public override void OnUpdate()
@@ -28,7 +29,8 @@ namespace Scripts.Skill
         public override void OnUnActive()
         {
             base.OnUnActive();
-            _caster._skillAction &= ~(ulong)eSkillBitMask.HackBullet;
+            _caster.SetUnuseSkill(eSkillBitMask.HackBullet);
+            //_caster._skillAction &= ~(ulong)eSkillBitMask.HackBullet;
         }
 
     }

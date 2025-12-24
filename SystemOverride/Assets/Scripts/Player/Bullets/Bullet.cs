@@ -10,6 +10,7 @@ namespace Scripts.Player.Bullets
     public class Bullet : MonoBehaviour, IPoolable, IAttacker
     {
         const float BULLET_ALIVE_TIME = 2.0f;
+        public bool IsHackingBullet { get; private set;}
         public Material _defaultMaterial;
         float _lifeTime;
         Rigidbody2D _rb;
@@ -28,6 +29,7 @@ namespace Scripts.Player.Bullets
         {
             _rb.velocity = Vector2.zero;
             _sr.material = _defaultMaterial;
+            IsHackingBullet = false;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -36,8 +38,9 @@ namespace Scripts.Player.Bullets
             if (Target != null)
             {
                 Attack(Target);
+                BulletManager._instance.DestroyBullet(this);
             }
-            BulletManager._instance.DestroyBullet(this);
+            
         }
 
         void Awake()
@@ -59,6 +62,14 @@ namespace Scripts.Player.Bullets
         public Vector3 GetAttackerPos()
         {
             return transform.position;
+        }
+        public void SetHakcingBullet()
+        {
+            IsHackingBullet = true;
+        }
+        public void SetNormalBuullet()
+        {
+            IsHackingBullet = false;
         }
 
         public void Attack(IDamageable target)

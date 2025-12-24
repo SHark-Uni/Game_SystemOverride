@@ -12,4 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87a18cd18808576478e9a1235e9b55c8, type: 3}
   m_Name: BgmDatabase
   m_EditorClassIdentifier: 
-  _audioClips: []
+  _audioClips:
+  - _name: _Main
+    _clip: {fileID: 8300000, guid: ff3d87260149cd84cb0f302632190abe, type: 3}
+  - _name: _GameScene
+    _clip: {fileID: 8300000, guid: b8cc1110b80022740a70ba2150358047, type: 3}
+  - _name: _Boss
+    _clip: {fileID: 8300000, guid: 2f1f888ab11b7854aa22b238de8cbbf5, type: 3}
+  - _name: _Ending
+    _clip: {fileID: 8300000, guid: 4b46ddedc3abe044682e968da99b48e5, type: 3}

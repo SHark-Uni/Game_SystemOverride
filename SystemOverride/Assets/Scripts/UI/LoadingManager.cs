@@ -1,4 +1,5 @@
 using Scripts.Common;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,12 +27,12 @@ namespace Scripts.UI
         public GameObject _loadPannelPrefab;
         private AsyncOperation _asyncOp;
 
-        public void ChangeSceneWithLoadingPanel(eSceneType scene, Vector3 pos)
+        public void ChangeSceneWithLoadingPanel(eSceneType scene, Vector3 pos, Action OnEnterScene)
         {
-            StartCoroutine(LoadGameRoutine(scene, pos));
+            StartCoroutine(LoadGameRoutine(scene, pos, OnEnterScene));
         }
 
-        private IEnumerator LoadGameRoutine(eSceneType scene, Vector3 pos)
+        private IEnumerator LoadGameRoutine(eSceneType scene, Vector3 pos, Action OnEnterScene)
         {
             GameObject canvas = Instantiate(_loadPannelPrefab, pos, Quaternion.identity);
             Image scrollbar = canvas.GetComponentInChildren<Image>();
@@ -56,7 +57,8 @@ namespace Scripts.UI
                     {
                         _asyncOp.allowSceneActivation = true;
                         Destroy(canvas);
-                        SoundManager.instance.ChangeBGM(scene.ToString());
+                        //SoundManager.instance.ChangeBGM(scene.ToString());
+                        OnEnterScene.Invoke();
                         yield break;
                     }
                 }

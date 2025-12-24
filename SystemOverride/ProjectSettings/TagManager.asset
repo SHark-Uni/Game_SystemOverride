@@ -21,9 +21,9 @@ TagManager:
   - Wall
   - Hook
   - Ghost_Player
-  - 
-  - 
-  - 
+  - Cameras
+  - Bullet
+  - Trap
   - 
   - 
   - 
@@ -44,4 +44,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 2507678457
     locked: 0

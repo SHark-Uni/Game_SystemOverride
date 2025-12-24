@@ -313,6 +313,45 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "UIControll",
+            "id": "4017877f-b7aa-4b11-999d-046da8f46285",
+            "actions": [
+                {
+                    "name": "ESC",
+                    "type": "Button",
+                    "id": "f559bee8-c4af-4441-a027-7547d4e656a6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9087118c-7188-49fe-9258-ce44ce91d5de",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ESC",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c4dff399-1989-44e4-a377-b870c495ef48",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";KeyBoard",
+                    "action": "ESC",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

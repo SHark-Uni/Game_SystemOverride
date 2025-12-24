@@ -8,19 +8,30 @@ public class MainMenuEvents : MonoBehaviour
 {
     public void OnClickGameStart()
     {
-        LoadingManager.instance.ChangeSceneWithLoadingPanel(eSceneType._GameScene, transform.position);
-        
+        LoadingManager.instance.ChangeSceneWithLoadingPanel(eSceneType._GameScene, transform.position, OnEnterGameScene);
     }
 
+    public void OnClickOptionBtn()
+    {
+        UIManager.instance.TurnOnOptionPanel();
+    }
 
-    public void OnClickOption()
-    { 
-        //옵션 창 키기
-
+    private void OnReturnToMainScene()
+    {
+        SceneLoader.instance.LoadScene(eSceneType._Main);
     }
 
     public void OnClickQuit()
     {
         Application.Quit();
     }
+
+    private void OnEnterGameScene()
+    {
+        SoundManager.instance.ChangeBGM(eSceneType._GameScene.ToString());
+        UIManager.instance.SetMainUI();
+    }
+
+
+
 }

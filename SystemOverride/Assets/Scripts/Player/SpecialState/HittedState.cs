@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Scripts.StateMachine;
+using Scripts.Common;
 
 namespace Scripts.Player
 {
@@ -18,6 +19,8 @@ namespace Scripts.Player
         {
             base.Enter();
             _timeStamp = Time.time;
+
+            _owner.SetUseSkill(eSkillBitMask.Immotal);
         }
 
         public override void EntityUpdate()
@@ -28,8 +31,15 @@ namespace Scripts.Player
             {
                 _stateMachine.ChangeState(_owner.idleState);
             }
+
+
         }
 
+        public override void Exit()
+        {
+            base.Exit();
+            _owner.SetUnuseSkill(eSkillBitMask.Immotal);
+        }
 
     }
 }

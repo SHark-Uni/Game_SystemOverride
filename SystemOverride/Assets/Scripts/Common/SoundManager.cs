@@ -105,6 +105,7 @@ public class SoundManager : MonoBehaviour
         _audioPool.release(sfx);
     }
 
+
     private void PlayBGM(string key)
     {
         AudioClip clip;
@@ -128,6 +129,16 @@ public class SoundManager : MonoBehaviour
         _BGM.Stop();
         _BGM.clip = clip;
         _BGM.Play();
+    }
+
+    public void SetBGMVolume(float vol)
+    {
+        _BGM.volume = vol;
+    }
+
+    public void SetSFXVolume(float vol)
+    {
+        volume = vol; 
     }
 
 }

@@ -47,3 +47,5 @@ MonoBehaviour:
     _clip: {fileID: 8300000, guid: 6511a5e4d75e5e44982f09fc039d2415, type: 3}
   - _name: BossFloorAttack
     _clip: {fileID: 8300000, guid: e855e4a9604bb2c4a863000f8964cfd2, type: 3}
+  - _name: Dash
+    _clip: {fileID: 8300000, guid: 4b2a54ec667fe4d42ac215ae238501ba, type: 3}

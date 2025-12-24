@@ -8,6 +8,7 @@ using Scripts.Common;
 using Scripts.Monster;
 using Scripts.Player.Bullets;
 using Scripts.StateMachine;
+using Unity.VisualScripting;
 
 namespace Scripts.Player
 {
@@ -182,10 +183,10 @@ namespace Scripts.Player
             if (value <= 0)
             {
                 OnDie();
-                return false;
+                return true;
             }
             _playerStat._hp = value;
-            return true;
+            return false;
         }
 
         public void SetAnimTrigger()
@@ -272,7 +273,8 @@ namespace Scripts.Player
             _capCol = GetComponent<CapsuleCollider2D>();
 
             buffManager = new BuffManager(this);
-            
+
+            _playerStat = new PlayerStat(300,300, 5, 5);
 
             facingDir = 1;
             _airMoveMulplier = .8f;
@@ -288,8 +290,8 @@ namespace Scripts.Player
             _doubleJump = true;
             _jumpForce = 15.0f;
 
-            _dashForce = 7f;
-            _dashDuration = 0.2f;
+            _dashForce = 20f;
+            _dashDuration = 0.25f;
             _dashCooldown = 0f;
 
             _groundDistance = 0.85f;
@@ -302,6 +304,8 @@ namespace Scripts.Player
 
             _sitDownUpColiderCapSize = new Vector2(0.7f, 1.3f);
             _sitDownUpColiderOffset = new Vector2(0.08f, -0.1f);
+
+            
         }
 
         void Start()
@@ -316,6 +320,7 @@ namespace Scripts.Player
 
             skillHandler = new PlayerSkillComponent(this);
             InitStates();
+            UIManager.instance.SetMainUI();
 
             _machine.BeginMachine(idleState);
         }
@@ -348,21 +353,28 @@ namespace Scripts.Player
             Gizmos.DrawWireCube(CharacterCenterPos.position + Vector3.down * _groundDistance, BoxSize);
         }
 
+
+
+
         public void TakeDamage(int atk, IAttacker attacker)
         {
+            Debug.Log("Player TakeDamage 호출됨");
             //무적이면 무시
-            if ((_skillAction & (ulong)eSkillBitMask.Immotal) == 0)
+            if (IsUsingSkill(eSkillBitMask.Immotal)) 
             {
+                Debug.Log("Immotal?? 통과");
                 return;
             }
 
             bool IsDead;
             //데미지 계산
-            IsDead = SetHp(atk);
+            int hitHp = _playerStat._hp - atk;
+            IsDead = SetHp(hitHp);
             if (IsDead)
             {
                 return;
             }
+
             //연출
             Vector3 dir = (attacker.GetAttackerPos() - CharacterCenterPos.position).normalized;
             dir.y = 0;
@@ -374,6 +386,11 @@ namespace Scripts.Player
             Vector3 spawnPos = CharacterCenterPos.position + dir;
             VFXManager.instance.PlayEffect(eVFXId.onHitVFX, spawnPos, Quaternion.identity);
             SetVelocity(dir.x * -1, _rb.velocity.y);
+
+            // Hp : 300
+            //     270 10%           1 -> 0.9  현재 Hp가 전체의 몇퍼센트냐  
+            //Hp Bar 변경
+            UIManager.instance.SetHp(_playerStat._hp / (float)_playerStat._maxHp);
 
             //피격상태로 전환
             _machine.ChangeState(hittedState);
@@ -407,8 +424,24 @@ namespace Scripts.Player
         }
         private void OnDie()
         {
-            
+            SceneLoader.instance.LoadScene(eSceneType._Ending);
         }
+
+        public bool IsUsingSkill(eSkillBitMask mask)
+        {
+            return (_skillAction & (ulong)mask) != 0;
+        }
+
+        public void SetUseSkill(eSkillBitMask mask)
+        {
+            _skillAction |= (ulong)mask;
+        }
+
+        public void SetUnuseSkill(eSkillBitMask mask)
+        {
+            _skillAction &= ~(ulong)mask;
+        }
+
 
         private void InitStates()
         {

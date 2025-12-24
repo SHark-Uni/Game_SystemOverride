@@ -39,6 +39,8 @@ namespace Scripts.Common
             if (!IsEmpty)
             {
                 ret = GameObject.Instantiate(_prefab, position, rotate);
+                //부모가 있으면 그 부모의 자식으로 넣으란거잖슴
+                
                 ret.OnAlloc();
                 ++_capacity;
                 return ret;

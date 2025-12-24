@@ -25,14 +25,14 @@ namespace Scripts.Player
             _preDelay = _owner.preDelay;
             _IsPlayVFX = false;
             
-            if ((_owner._skillAction & (ulong)eSkillBitMask.LaserBuster) != 0)
+            if (_owner.IsUsingSkill(eSkillBitMask.LaserBuster))
             {
                 SoundManager._instance.PlaySFX("Laser", _owner.playerPosition);
                 return;
             }
 
             SoundManager._instance.PlaySFX("Shoot", _owner.playerPosition);
-            if ((_owner._skillAction & (ulong)eSkillBitMask.HackBullet) != 0)
+            if (_owner.IsUsingSkill(eSkillBitMask.HackBullet))
             {
                 SpawnBullet(eBulletType.Hacking);
                 return;
@@ -46,7 +46,7 @@ namespace Scripts.Player
             base.EntityUpdate();
             _preDelay -= Time.deltaTime;
 
-            if ((_owner._skillAction & (ulong)eSkillBitMask.LaserBuster) != 0)
+            if (_owner.IsUsingSkill(eSkillBitMask.LaserBuster))
             {
                 ShootBlaster();
             }
@@ -74,10 +74,12 @@ namespace Scripts.Player
             switch (bulletTypeId)
             {
                 case eBulletType.Normal:
+                    bullet.SetNormalBuullet();
                     break;
                 case eBulletType.Hacking:
                     //Material 바꾸기
                     sr.material = _owner._HackingBulletMaterial;
+                    bullet.SetHakcingBullet();
                     //횟수 차감 하기
                     Buff buf = _owner.buffManager.FindCountBaseSkillOrNull((int)eSkillId.HackBullet);
                     buf.DecreaseCount();

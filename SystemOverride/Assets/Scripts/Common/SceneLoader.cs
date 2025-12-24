@@ -37,6 +37,7 @@ namespace Scripts.Common
             Time.timeScale = 1f;
 
             SceneManager.LoadScene(type.ToString());
+            SoundManager.instance.ChangeBGM(type.ToString());
         }
 
         public void ReloadCurrentScene(eSceneType type)

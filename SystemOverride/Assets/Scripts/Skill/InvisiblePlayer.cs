@@ -19,7 +19,8 @@ namespace Scripts.Skill
         public override void OnActive()
         {
             base.OnActive();
-            _caster._skillAction = _caster._skillAction | (ulong)eSkillBitMask.Invisible;
+            _caster.SetUseSkill(eSkillBitMask.Invisible);
+            //_caster._skillAction = _caster._skillAction | (ulong)eSkillBitMask.Invisible;
             _caster.gameObject.layer = (int)eLayerNumber.Ghost;
             _caster.ChangeMaterial(_caster._invisibleMaterial);
             SoundManager.instance.PlaySFX("Invisible", _caster.playerPosition);
@@ -33,7 +34,8 @@ namespace Scripts.Skill
         public override void OnUnActive()
         {
             base.OnUnActive();
-            _caster._skillAction = _caster._skillAction & ~((ulong)eSkillBitMask.Invisible);
+            _caster.SetUnuseSkill(eSkillBitMask.Invisible);
+            //_caster._skillAction = _caster._skillAction & ~((ulong)eSkillBitMask.Invisible);
             _caster.gameObject.layer = (int)eLayerNumber.Player;
             _caster.ResetMaterial();
         }

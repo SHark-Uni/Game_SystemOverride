@@ -24,16 +24,18 @@ namespace Scripts.Player
 
             _orginGravity = _rb.gravityScale;
             _dashTimeStamp = Time.time;
-
-            _owner.SetVelocity(_owner._dashForce * _owner.facingDir, _rb.velocity.y);
             _rb.gravityScale = 0;
+
+            SoundManager.instance.PlaySFX("Dash", _owner.playerPosition);
         }
 
         public override void EntityUpdate()
         {
             base.EntityUpdate();
 
-            if (_dashTimeStamp + _owner._dashDuration < Time.time)
+            _owner.SetVelocity(_owner._dashForce * _owner.facingDir, 0);
+
+            if (_dashTimeStamp + _owner._dashDuration <= Time.time)
             {
                 _stateMachine.ChangeState(_owner.idleState);
             }
