@@ -63,6 +63,36 @@ namespace Scripts.Boss
         {
             base.EntityUpdate();
 
+            if (_bossOwner._bossCurrentHp <= 0)
+            {
+                _bossStateMachine.ChangeState(_bossOwner.bossDeathState);
+            }
+
+            float hpRatio = (float)_bossOwner._bossCurrentHp / _bossOwner._bossMaxHp;
+
+            // 33% 단위 체크
+            if (hpRatio <= _bossOwner.nextLazerPatternThreshold)
+            {
+                // 다음 목표 갱신 (33% 깎기)
+                _bossOwner.nextLazerPatternThreshold -= 0.33f;
+
+                // 패턴 실행 후 바로 종료
+                _bossStateMachine.ChangeState(_bossOwner._bossLazerAttackState);
+                return;
+            }
+
+            // 바닥 패턴
+            if (hpRatio <= _bossOwner.nextFloorPatternThreshold)
+            {
+
+                _bossOwner.nextFloorPatternThreshold -= 0.1f;
+
+
+                _bossStateMachine.ChangeState(_bossOwner.bossFloorAttackState);
+                return;
+            }
+
+            BossFlip();
             // RayCast 시작 위치와 방향 설정
             Vector2 origin = (Vector2)_bossOwner.transform.position + Vector2.up * 1f;
 
@@ -74,7 +104,7 @@ namespace Scripts.Boss
             // 보스와 플레이어의 콜라이더가 겹침
             Collider2D _vshit = Physics2D.OverlapCircle(_bossOwner.transform.position, 2f, LayerMask.GetMask("Player"));
 
-            BossFlip();
+           
 
             if (_vshit == null)
             {
@@ -100,10 +130,7 @@ namespace Scripts.Boss
                 }
             }
 
-            if (_bossOwner._bossHP <= 0)
-            {
-                _bossStateMachine.ChangeState(_bossOwner.bossDeathState);
-            }
+          
         }
 
         public override void Exit()

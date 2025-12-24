@@ -17,6 +17,7 @@ namespace Scripts.Monster
             base.Enter();        
             monster.Stop();
             _timer = 0f;
+            SoundManager.instance.PlaySFX("Hitted" , monster.transform.position);   
         }
 
         public override void EntityUpdate()

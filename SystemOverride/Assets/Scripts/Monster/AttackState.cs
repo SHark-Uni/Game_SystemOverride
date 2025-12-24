@@ -25,6 +25,7 @@ namespace Scripts.Monster
             _isDashing = false;
             // 몬스터 색을 빨갛게 바꿔서 공격 징조 보여주기
             _monster.GetComponent<SpriteRenderer>().color = Color.red;
+            SoundManager.instance.PlaySFX("MonsterAttack", _monster.transform.position);
         }
 
         public override void EntityUpdate()
