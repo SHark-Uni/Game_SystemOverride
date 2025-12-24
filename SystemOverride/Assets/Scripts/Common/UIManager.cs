@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     public GameObject _MainUI;
     private HpController controller;
+    public Image _HpBar;
     void Awake()
     {
         if (instance == null)
@@ -41,6 +42,9 @@ public class UIManager : MonoBehaviour
         Debug.Log(controller.gameObject.name);
         Image soure = controller.GetComponentInChildren<Image>();
         Debug.Log(soure.gameObject.name);
-        controller.SetHp(hpRate);
+
+        Debug.Log(hpRate);
+        _HpBar.fillAmount = hpRate;
+        //controller.SetHp(hpRate);
     }
 }

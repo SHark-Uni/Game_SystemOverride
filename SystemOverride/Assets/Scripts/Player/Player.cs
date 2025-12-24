@@ -365,7 +365,8 @@ namespace Scripts.Player
 
             bool IsDead;
             //데미지 계산
-            IsDead = SetHp(atk);
+            int hitHp = _playerStat._hp - atk;
+            IsDead = SetHp(hitHp);
             if (IsDead)
             {
                 return;
@@ -386,7 +387,7 @@ namespace Scripts.Player
             // Hp : 300
             //     270 10%           1 -> 0.9  현재 Hp가 전체의 몇퍼센트냐  
             //Hp Bar 변경
-            UIManager.instance.SetHp(_playerStat._hp / _playerStat._maxHp * 100);
+            UIManager.instance.SetHp(_playerStat._hp / (float)_playerStat._maxHp * 100);
 
             //피격상태로 전환
             _machine.ChangeState(hittedState);
