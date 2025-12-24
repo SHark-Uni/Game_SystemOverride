@@ -19,7 +19,8 @@ namespace Scripts.Skill
         public override void OnActive()
         {
             base.OnActive();
-            _caster._skillAction |= (ulong)eSkillBitMask.Immotal;
+            _caster.SetUseSkill(eSkillBitMask.Immotal);
+            //_caster._skillAction |= (ulong)eSkillBitMask.Immotal;
             SoundManager.instance.PlaySFX("Immotal", _caster.playerPosition);
             _caster.ChangeMaterial(_caster._ImmotalMaterial);
         }
@@ -32,7 +33,8 @@ namespace Scripts.Skill
         public override void OnUnActive()
         {
             base.OnUnActive();
-            _caster._skillAction &= ~(ulong)eSkillBitMask.Immotal;
+            _caster.SetUnuseSkill(eSkillBitMask.Immotal);
+            //_caster._skillAction &= ~(ulong)eSkillBitMask.Immotal;
             _caster.ResetMaterial();
         }
 

@@ -35,3 +35,5 @@ MonoBehaviour:
     _clip: {fileID: 8300000, guid: 9a99cb19f8b62a84783eb747e9a918a7, type: 3}
   - _name: BossDead
     _clip: {fileID: 8300000, guid: ae5f73b915a09bf4088f442e0df2ae43, type: 3}
+  - _name: Dash
+    _clip: {fileID: 8300000, guid: 4b2a54ec667fe4d42ac215ae238501ba, type: 3}

@@ -34,11 +34,15 @@ public class FloorTriggerSimple : MonoBehaviour
     {
         //by junGi
         Bullet bullet = other.GetComponent<Bullet>();
+        //Bullet이 아닌경우
+        if (bullet == null)
+        {
+            Debug.Log("Is Not Bullet!");
+            return;
+        }
+
 
         float bulletY = bullet.transform.position.y;
-
-        Debug.Log(bullet.IsHackingBullet);
-
         if (bullet.IsHackingBullet)
         {
             //이동하면 됩니다.

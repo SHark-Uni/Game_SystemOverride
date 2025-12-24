@@ -60,6 +60,12 @@ namespace Scripts.Common
 	[System.Serializable]
 	public struct PlayerStat
 	{
+		public PlayerStat(int hp, int atk, int def)
+		{
+			_hp = hp;
+			_atk = atk;
+			_def = def;
+		}
 		public int _hp;
 		public int _atk;
 		public int _def;

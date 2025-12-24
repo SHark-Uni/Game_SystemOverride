@@ -21,6 +21,7 @@ namespace Scripts.Player
             base.Enter();
             _preDelay = _owner.preDelay;
             SpawnBullet();
+            SoundManager._instance.PlaySFX("Shoot", _owner.playerPosition);
         }
 
         public override void EntityUpdate()

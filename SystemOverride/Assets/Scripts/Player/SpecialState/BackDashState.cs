@@ -26,13 +26,16 @@ namespace Scripts.Player
 
             _orginGravity = _rb.gravityScale;
             _dashTimeStamp = Time.time;
-            _owner.SetVelocity(-_owner._dashForce * _owner.facingDir, _rb.velocity.y);
+            
             _rb.gravityScale = 0;
+            SoundManager.instance.PlaySFX("Dash", _owner.playerPosition);
         }
 
         public override void EntityUpdate()
         {
             base.EntityUpdate();
+
+            _owner.SetVelocity(_owner._dashForce * -_owner.facingDir, 0);
             // 쿨타임이 0보다 클 경우 TIme.deltaTime으로 시간 감소해서 0까지 줄어들게 하는 조건
             if (_owner._dashCooldown > 0)
             {

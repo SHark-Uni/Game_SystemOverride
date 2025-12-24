@@ -183,10 +183,10 @@ namespace Scripts.Player
             if (value <= 0)
             {
                 OnDie();
-                return false;
+                return true;
             }
             _playerStat._hp = value;
-            return true;
+            return false;
         }
 
         public void SetAnimTrigger()
@@ -273,7 +273,8 @@ namespace Scripts.Player
             _capCol = GetComponent<CapsuleCollider2D>();
 
             buffManager = new BuffManager(this);
-            
+
+            _playerStat = new PlayerStat(100, 5, 5);
 
             facingDir = 1;
             _airMoveMulplier = .8f;
@@ -289,8 +290,8 @@ namespace Scripts.Player
             _doubleJump = true;
             _jumpForce = 15.0f;
 
-            _dashForce = 7f;
-            _dashDuration = 0.2f;
+            _dashForce = 20f;
+            _dashDuration = 0.25f;
             _dashCooldown = 0f;
 
             _groundDistance = 0.85f;
@@ -349,12 +350,16 @@ namespace Scripts.Player
             Gizmos.DrawWireCube(CharacterCenterPos.position + Vector3.down * _groundDistance, BoxSize);
         }
 
+
+
+
         public void TakeDamage(int atk, IAttacker attacker)
         {
             Debug.Log("Player TakeDamage 호출됨");
             //무적이면 무시
-            if ((_skillAction & (ulong)eSkillBitMask.Immotal) == 0)
+            if (IsUsingSkill(eSkillBitMask.Immotal)) 
             {
+                Debug.Log("Immotal?? 통과");
                 return;
             }
 
@@ -363,9 +368,9 @@ namespace Scripts.Player
             IsDead = SetHp(atk);
             if (IsDead)
             {
-
                 return;
             }
+
             //연출
             Vector3 dir = (attacker.GetAttackerPos() - CharacterCenterPos.position).normalized;
             dir.y = 0;
@@ -412,6 +417,22 @@ namespace Scripts.Player
         {
             SceneLoader.instance.LoadScene(eSceneType._Ending);
         }
+
+        public bool IsUsingSkill(eSkillBitMask mask)
+        {
+            return (_skillAction & (ulong)mask) != 0;
+        }
+
+        public void SetUseSkill(eSkillBitMask mask)
+        {
+            _skillAction |= (ulong)mask;
+        }
+
+        public void SetUnuseSkill(eSkillBitMask mask)
+        {
+            _skillAction &= ~(ulong)mask;
+        }
+
 
         private void InitStates()
         {
