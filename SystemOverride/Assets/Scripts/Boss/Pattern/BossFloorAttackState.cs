@@ -118,6 +118,10 @@ namespace Scripts.Boss
 
             _hasLanded = true;
 
+            if (SoundManager.instance != null)
+            {
+                SoundManager.instance.PlaySFX("BossFloorAttack", _bossOwner.transform.position);
+            }
             SpawnShockwave(-1);
             SpawnShockwave(1);
         }
