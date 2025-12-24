@@ -99,8 +99,8 @@ namespace Scripts.Common
             _HitVFXPool = new ObjectPool<Entity_VFX>();
             _LaserPool = new ObjectPool<Entity_VFX>();
 
-            _HitVFXPool.Init(ConfigManager.HitVFXPoolSize, _hitVfxPrefab);
-            _LaserPool.Init(ConfigManager.VFXDefaultPoolSize, _LaserPrefab);
+            _HitVFXPool.Init(ConfigManager.HitVFXPoolSize, transform,_hitVfxPrefab);
+            _LaserPool.Init(ConfigManager.VFXDefaultPoolSize, transform, _LaserPrefab);
         }
     }
 }
