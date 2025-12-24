@@ -7,9 +7,16 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance { get; private set; }
     // Start is called before the first frame update
-    public GameObject _MainUI;
-    private HpController controller;
-    public Image _HpBar;
+    public GameObject _OptionBtnPrefab;
+    public GameObject _HpBarPrefab;
+    public GameObject _OptionPannel;
+
+    private GameObject _OptionBtn;
+    private GameObject _HpBar;
+    private GameObject _OptionMenu;
+
+    public Image _hpScrollBar;
+
     void Awake()
     {
         if (instance == null)
@@ -25,26 +32,37 @@ public class UIManager : MonoBehaviour
 
     private void Init()
     {
-        controller = _MainUI.GetComponentInChildren<HpController>();
+        _OptionBtn = Instantiate(_OptionBtnPrefab, Vector3.zero, Quaternion.identity);
+        _HpBar = Instantiate(_HpBarPrefab, Vector3.zero, Quaternion.identity);
+        _OptionMenu = Instantiate(_OptionPannel, Vector3.zero, Quaternion.identity);
+
+        _hpScrollBar = _HpBar.GetComponentInChildren<Image>();
+
+        DontDestroyOnLoad(_OptionBtn);
+        DontDestroyOnLoad(_HpBar);
+        DontDestroyOnLoad(_OptionMenu);
+        DontDestroyOnLoad(_hpScrollBar);
     }
 
     public void SetMainUI()
     {
-        _MainUI.SetActive(true);
+        _OptionBtn.SetActive(true);
+        _HpBar.SetActive(true);
     }
 
     public void SetHp(float hpRate)
     {
-        if (controller == null)
-        {
-            Debug.Log("controller is null");
-        }
-        //Debug.Log(controller.gameObject.name);
-        Image soure = controller.GetComponentInChildren<Image>();
-        //Debug.Log(soure.gameObject.name);
-
-        Debug.Log(hpRate);
-        _HpBar.fillAmount = hpRate;
-        //controller.SetHp(hpRate);
+        _hpScrollBar.fillAmount = hpRate;
     }
+
+    public void TurnOnOptionPanel()
+    {
+        _OptionMenu.SetActive(true);
+    }
+
+    public void TurnOffOptionPanel()
+    {
+        _OptionMenu.SetActive(false);
+    }
+
 }

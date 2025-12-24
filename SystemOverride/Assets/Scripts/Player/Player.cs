@@ -304,6 +304,8 @@ namespace Scripts.Player
 
             _sitDownUpColiderCapSize = new Vector2(0.7f, 1.3f);
             _sitDownUpColiderOffset = new Vector2(0.08f, -0.1f);
+
+            
         }
 
         void Start()
@@ -318,6 +320,7 @@ namespace Scripts.Player
 
             skillHandler = new PlayerSkillComponent(this);
             InitStates();
+            UIManager.instance.SetMainUI();
 
             _machine.BeginMachine(idleState);
         }

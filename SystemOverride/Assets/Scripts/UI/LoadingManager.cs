@@ -57,8 +57,8 @@ namespace Scripts.UI
                     {
                         _asyncOp.allowSceneActivation = true;
                         Destroy(canvas);
-                        OnEnterScene.Invoke();
                         //SoundManager.instance.ChangeBGM(scene.ToString());
+                        OnEnterScene.Invoke();
                         yield break;
                     }
                 }

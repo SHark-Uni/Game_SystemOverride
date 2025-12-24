@@ -11,10 +11,9 @@ public class MainMenuEvents : MonoBehaviour
         LoadingManager.instance.ChangeSceneWithLoadingPanel(eSceneType._GameScene, transform.position, OnEnterGameScene);
     }
 
-    public void OnClickOption()
-    { 
-        //옵션 창 키기
-
+    public void OnClickOptionBtn()
+    {
+        UIManager.instance.TurnOnOptionPanel();
     }
 
     private void OnReturnToMainScene()
