@@ -274,7 +274,7 @@ namespace Scripts.Player
 
             buffManager = new BuffManager(this);
 
-            _playerStat = new PlayerStat(300,300, 5, 5);
+            _playerStat = new PlayerStat(10,10, 5, 5);
 
             facingDir = 1;
             _airMoveMulplier = .8f;
@@ -387,7 +387,7 @@ namespace Scripts.Player
             // Hp : 300
             //     270 10%           1 -> 0.9  현재 Hp가 전체의 몇퍼센트냐  
             //Hp Bar 변경
-            UIManager.instance.SetHp(_playerStat._hp / (float)_playerStat._maxHp * 100);
+            UIManager.instance.SetHp(_playerStat._hp / (float)_playerStat._maxHp);
 
             //피격상태로 전환
             _machine.ChangeState(hittedState);

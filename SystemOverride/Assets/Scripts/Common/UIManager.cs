@@ -39,9 +39,9 @@ public class UIManager : MonoBehaviour
         {
             Debug.Log("controller is null");
         }
-        Debug.Log(controller.gameObject.name);
+        //Debug.Log(controller.gameObject.name);
         Image soure = controller.GetComponentInChildren<Image>();
-        Debug.Log(soure.gameObject.name);
+        //Debug.Log(soure.gameObject.name);
 
         Debug.Log(hpRate);
         _HpBar.fillAmount = hpRate;

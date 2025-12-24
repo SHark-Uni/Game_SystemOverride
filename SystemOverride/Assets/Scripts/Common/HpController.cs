@@ -10,6 +10,7 @@ public class HpController : MonoBehaviour
     private void Awake()
     {
         _Hpbar = gameObject.GetComponentInChildren<Image>();
+        Debug.Log(_Hpbar.gameObject.name);
     }
     private void Start()
     {
@@ -21,6 +22,6 @@ public class HpController : MonoBehaviour
         {
             Debug.Log("NULL");
         }
-        //_Hpbar.fillAmount = fillAmount;
+        _Hpbar.fillAmount = fillAmount;
     }
 }
