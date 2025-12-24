@@ -41,7 +41,7 @@ public class SoundManager : MonoBehaviour
     private void Init()
     {
         _audioPool = new ObjectPool<Entity_SFX>();
-        _audioPool.Init(ConfigManager.SoundSourcePoolSize, _prefab);
+        _audioPool.Init(ConfigManager.SoundSourcePoolSize, this.transform, _prefab);
 
         _BGM = GetComponent<AudioSource>();
 

@@ -30,6 +30,22 @@ namespace Scripts.Common
             }
         }
 
+        public void Init(int capacity, Transform parent, T prefab)
+        {
+            _stack = new Stack<T>(capacity);
+            _capacity = capacity;
+            _prefab = prefab;
+
+            T created;
+            for (int i = 0; i < capacity; i++)
+            {
+                created = GameObject.Instantiate<T>(prefab, parent);
+                created.gameObject.SetActive(false);
+                _stack.Push(created);
+            }
+        }
+
+
         public T alloc(Vector3 position, Quaternion rotate)
         {
             T ret = null;
