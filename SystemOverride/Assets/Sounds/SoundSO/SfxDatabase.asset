@@ -35,3 +35,9 @@ MonoBehaviour:
     _clip: {fileID: 8300000, guid: 9a99cb19f8b62a84783eb747e9a918a7, type: 3}
   - _name: BossDead
     _clip: {fileID: 8300000, guid: ae5f73b915a09bf4088f442e0df2ae43, type: 3}
+  - _name: MonsterWalk
+    _clip: {fileID: 8300000, guid: 9dcf8715b14c468448287753afd9d0c2, type: 3}
+  - _name: MonsterAttack
+    _clip: {fileID: 8300000, guid: c081d3de8850fe64db890f78dc2947d8, type: 3}
+  - _name: MonsterChase
+    _clip: {fileID: 8300000, guid: 6511a5e4d75e5e44982f09fc039d2415, type: 3}

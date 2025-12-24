@@ -128,8 +128,7 @@ namespace Scripts.Monster
         public void Die()
         {
             _animator.SetBool("IsDead", true);
-            // 콜라이더 끄고, 스크립트 비활성화하기
-            GetComponent<Collider2D>().enabled = false;
+            SoundManager.instance.PlaySFX("BossDead", this.transform.position);
             this.enabled = false;
 
             Destroy(gameObject, 1.5f);

@@ -12,6 +12,9 @@ namespace Scripts.Monster
         private float _currentPatrolTime;
         private float _patrolCenterX;
         protected Monster _monster;
+
+        private float _footstepTimer;
+        private float _footstepInterval = 0.4f; // 발소리 간격 (0.6초마다 재생)
         public PatrolState(Monster monster, StateMachine<Monster> stateMachine) : base(monster, stateMachine, "IsPatrol")
         {
             _monster = monster;
@@ -24,8 +27,9 @@ namespace Scripts.Monster
             _patrolTimer = 0;
             _currentPatrolTime = Random.Range(_monster._patrolDuration * 0.7f, _monster._patrolDuration * 1.3f);
             _patrolCenterX = _monster.transform.position.x;
-            _monster.Flip(_randomDir);  
+            _monster.Flip(_randomDir);
         }
+        
 
 
         public override void EntityUpdate()
@@ -70,6 +74,19 @@ namespace Scripts.Monster
 
             //이동실행
             _monster.Move(new Vector2(_currentDir, 0));
+
+            _footstepTimer += Time.deltaTime;
+            if (_footstepTimer >= _footstepInterval)
+            {
+                // 소리 재생
+                if (SoundManager.instance != null)
+                    SoundManager.instance.PlaySFX("MonsterWalk", _monster.transform.position);
+
+                // 타이머 리셋
+                _footstepTimer = 0f;
+            }
+
+
             // 정찰 시간 설정
             _patrolTimer += Time.deltaTime;
             if (_patrolTimer > _monster._patrolDuration)

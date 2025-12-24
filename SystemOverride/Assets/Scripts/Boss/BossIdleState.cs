@@ -2,6 +2,7 @@ using Scripts.BossStateMachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Scripts.Boss;
 
 namespace Scripts.Boss
 {
@@ -35,7 +36,8 @@ namespace Scripts.Boss
         public override void EntityUpdate()
         {
             base.EntityUpdate();
-
+            // 현재 HP 비율 계산
+ 
             Idle();
         }
 

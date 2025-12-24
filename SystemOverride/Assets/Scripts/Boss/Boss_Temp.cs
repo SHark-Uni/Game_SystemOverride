@@ -23,9 +23,11 @@ namespace Scripts.Boss
         public int _bossfacingDir;
         public bool IsGrounded => _bossonGround; // 외부에서 _bossonGround 값을 읽기 위한 변수
 
-        public int _bossHP = 100;
-        public int _bossAtk = 5;
-        public int _bossDef = 5;
+        public int _bossCurrentHp;
+        public int _bossAtk;
+        public int _bossDef;
+        public int _bossMaxHp;
+        
 
         [Header("Move Details")]
         [SerializeField] private Vector2 _bossInput;
@@ -39,17 +41,24 @@ namespace Scripts.Boss
 
 
         [Header("Floor Attack Deatils")]
-        public GameObject _floorAttackPrefab;    
-        public Transform _floorAttackSpawnPoint;  
-        public float _floorAttackDelay = 0.5f;     
-        public float _floorStateDuration = 0.5f;   
-        public float _floorPrefabLifeTime = 1.0f;     
+        public GameObject _floorAttackPrefab;
+        public Transform _floorAttackSpawnPoint;
+        public float _floorAttackDelay;
+        public float _floorStateDuration;
+        public float _floorPrefabLifeTime;
         public BossFloorAttackState StateFloorAttack => _bossFloorAttackState; // 외부에서 접근용 프로퍼티
 
         [Header("Laser Attack Deatils")]
         public GameObject _turretPrefab;   // 레이저 터렛 프리팹 넣는 곳
         public Transform[] _ceilingSpawnPoints; // 천장 스폰 위치들 배열
 
+        [Header("Pattern Thresholds")]
+        // FloorAttack: 10%씩 깎일 때마다 (시작은 90%부터 체크)
+        public float nextFloorPatternThreshold = 0.9f;
+
+        // Lazer: 33%씩 깎일 때마다 (시작은 66%부터 체크)
+        public float nextLazerPatternThreshold = 0.66f;
+       
         Rigidbody2D _bossrb;
         Animator _bossam;
 
@@ -77,7 +86,7 @@ namespace Scripts.Boss
         public BossDeathState bossDeathState { get { return _bossdeathState; } }
         public BossAttackState bossAttackState { get { return _bossattackState; } }
         public BossHitState bossHitState { get { return _bosshitState; } }
-        public BossFloorAttackState bossFloorAttackState { get { return _bossFloorAttackState;} }
+        public BossFloorAttackState bossFloorAttackState { get { return _bossFloorAttackState; } }
         public void BossSetAnimTrigger()
         {
             _bossMachine.bosscurrentState.SetTrigger();
@@ -111,17 +120,31 @@ namespace Scripts.Boss
             }
         }
 
+        public void Init()
+        {
+            _bossMaxHp = 100;
+            _bossAtk = 5;
+            _bossDef = 5;
+            _floorAttackDelay = 1f;
+            _floorStateDuration = 0.5f;
+            _floorPrefabLifeTime = 1.0f;
+            _bossfacingDir = 1;
+            _bosspreDelay = 0.4f;
+            _bossCurrentHp = _bossMaxHp;
+            
+        }
         private void Awake()
         {
+            Init();
             _bossMachine = new BossStateMachine<Boss_Temp>();
             _bossrb = GetComponent<Rigidbody2D>();
             _bossam = GetComponent<Animator>();
-            _bossfacingDir = 1;
+           
             BossboxCol = GetComponent<BoxCollider2D>();
 
             _bossmoveSpeed = new Vector2(4.0f, 0);
 
-            _bosspreDelay = 0.4f;
+        
             _bossattackForce = new Vector2(15, 0f);
 
             BossBoxSize = new Vector2(0.35f, 0.3f);
@@ -129,7 +152,7 @@ namespace Scripts.Boss
 
         void Start()
         {
-           
+
 
             _bossidleState = new BossIdleState(this, _bossMachine, "Idle", _bossrb, _bossam);
             _bosswalkState = new BossWalkState(this, _bossMachine, "Move", _bossrb, _bossam);
@@ -157,8 +180,14 @@ namespace Scripts.Boss
             // 테스트용
             if (Input.GetKeyDown(KeyCode.L))
             {
-                Debug.Log("레이저 패턴 발동");             
+                Debug.Log("레이저 패턴 발동");
                 _bossMachine.ChangeState(_bossLazerAttackState);
+            }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                _bossCurrentHp -= 10;
+                Debug.Log("보스 현재 Hp  : "  + _bossCurrentHp);
+               
             }
         }
 

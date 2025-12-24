@@ -10,6 +10,8 @@ namespace Scripts.Monster
     public class ChaseState : MonsterSuperState
     {
         protected Monster _monster;
+        private float _soundTimer;
+        private float _soundInterval = 0.4f;
         public ChaseState(Monster monster, StateMachine<Monster> stateMachine) 
             : base(monster, stateMachine, "IsChase")
         {
@@ -37,8 +39,21 @@ namespace Scripts.Monster
                 _stateMachine.ChangeState(_monster.StateAttack);
                 return; // 아래 이동 코드 실행 안 하고 종료
             }
-            // 추격에 
+            // 추격
             _monster.MoveToTarget(_monster._chaseSpeed);
+
+            _soundTimer += Time.deltaTime;
+
+            if (_soundTimer >= _soundInterval)
+            {
+                // "MonsterRun" 이나 "MonsterWarning" 같은 사운드 이름 사용
+                if (SoundManager.instance != null)
+                {
+                    SoundManager.instance.PlaySFX("MonsterChase", _monster.transform.position);
+                }
+
+                _soundTimer = 0f;
+            }
         }
 
         public override void Exit()

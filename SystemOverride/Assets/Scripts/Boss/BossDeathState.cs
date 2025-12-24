@@ -15,7 +15,7 @@ namespace Scripts.Boss
 
         void Death()
         {
-            if(_bossOwner._bossHP <= 0)
+            if(_bossOwner._bossCurrentHp <= 0)
             {
                 Debug.Log("º¸½º »ç¸Á");
                 SoundManager.instance.PlaySFX("BossDead", _bossOwner.transform.position);
