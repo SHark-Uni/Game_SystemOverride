@@ -14,53 +14,47 @@ namespace Scripts.Boss
         private float _lockDuration = 0.5f;  // 멈춰서 경고하는 시간
         private float _fireDuration = 1.0f;  // 빔 쏘는 시간
 
-        // 전체 패턴 시간 (= 위 시간들의 합 + 여유시간)
-        private float _totalDuration;
-        private float _timer;
+        private float _hideDelay = 1.0f;
+        private float _appearDelay = 1.0f;
+
+        private float _totalAttackDuration;
+
 
         // 보스 컴포넌트들을 껐다 켰다 하기 위해 저장
         private SpriteRenderer _bossRenderer;
         private Collider2D _bossCollider;
-        public BossLazerAttackState(Boss_Temp _boss, BossStateMachine<Boss_Temp> _stateMachine, Rigidbody2D _bossrb, Animator _bossam) : base(_boss, _stateMachine, "IsLazer", _bossrb, _bossam)
+
+        private Coroutine _attackCoroutine;
+        public BossLazerAttackState(Boss_Temp _boss, BossStateMachine<Boss_Temp> _stateMachine, Rigidbody2D _bossrb, Animator _bossam) : base(_boss, _stateMachine, "IsHide", _bossrb, _bossam)
         {
-            _totalDuration = _trackDuration + _lockDuration + _fireDuration;
+            _totalAttackDuration = _trackDuration + _lockDuration + _fireDuration;
         }
 
 
         public override void Enter()
         {
             base.Enter();
-            _timer = 0f;
+  
 
             //  보스 숨기기
             _bossRenderer = _bossOwner.GetComponent<SpriteRenderer>();
             _bossCollider = _bossOwner.GetComponent<Collider2D>();
 
-            if (_bossRenderer) _bossRenderer.enabled = false;
-            if (_bossCollider) _bossCollider.enabled = false;
+            _attackCoroutine = _bossOwner.StartCoroutine(AttackSequence());
 
-
-
-            // 터렛 소환 및 실행
-            SpawnTurretAndFire();
         }
 
         public override void EntityUpdate()
-        {
-            _timer += Time.deltaTime;
-
-            if (_timer >= _totalDuration)
-            {
-                // 패턴 종료 -> Idle로 이동
-                _bossStateMachine.ChangeState(_bossOwner.bossIdleState);
-            }
-
+        { 
         }
         public override void Exit()
         {
+            if (_attackCoroutine != null)
+                _bossOwner.StopCoroutine(_attackCoroutine);
+
             base.Exit();
 
-            // 보스 다시 등장
+            // 상태가 끝날 때 보스 다시 등장 및 복구
             if (_bossRenderer) _bossRenderer.enabled = true;
             if (_bossCollider) _bossCollider.enabled = true;
 
@@ -68,6 +62,34 @@ namespace Scripts.Boss
             // _bossOwner.BossAnim.SetTrigger("Appear");
         }
 
+        private IEnumerator AttackSequence()
+        {
+            // 숨기 애니메이션 시작
+            _bossOwner.BossAnim.SetTrigger("IsHide");
+
+            // 애니메이션이 재생되는 동안 대기
+            yield return new WaitForSeconds(_hideDelay);
+
+            // 보스 사라짐 (투명 + 무적)
+            if (_bossRenderer) _bossRenderer.enabled = false;
+            if (_bossCollider) _bossCollider.enabled = false;
+
+            // 터렛 소환 및 공격 시작
+            SpawnTurretAndFire();
+            yield return new WaitForSeconds(_totalAttackDuration);
+
+            if (_bossRenderer) _bossRenderer.enabled = true;
+            if (_bossCollider) _bossCollider.enabled = true;
+
+            
+            _bossOwner.BossAnim.SetTrigger("Appear");
+
+            // 애니메이션이 끝날 때까지 대기
+            yield return new WaitForSeconds(_appearDelay);
+
+            
+            _bossStateMachine.ChangeState(_bossOwner.bossIdleState);
+        }
         private void SpawnTurretAndFire()
         {
             // 예외 처리: 프리팹이나 스폰 포인트가 없으면 중단
