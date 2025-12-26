@@ -274,7 +274,7 @@ namespace Scripts.Player
 
             buffManager = new BuffManager(this);
 
-            _playerStat = new PlayerStat(50,50, 5, 5);
+            _playerStat = new PlayerStat(80,80, 5, 5);
 
             facingDir = 1;
             _airMoveMulplier = .8f;
