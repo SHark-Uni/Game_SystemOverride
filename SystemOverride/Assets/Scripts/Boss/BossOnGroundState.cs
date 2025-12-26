@@ -21,7 +21,9 @@ namespace Scripts.Boss
         // 공격 사거리 설정
         const float _attackRangeX = 2.3f;
         const float _attackRangeY = 1.0f;
-
+        // 특수 패턴 쿨타임 ( 여러번 쓰는거 방지 )
+        float _patternGlobalCoolTime = 3.0f;
+        float _patternCoolStamp;
         public BossOnGroundState(Boss_Temp owner, BossStateMachine<Boss_Temp> stateMachine, string name, Rigidbody2D rb, Animator am)
             : base(owner, stateMachine, name, rb, am)
         {
@@ -48,30 +50,43 @@ namespace Scripts.Boss
                 return;
             }
 
+            if (_patternCoolStamp > 0)
+            {
+                _patternCoolStamp -= Time.deltaTime;
+            }
+
             float hpRatio = (float)_bossOwner._bossCurrentHp / _bossOwner._bossMaxHp;
 
             // 33% 단위 체크
-            if (hpRatio <= _bossOwner.nextLazerPatternThreshold)
+            if (_patternCoolStamp <= 0)
             {
-                // 다음 목표 갱신 (33% 깎기)
-                _bossOwner.nextLazerPatternThreshold -= 0.33f;
+                if (hpRatio <= _bossOwner.nextLazerPatternThreshold)
+                {
+                    // 다음 목표 갱신 (33% 깎기)
+                    _bossOwner.nextLazerPatternThreshold -= 0.33f;
 
-                // 패턴 실행 후 바로 종료
-                _bossStateMachine.ChangeState(_bossOwner._bossLazerAttackState);
-                return;
+                    // 패턴 실행 후 바로 종료
+                    _bossStateMachine.ChangeState(_bossOwner._bossLazerAttackState);
+                    return;
+                }
+
+                // 바닥 패턴
+                if (hpRatio <= _bossOwner.nextFloorPatternThreshold)
+                {
+
+                    while (hpRatio <= _bossOwner.nextFloorPatternThreshold)
+                    {
+                        _bossOwner.nextFloorPatternThreshold -= 0.1f;
+                    }
+
+                    // 패턴 발동했으니 쿨타임 적용
+                    _patternCoolStamp = _patternGlobalCoolTime;
+
+                    _bossStateMachine.ChangeState(_bossOwner.bossFloorAttackState);
+                    return;
+                }
+
             }
-
-            // 바닥 패턴
-            if (hpRatio <= _bossOwner.nextFloorPatternThreshold)
-            {
-
-                _bossOwner.nextFloorPatternThreshold -= 0.1f;
-
-
-                _bossStateMachine.ChangeState(_bossOwner.bossFloorAttackState);
-                return;
-            }
-
             BossFlip();
             if (_bossattackCoolStamp > 0)
             {
