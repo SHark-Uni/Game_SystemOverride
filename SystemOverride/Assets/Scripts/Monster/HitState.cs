@@ -1,5 +1,6 @@
 using Scripts.StateMachine;
 using UnityEngine;
+using Scripts.Common;
 
 namespace Scripts.Monster
 {

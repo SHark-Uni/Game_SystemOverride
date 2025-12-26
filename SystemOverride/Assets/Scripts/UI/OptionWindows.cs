@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Scripts.Common;
 
 public class OptionWindows : MonoBehaviour
 {

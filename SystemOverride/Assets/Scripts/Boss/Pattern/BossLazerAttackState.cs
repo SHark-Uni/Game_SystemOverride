@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Scripts.BossStateMachine;
 using scripts.Boss;
+using Scripts.Common;
 
 
 namespace Scripts.Boss

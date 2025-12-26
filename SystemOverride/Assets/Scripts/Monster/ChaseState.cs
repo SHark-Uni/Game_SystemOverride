@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using Scripts.StateMachine;
-
+using Scripts.Common;
 
 namespace Scripts.Monster
 {

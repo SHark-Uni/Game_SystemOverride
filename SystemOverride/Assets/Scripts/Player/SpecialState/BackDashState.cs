@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 using Scripts.StateMachine;
+using Scripts.Common;
 
 namespace Scripts.Player
 {
