@@ -133,7 +133,7 @@ namespace Scripts.Boss
             // 보스 발밑 위치 계산
             Vector3 spawnPos = _bossOwner.transform.position;
             // 바닥보다 살짝 위로 스폰 ( 아니면 바로 사라짐 )
-            spawnPos.y += 1.5f;
+            spawnPos.y += 1.7f;
 
             GameObject shockwave = Object.Instantiate(_bossOwner._floorAttackPrefab, spawnPos, Quaternion.identity);
 

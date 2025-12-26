@@ -169,8 +169,8 @@ namespace Scripts.Boss
             _bossMaxHp = 100;
             _bossAtk = 5;
             _bossDef = 5;
-            _floorAttackDelay = 1f;
-            _floorStateDuration = 0.5f;
+            _floorAttackDelay = 2f;
+            _floorStateDuration = 1f;
             _floorPrefabLifeTime = 1.0f;
             _bossfacingDir = 1;
             _bosspreDelay = 0.4f;
