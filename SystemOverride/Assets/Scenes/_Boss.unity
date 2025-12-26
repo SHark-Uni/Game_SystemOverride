@@ -3904,6 +3904,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4b9624aef935914d9dca62b1cae6e5d, type: 3}
+--- !u!4 &1270690888 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5544020984017710803, guid: b4b9624aef935914d9dca62b1cae6e5d, type: 3}
+  m_PrefabInstance: {fileID: 1270690887}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1343209681
 GameObject:
   m_ObjectHideFlags: 0
@@ -5517,7 +5522,7 @@ MonoBehaviour:
   _bossonGround: 0
   _bosssloopyMaterial: {fileID: 6200000, guid: bd3f92a2102265e4aa33485d420ccae7, type: 2}
   _bossfrictionMaterial: {fileID: 6200000, guid: a7b52549d0c083747bcc217c8c57bd92, type: 2}
-  _playerPos: {fileID: 1028727527}
+  _playerPos: {fileID: 1270690888}
   BossCenterPos: {fileID: 2005366764}
   BossBoxSize: {x: 0, y: 0}
   BossboxCol: {fileID: 2005366765}
