@@ -297,6 +297,8 @@ namespace Scripts.Monster
             _rb.velocity = Vector2.zero;
             GetComponent<Collider2D>().enabled = true;
             this.enabled = true;
+
+           
         }
 
         public void OnRelease()

@@ -1,61 +1,72 @@
 using Scripts.Common;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 namespace Scripts.Player.Bullets
 {
     public class Bullet : MonoBehaviour, IPoolable, IAttacker
     {
         const float BULLET_ALIVE_TIME = 2.0f;
-        public bool IsHackingBullet { get; private set;}
-        public Material _defaultMaterial;
-        float _lifeTime;
-        Rigidbody2D _rb;
-        SpriteRenderer _sr;
+        public bool IsHackingBullet { get; private set; }
+        public Material defaultMaterial;
+
+        float lifeTime;
+        Rigidbody2D rb;
+        SpriteRenderer sr;
+
         public int attackPower
         {
             get { return 20; }
         }
 
+        void Awake()
+        {
+            rb = gameObject.GetComponent<Rigidbody2D>();
+            sr = gameObject.GetComponent<SpriteRenderer>();
+        }
+
         public void OnAlloc()
         {
-            _lifeTime = BULLET_ALIVE_TIME;
+            lifeTime = BULLET_ALIVE_TIME;
         }
 
         public void OnRelease()
         {
-            _rb.velocity = Vector2.zero;
-            _sr.material = _defaultMaterial;
+            rb.velocity = Vector2.zero;
+            sr.material = defaultMaterial;
             IsHackingBullet = false;
+        }
+
+        void Update()
+        {
+            lifeTime -= Time.deltaTime;
+            if (lifeTime <= 0)
+            {
+                BulletManager.instance.DestroyBullet(this);
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            
+            if (collision.CompareTag("Player")) return;
+
+           
             IDamageable Target = collision.gameObject.GetComponent<IDamageable>();
             if (Target != null)
             {
                 Attack(Target);
-                BulletManager._instance.DestroyBullet(this);
+                BulletManager.instance.DestroyBullet(this);
+                return; 
             }
-            
-        }
 
-        void Awake()
-        {
-            _rb = gameObject.GetComponent<Rigidbody2D>();
-            _sr = gameObject.GetComponent<SpriteRenderer>();
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            _lifeTime -= Time.deltaTime;
-            if (_lifeTime <= 0)
+           
+       
+            int groundLayer = LayerMask.NameToLayer("Ground");
+            if (collision.gameObject.layer == groundLayer)
             {
-                BulletManager._instance.DestroyBullet(this);
+                BulletManager.instance.DestroyBullet(this);
             }
         }
 
@@ -63,11 +74,14 @@ namespace Scripts.Player.Bullets
         {
             return transform.position;
         }
-        public void SetHakcingBullet()
+
+      
+        public void SetHackingBullet()
         {
             IsHackingBullet = true;
         }
-        public void SetNormalBuullet()
+
+        public void SetNormalBullet()
         {
             IsHackingBullet = false;
         }
@@ -78,4 +92,3 @@ namespace Scripts.Player.Bullets
         }
     }
 }
-
